@@ -41,7 +41,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${specialFont.variable} antialiased`}
       >
         <Header />
-        {children}
+        
+        <div className="flex justify-center w-full">
+          {children}
+        </div>
       </body>
     </html>
   );

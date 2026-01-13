@@ -9,6 +9,8 @@
   --color-primary: #DD643C;
   --color-secondary: #F3EACE;
   --color-border: #e5e7eb;
+  --color-card: #FDFDFC;
+  --color-muted: #676F7E;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
