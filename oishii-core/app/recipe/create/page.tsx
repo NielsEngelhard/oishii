@@ -1,4 +1,8 @@
+import Input from "@/components/form/Input";
+import AiImportCard from "@/components/specific/recipe/AiImportCard";
+import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import { Sparkles } from "lucide-react";
 
 export default function CreateRecipePage() {
     return (
@@ -9,13 +13,7 @@ export default function CreateRecipePage() {
                 <p className="text-muted">Share your culinary creation with the world</p>
             </div>
 
-            <Card>
-                <h2>Import from any website</h2>
-
-                <div>
-                    LOOOL
-                </div>
-            </Card>
+            <AiImportCard />
 
             <Card>
                 <h2>Basic information</h2>
