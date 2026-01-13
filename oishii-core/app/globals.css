@@ -31,3 +31,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+h1 {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 18px;
+  font-family: Noto Serif JP, serif;
+}

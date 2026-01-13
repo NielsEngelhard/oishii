@@ -3,7 +3,7 @@
 import { BookCheck, BookOpen, ChevronDown, Handshake, LogIn, Plus, Search, Users } from "lucide-react";
 import Button from "../Button";
 import Link from "next/link";
-import { LOGIN_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
+import { CREATE_RECIPE_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
 import Logo from "./logo";
 import { useAuth } from "@/contexts/AuthContex";
 import Image from "next/image";
@@ -42,7 +42,7 @@ export default function Header() {
                     user ? (
                         <div className="flex items-center gap-1">
                             <Link
-                                href="/recipes/new"
+                                href={CREATE_RECIPE_ROUTE}
                                 className="p-2 rounded-xl hover:bg-secondary/60 transition-colors"
                                 title="Create recipe"
                             >
