@@ -6,7 +6,7 @@ export default function AiImportCard() {
     return (
         <div className="relative overflow-hidden rounded-2xl p-6 mb-8 border border-primary/20">
             {/* Gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/50 to-primary/5" />
+            <div className="absolute inset-0 bg-linear-to-br from-primary/10 via-secondary/50 to-primary/5" />
 
             {/* Decorative elements */}
             <div className="absolute -top-12 -right-12 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
@@ -14,7 +14,7 @@ export default function AiImportCard() {
 
             {/* Content */}
             <div className="relative flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-[#c9532d] shadow-lg shadow-primary/25">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-primary to-[#c9532d] shadow-lg shadow-primary/25">
                     <Wand2 className="h-6 w-6 text-white" />
                 </div>
 

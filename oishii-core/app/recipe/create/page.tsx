@@ -1,12 +1,9 @@
-import Input from "@/components/form/Input";
 import AiImportCard from "@/components/specific/recipe/AiImportCard";
-import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
-import { Sparkles } from "lucide-react";
 
 export default function CreateRecipePage() {
     return (
-        <div className="flex flex-col container py-4 lg:py-6 space-y-6">
+        <div className="flex flex-col container py-4 lg:py-6 space-y-6 max-w-3xl">
             
             <div className="">
                 <h1 className="text-2xl font-bold">Create Recipe</h1>
