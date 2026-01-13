@@ -3,20 +3,25 @@
 import Input from "@/components/form/Input";
 import Button from "@/components/ui/Button";
 import Logo from "@/components/ui/layout/logo";
+import { loginSchema, LoginSchemaData } from "@/schemas/auth-schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
+
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<LoginSchemaData>({
+    resolver: zodResolver(loginSchema),
+    mode: "onChange",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("waterpolo");
+    
   };
 
     return (
@@ -40,22 +45,21 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {!isLogin && (
+          <form onSubmit={onSubmit} className="space-y-5">
+            {/* {!isLogin && (
               <div className="space-y-2">
                 <div className="relative">
                   <Input
-                    label="Full Name"
+                    label="Username"
                     type="text"
                     Icon={User}
-                    placeholder="Your name"
+                    placeholder="Username"
                     className="pl-10 h-12"
-                    value={formData.name}
-                    onChange={(x) => setFormData({ ...formData, name: x })}
+                    {...register("username")}
                   />
                 </div>
               </div>
-            )}
+            )} */}
 
             <div className="space-y-2">
               <div className="relative">
@@ -65,8 +69,7 @@ export default function LoginPage() {
                   type="email"
                   placeholder="you@example.com"
                   className="pl-10 h-12"
-                  value={formData.email}
-                  onChange={(x) => setFormData({ ...formData, email: x })}
+                  {...register("email")}
                   required
                 />
               </div>
@@ -80,8 +83,7 @@ export default function LoginPage() {
                   type={'password'}
                   placeholder="••••••••"
                   className="pl-10 pr-10 h-12"
-                  value={formData.password}
-                  onChange={(x) => setFormData({ ...formData, password: x })}
+                  {...register("password")}
                   required
                 />
               </div>
