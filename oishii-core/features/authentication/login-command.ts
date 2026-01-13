@@ -8,7 +8,7 @@ export interface LoginCommand {
     password: string;
 }
 
-export async function createUser(data: LoginCommand): Promise<void> {
+export async function login(data: LoginCommand): Promise<void> {
     const [result] = await db.select({ password: usersTable.password })
                            .from(usersTable)
                            .where(eq(usersTable.email, data.email))

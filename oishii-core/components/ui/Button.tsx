@@ -16,11 +16,12 @@ export default function Button({
   variant = "primary",
   size = "md",
   className = "",
+  disabled,
   ...props
 }: ButtonProps) {
   // shared base styles
   const baseStyles =
-    "hover:cursor-pointer rounded-lg transition-all duration-200 flex items-center gap-2 justify-center";
+    "rounded-lg transition-all duration-200 flex items-center gap-2 justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:cursor-pointer";
 
   // size styles
   const sizeStyles = {
@@ -45,6 +46,7 @@ export default function Button({
         variantStyles[variant],
         className
       )}
+      disabled={disabled}
       {...props}
     >
       {Icon && <Icon size={size === "sm" ? 14 : size === "lg" ? 20 : 16} />}

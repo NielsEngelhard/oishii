@@ -48,7 +48,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
                         onChange={handleChange}
                         className={clsx(
                             baseClasses,
-                            error ? "border-red-500 focus-visible:ring-red-500" : "border-border",
+                            error ? "border-error focus-visible:ring-error" : "border-border",
                             className
                         )}
                         {...props}
@@ -65,7 +65,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
                     )}
                 </div>
 
-                {error && <p className="text-sm text-red-500">{error}</p>}
+                {error && <p className="text-sm text-error">{error}</p>}
             </div>
         );
     }

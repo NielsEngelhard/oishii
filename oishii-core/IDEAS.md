@@ -1,0 +1,2 @@
+- recepten kunnen iconisch status krijgen in een bepaalde categorie (voor de gein)
+- Veel categorien bedenken, bijv. studenten en bulk
