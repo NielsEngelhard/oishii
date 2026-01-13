@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/ui/layout/Header";
 import localFont from "next/font/local";
+import { AuthProvider } from "@/contexts/AuthContex";
 
 const specialFont = localFont({
   src: [
@@ -37,15 +38,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${specialFont.variable} antialiased`}
-      >
-        <Header />
-        
-        <div className="flex justify-center w-full">
-          {children}
-        </div>
-      </body>
+      <AuthProvider>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} ${specialFont.variable} antialiased`}
+        >
+          <Header />
+          
+          <div className="flex justify-center w-full">
+            {children}
+          </div>
+        </body>        
+      </AuthProvider>
     </html>
   );
 }

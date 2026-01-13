@@ -8,6 +8,13 @@
       "when": 1768313216781,
       "tag": "0000_nifty_mantis",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1768336117782,
+      "tag": "0001_dusty_the_renegades",
+      "breakpoints": true
     }
   ]
 }
