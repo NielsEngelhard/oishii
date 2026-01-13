@@ -1,6 +1,6 @@
 "use client"
 
-import { BookCheck, BookOpen, ChevronDown, Handshake, LogIn, Search, Users } from "lucide-react";
+import { BookCheck, BookOpen, ChevronDown, Handshake, LogIn, Plus, Search, Users } from "lucide-react";
 import Button from "../Button";
 import Link from "next/link";
 import { LOGIN_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
@@ -40,10 +40,18 @@ export default function Header() {
                     </div>
                 ) : (
                     user ? (
-                        <Link
-                            href={PROFILE_ROUTE}
-                            className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-secondary/60 transition-colors"
-                        >
+                        <div className="flex items-center gap-1">
+                            <Link
+                                href="/recipes/new"
+                                className="p-2 rounded-xl hover:bg-secondary/60 transition-colors"
+                                title="Create recipe"
+                            >
+                                <Plus className="w-5 h-5 text-muted hover:text-primary transition-colors" />
+                            </Link>
+                            <Link
+                                href={PROFILE_ROUTE}
+                                className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-secondary/60 transition-colors"
+                            >
                             <div className="relative w-9 h-9 rounded-full overflow-hidden bg-secondary flex items-center justify-center">
                                 {user.avatar ? (
                                     <Image
@@ -62,7 +70,8 @@ export default function Header() {
                                 {user.username}
                             </span>
                             <ChevronDown className="w-4 h-4 text-muted hidden sm:block" />
-                        </Link>
+                            </Link>
+                        </div>
                     ) : (
                         <div className="flex items-center">
                             <div className="flex gap-2 items-center">

@@ -7,10 +7,12 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 const AuthContext = createContext<{
   user: CurrentUserData | null;
   setUser: (user: CurrentUserData) => void;
+  clearUser: () => void;
   isLoading: boolean;
 }>({
   user: null,
   setUser: () => {},
+  clearUser: () => {},
   isLoading: true,
 });
 
@@ -36,8 +38,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     loadUser();
   }, []);
 
+  function clearUser() {
+    setUser(null);
+  }
+
   return (
-    <AuthContext.Provider value={{ user, setUser, isLoading }}>
+    <AuthContext.Provider value={{ user, setUser, isLoading, clearUser }}>
       {children}
     </AuthContext.Provider>
   );

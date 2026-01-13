@@ -6,11 +6,12 @@ import { Construction, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
-    const { user } = useAuth();
+    const { user, clearUser } = useAuth();
     const router = useRouter();
 
     const handleLogout = async () => {
         await fetch("/api/auth/logout", { method: "POST" });
+        clearUser();
         router.push("/login");
         router.refresh();
     };
