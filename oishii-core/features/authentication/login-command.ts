@@ -8,19 +8,19 @@ export interface LoginCommand {
     password: string;
 }
 
-export async function login(data: LoginCommand): Promise<void> {
-    const [result] = await db.select({ password: usersTable.password })
+export async function login(data: LoginCommand): Promise<number> {
+    const [result] = await db.select({ id: usersTable.id, password: usersTable.password })
                            .from(usersTable)
                            .where(eq(usersTable.email, data.email))
                            .limit(1);
 
     if (!result)
         throw new Error("User not found");
-    
-    const passowrdsMatch = PasswordHasher.verify(data.password, result.password);
 
-    if (!passowrdsMatch)
+    const passwordsMatch = PasswordHasher.verify(data.password, result.password);
+
+    if (!passwordsMatch)
         throw new Error("Invalid password");
 
-    // TODO set cookies/tokens idk
+    return result.id;
 }

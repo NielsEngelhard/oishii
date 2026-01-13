@@ -31,11 +31,21 @@ export class SessionAuthService implements IAuthService {
             .innerJoin(usersTable, eq(sessionsTable.userId, usersTable.id))
             .where(eq(sessionsTable.id, sessionId))
             .limit(1);
-        
+
         if (!result || result.expiresAt < new Date()) {
+            if (result) {
+                // Clean up expired session
+                await this.invalidateSession(sessionId);
+            }
             return null;
         }
-        
+
+        // Refresh session if it expires in less than 15 days (halfway point)
+        const fifteenDaysFromNow = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000);
+        if (result.expiresAt < fifteenDaysFromNow) {
+            await this.refreshSession(sessionId);
+        }
+
         return {
             id: result.id,
             email: result.email,

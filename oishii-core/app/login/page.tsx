@@ -7,6 +7,7 @@ import { loginSchema, LoginSchemaData, signUpSchema, SignUpSchemaData } from "@/
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 
@@ -15,9 +16,10 @@ type FormData = LoginSchemaData | SignUpSchemaData;
 interface AuthFormProps {
   isLogin: boolean;
   onToggleMode: () => void;
+  redirectTo: string | null;
 }
 
-function AuthForm({ isLogin, onToggleMode }: AuthFormProps) {
+function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
@@ -45,7 +47,7 @@ function AuthForm({ isLogin, onToggleMode }: AuthFormProps) {
         return;
       }
 
-      window.location.href = '/';
+      window.location.href = redirectTo || '/';
     } catch {
       setApiError('Network error. Please try again.');
     } finally {
@@ -128,6 +130,9 @@ function AuthForm({ isLogin, onToggleMode }: AuthFormProps) {
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
+  const searchParams = useSearchParams();
+  const expired = searchParams.get("expired") === "true";
+  const redirectTo = searchParams.get("redirect");
 
   return (
     <div className="min-h-screen gradient-warm flex items-center justify-center p-4">
@@ -137,10 +142,19 @@ export default function LoginPage() {
         </Link>
 
         <div className="bg-card border border-border rounded-2xl shadow-sm p-8">
+          {expired && (
+            <div className="mb-6 p-3 bg-secondary rounded-lg text-center">
+              <p className="text-sm text-muted">
+                Your session has expired. Please sign in again.
+              </p>
+            </div>
+          )}
+
           <AuthForm
             key={isLogin ? 'login' : 'signup'}
             isLogin={isLogin}
             onToggleMode={() => setIsLogin(!isLogin)}
+            redirectTo={redirectTo}
           />
         </div>
 

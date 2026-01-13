@@ -1,5 +1,5 @@
 import { PasswordHasher } from '@/lib/security/password-hasher';
-import { usersTable, UsersTable } from './../../db/schema';
+import { usersTable } from './../../db/schema';
 import { db } from "@/lib/db/db";
 
 export interface CreateUserCommand {
@@ -8,18 +8,14 @@ export interface CreateUserCommand {
     password: string;
 }
 
-export async function createUser(data: CreateUserCommand): Promise<void> {
+export async function createUser(data: CreateUserCommand): Promise<number> {
     const hashedPassword = PasswordHasher.hash(data.password);
 
-    const user: UsersTable = {
-        id: 0,
+    const [user] = await db.insert(usersTable).values({
         name: data.username,
         email: data.email,
         password: hashedPassword,
-        createdAt: new Date(),
-    }
+    }).returning({ id: usersTable.id });
 
-    await db.insert(usersTable).values(user);
-
-    // TODO: set cookies/tokens? idk
+    return user.id;
 }

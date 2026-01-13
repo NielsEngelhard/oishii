@@ -1,6 +1,10 @@
 import { createUser } from "@/features/authentication/sign-up-command";
+import { SessionAuthService } from "@/lib/security/auth/session-auth-service";
 import { signUpSchema } from "@/schemas/auth-schemas";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+
+const authService = new SessionAuthService();
 
 export async function POST(req: Request) {
   try {
@@ -14,7 +18,17 @@ export async function POST(req: Request) {
       );
     }
 
-    await createUser(result.data);
+    const userId = await createUser(result.data);
+    const sessionId = await authService.createSession(userId);
+
+    const cookieStore = await cookies();
+    cookieStore.set("session", sessionId, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 30 * 24 * 60 * 60, // 30 days
+      path: "/",
+    });
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
