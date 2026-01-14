@@ -1,6 +1,6 @@
 import { InferSelectModel } from "drizzle-orm";
 import { integer, jsonb, pgTable, text, uuid } from "drizzle-orm/pg-core";
-import { recipeDifficultyEnum } from "../schema";
+import { recipeDifficultyEnum } from "./enum/recipe-difficulty";
 import { ingredientSchemaData } from "@/schemas/ingredient-schemas";
 import { InstructionSchemaData } from "@/schemas/instruction-schemas";
 

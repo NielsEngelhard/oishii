@@ -15,6 +15,13 @@
       "when": 1768336117782,
       "tag": "0001_dusty_the_renegades",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1768410177724,
+      "tag": "0002_tan_wong",
+      "breakpoints": true
     }
   ]
 }

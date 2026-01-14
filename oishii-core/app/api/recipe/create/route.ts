@@ -1,3 +1,4 @@
+import createRecipe from "@/features/recipe/create-recipe-command";
 import { createRecipeSchema } from "@/schemas/recipe-schemas";
 import { NextResponse } from "next/server";
 
@@ -13,6 +14,8 @@ export async function POST(req: Request) {
                 { status: 400 }
             );
         }        
+
+        var recipeId = await createRecipe(result.data);
 
         return NextResponse.json({ success: true }, { status: 200 });
     } catch (error) {
