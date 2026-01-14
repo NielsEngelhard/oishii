@@ -35,7 +35,7 @@ export default function Button({
     primary: "bg-primary text-background hover:bg-primary/80",
     secondary: "bg-secondary text-text hover:bg-secondary/80",
     transparent: "bg-transparent text-text hover:bg-secondary/70",
-    skeleton: "text-text bg-transparent border border-border"
+    skeleton: "text-text bg-background border border-border hover:bg-secondary/80"
   };
 
   return (

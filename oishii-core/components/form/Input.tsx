@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { Eye, EyeOff, LucideIcon } from "lucide-react";
 import { forwardRef, useState } from "react";
+import Label from "./Label";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
@@ -14,11 +15,17 @@ const Input = forwardRef<HTMLInputElement, Props>(
     ({ label, placeholder, type = "text", className = "", Icon, error, onChange, ...props }, ref) => {
         const [showPassword, setShowPassword] = useState(false);
 
-        const baseClasses = "w-full flex w-full rounded-md border bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-12";
+        const baseClasses = clsx(
+             "w-full flex w-full rounded-md border bg-background px-3 py-2.5 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+             Icon && "pl-10"
+        );
+        
+        
+       
 
         return (
             <div className="flex flex-col gap-1">
-                {label && <label className="text-sm">{label}</label>}
+                {label && <Label text={label} />}
 
                 <div className="relative w-full">
                     {Icon && <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted" />}
