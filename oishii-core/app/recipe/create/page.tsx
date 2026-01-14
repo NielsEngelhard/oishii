@@ -1,5 +1,6 @@
 "use client"
 
+import { RECIPE_DETAILS_ROUTE } from "@/app/routes";
 import FileInput from "@/components/form/FileInput";
 import Input from "@/components/form/Input";
 import InputGroup from "@/components/form/InputGroup";
@@ -14,10 +15,12 @@ import Card from "@/components/ui/Card";
 import { createRecipeSchema, CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BookText, Clock, CookingPot, Gauge, List, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 
 export default function CreateRecipePage() {
+    const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [apiError, setApiError] = useState<string | null>(null);
 
@@ -25,32 +28,38 @@ export default function CreateRecipePage() {
         resolver: zodResolver(createRecipeSchema),
         mode: "onChange",
         defaultValues: {
-            ingredients: [{ name: "", amount: "1" }],
+            ingredients: [{ name: "", amount: "", unit: "g", isSpice: false }],
+            instructions: [{ text: "", index: 1 }],
+            difficulty: "medium",
         }
     });
 
     const onSubmit = async (data: CreateRecipeSchemaData) => {
         setIsSubmitting(true);
+        setApiError(null);
 
-    try {
-      const response = await fetch('/api/recipe/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
+        try {
+            const response = await fetch('/api/recipe/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
 
-      const result = await response.json();
+            const result = await response.json();
 
-      if (!response.ok) {
-        setApiError(result.error || 'An error occurred');
-        return;
-      }
-    } catch {
-      setApiError('Network error. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-    }
+            if (!response.ok) {
+                setApiError(result.error || 'An error occurred');
+                return;
+            }
+
+            // Success - redirect to the new recipe
+            router.push(RECIPE_DETAILS_ROUTE(result.recipeId));
+        } catch {
+            setApiError('Network error. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <div className="flex flex-col container py-4 lg:py-6 space-y-6 max-w-3xl">
@@ -160,23 +169,33 @@ export default function CreateRecipePage() {
                     />
                 </Card>
 
+                {/* API Error Display */}
+                {apiError && (
+                    <div className="p-4 bg-error/10 border border-error rounded-md">
+                        <p className="text-sm text-error">{apiError}</p>
+                    </div>
+                )}
+
                 {/* Actions */}
                 <div className="flex flex-col md:flex-row gap-4">
                     <div>
                         <Button
-                            text="Create Recipe"
+                            text={isSubmitting ? "Creating..." : "Create Recipe"}
                             size="lg"
                             variant="primary"
                             type="submit"
-                        />                    
+                            disabled={isSubmitting}
+                        />
                     </div>
                     <div>
                         <Button
                             text="Cancel"
                             size="lg"
                             variant="skeleton"
-                        />                    
-                    </div>                
+                            type="button"
+                            onClick={() => router.back()}
+                        />
+                    </div>
                 </div>
 
             </form>

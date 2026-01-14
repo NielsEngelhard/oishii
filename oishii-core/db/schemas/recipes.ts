@@ -8,8 +8,8 @@ export const recipesTable = pgTable("recipes", {
   id: uuid("id").defaultRandom().primaryKey(),
   title: text("title").notNull(),
   description: text("description"),
-  prepTime: text("prep_time"),
-  cookTime: text("cook_time").notNull(),
+  prepTime: text("prep_time"), // TODO: make number
+  cookTime: text("cook_time").notNull(), // TODO: make number
   servings: integer("servings").notNull(),
   difficulty: recipeDifficultyEnum("difficulty").notNull(),
   ingredients: jsonb("ingredients").notNull().$type<ingredientSchemaData[]>(),

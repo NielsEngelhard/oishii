@@ -25,7 +25,7 @@ export default function InstructionInputList({ register, control, errors }: Prop
     });
 
     const handleAddInstruction = () => {
-        append({ text: "", index: 22 });
+        append({ text: "", index: fields.length + 1 });
     };
 
     return (

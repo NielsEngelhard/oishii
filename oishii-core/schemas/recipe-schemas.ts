@@ -10,8 +10,8 @@ export const createRecipeSchema = z.object({
   cookTime: z.number().min(1).max(1440),
   servings: z.number().min(1).max(100),
   difficulty: z.enum(recipeDifficulties),
-  tags: z.array(z.string().min(2).max(30)),
+  tags: z.array(z.string().min(2).max(30)).optional(),
   ingredients: z.array(ingredientSchema).min(1, "At least one ingredient required"),
-  instructions: z.array(instructionSchema).min(1, "At least one ingredient required"),
+  instructions: z.array(instructionSchema).min(1, "At least one instruction required"),
 });
 export type CreateRecipeSchemaData = z.infer<typeof createRecipeSchema>;
