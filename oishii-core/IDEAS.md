@@ -1,3 +1,5 @@
+- Optioneel foto toevoegen bij een stap
+- Ipv huidige stappen gwn een blob met stappen JSON?!
 - recepten kunnen iconisch status krijgen in een bepaalde categorie (voor de gein)
 - Veel categorien bedenken, bijv. studenten en bulk
 - Sociaal aspect. Je kan een kookgroep aanmaken met je vrienden en daarin zie je iedere keer dat iemand iets kookt. Je volgt elkaar dan een soortvan. Je kan dan een post maken met een title, description en foto en een optioneel een "review" over hoe het was enzo. Zo kan je elkaar ook nieuwe recepten aanbevelen.
