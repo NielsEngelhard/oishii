@@ -1,17 +1,19 @@
 "use client"
 
+import FileInput from "@/components/form/FileInput";
 import Input from "@/components/form/Input";
 import InputGroup from "@/components/form/InputGroup";
 import NumberInput from "@/components/form/NumberInput";
 import SelectButtonInput from "@/components/form/SelectButtonInput";
 import TextArea from "@/components/form/TextArea";
 import IngredientInputList from "@/components/specific/ingredient/IngredientInputList";
+import InstructionInputList from "@/components/specific/instruction/InstructionList";
 import AiImportCard from "@/components/specific/recipe/AiImportCard";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import { createRecipeSchema, CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Clock, Gauge, Plus, Users } from "lucide-react";
+import { BookText, Clock, CookingPot, Gauge, List, Users } from "lucide-react";
 import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 
@@ -19,12 +21,15 @@ export default function CreateRecipePage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [apiError, setApiError] = useState<string | null>(null);
 
-    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<CreateRecipeSchemaData>({
+    const { register, handleSubmit, formState: { errors }, setValue, watch, control } = useForm<CreateRecipeSchemaData>({
         resolver: zodResolver(createRecipeSchema),
         mode: "onChange",
+        defaultValues: {
+            ingredients: [{ name: "", amount: "1" }],
+        }
     });
 
-    const onSubmit = async (data: CreateRecipeSchemaData) => {
+    const onSubmit = async () => {
         console.log("Save recipe");
     }
 
@@ -39,9 +44,16 @@ export default function CreateRecipePage() {
             <AiImportCard />
 
             <Card>
-                <h2 className="mb-2">Basic information</h2>
+                <h2 className="mb-3 flex items-center gap-2">
+                    <BookText size={18} />
+                    Basic Information
+                </h2>
 
                 <InputGroup>
+                    <FileInput
+                        label="Recipe Photo"
+                    />
+
                     <Input
                         label="Recipe Title"
                         type="text"
@@ -103,20 +115,49 @@ export default function CreateRecipePage() {
             </Card>
 
             <Card>
-                <h2>Ingredients</h2>
+                <h2 className="mb-3 flex items-center gap-2">
+                    <CookingPot size={18} />
+                    Ingredients
+                </h2>
 
                 <IngredientInputList
-                    ingredients={[{ name: "lol", unit: "gram" }]}
+                    register={register as any}
+                    control={control as any}
+                    errors={errors as any}
                 />
             </Card>
 
             <Card>
-                <h2>Instructions</h2>
+                <h2 className="mb-3 flex items-center gap-2">
+                    <List size={18} />
+                    Instructions
+                </h2>
 
+                <InstructionInputList
+                    register={register as any}
+                    control={control as any}
+                    errors={errors as any}
+                />
+            </Card>
+
+            {/* Actions */}
+            <div className="flex flex-col md:flex-row gap-4">
                 <div>
-                    LOOOL
+                    <Button
+                        text="Create Recipe"
+                        size="lg"
+                        onClick={onSubmit}
+                        variant="primary"
+                    />                    
                 </div>
-            </Card>                        
+                <div>
+                    <Button
+                        text="Cancel"
+                        size="lg"
+                        variant="skeleton"
+                    />                    
+                </div>                
+            </div>
         </div>
     )
 }

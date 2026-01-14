@@ -1,40 +1,87 @@
-import Input from "@/components/form/Input";
-import NumberInput from "@/components/form/NumberInput";
-import SwitchInput from "@/components/form/SwitchInput";
-import { X } from "lucide-react";
+"use client"
 
-interface Props {
-    onDelete: (id: string) => void;
+import Input from "@/components/form/Input";
+import Select from "@/components/form/Select";
+import SwitchInput from "@/components/form/SwitchInput";
+import { ingredientUnits } from "@/db/schema";
+import { X } from "lucide-react";
+import { Control, Controller, FieldErrors, UseFormRegister } from "react-hook-form";
+
+interface FormWithIngredients {
+    ingredients: {
+        name: string;
+        amount?: string;
+        unit: typeof ingredientUnits[number];
+        isSpice?: boolean;
+    }[];
 }
 
-export default function IngredientInputRow({  }: Props) {
+interface Props {
+    index: number;
+    register: UseFormRegister<FormWithIngredients>;
+    control: Control<FormWithIngredients>;
+    errors?: FieldErrors<FormWithIngredients>;
+    onDelete: () => void;
+}
+
+const unitOptions = ingredientUnits.map((unit) => ({
+    label: unit.charAt(0).toUpperCase() + unit.slice(1),
+    value: unit,
+}));
+
+export default function IngredientInputRow({ index, register, control, errors, onDelete }: Props) {
     return (
         <div className="flex flex-row gap-2 items-center">
-
             {/* Name */}
-            <Input
-                placeholder="Ingredient name"
-            />
+            <div className="flex-[2]">
+                <Input
+                    placeholder="e.g. Chicken breast"
+                    {...register(`ingredients.${index}.name`)}
+                    error={errors?.ingredients?.[index]?.name?.message}
+                />
+            </div>
 
             {/* Amount */}
-            <NumberInput
-                placeholder="Amount"
-            />
+            <div className="w-24">
+                <Input
+                    placeholder="100"
+                    {...register(`ingredients.${index}.amount`)}
+                    error={errors?.ingredients?.[index]?.amount?.message}
+                />
+            </div>
 
             {/* Unit */}
-            <NumberInput
-                placeholder="Unit"
-            />
+            <div className="w-28">
+                <Select
+                    options={unitOptions}
+                    placeholder="Unit"
+                    {...register(`ingredients.${index}.unit`)}
+                    error={errors?.ingredients?.[index]?.unit?.message}
+                />
+            </div>
 
             {/* Is Spice */}
-            <SwitchInput
-                // {...register("isPublic")}
-            />
+            <div className="w-16 flex justify-center">
+                <Controller
+                    name={`ingredients.${index}.isSpice`}
+                    control={control}
+                    render={({ field }) => (
+                        <SwitchInput
+                            checked={field.value ?? false}
+                            onChange={(e) => field.onChange(e.target.checked)}
+                        />
+                    )}
+                />
+            </div>
 
             {/* Delete */}
-            <div>
-                <X className="font-bold text-muted" size={20} />
-            </div>
+            <button
+                type="button"
+                onClick={onDelete}
+                className="p-1 hover:bg-accent rounded-md transition-colors"
+            >
+                <X className="text-muted hover:text-foreground" size={18} />
+            </button>
         </div>
-    )
+    );
 }
