@@ -14,5 +14,6 @@ export const recipesTable = pgTable("recipes", {
   difficulty: recipeDifficultyEnum("difficulty").notNull(),
   ingredients: jsonb("ingredients").notNull().$type<ingredientSchemaData[]>(),
   instructions: jsonb("instructions").notNull().$type<InstructionSchemaData[]>(),
+  imageUrl: text("image_url")
 });
 export type RecipesTable = InferSelectModel<typeof recipesTable>;
