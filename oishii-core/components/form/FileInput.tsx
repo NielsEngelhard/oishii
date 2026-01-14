@@ -10,6 +10,7 @@ export default function FileInput({ label }: Props) {
             <div className="text-muted flex flex-col items-center text-center">
                 <Upload size={40} className="mb-4" />
                 <span>Click to upload or drag and drop</span>
+                {/* TODO UNHARDCODE 10MB and supported files */}
                 <span>PNG, JPG up to 10MB</span>
             </div>
         </div>
