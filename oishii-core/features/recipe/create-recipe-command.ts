@@ -17,6 +17,7 @@ export default async function createRecipe(data: CreateRecipeSchemaData): Promis
         prepTime: data.prepTime ? String(data.prepTime) : null,
         instructions: data.instructions,
         ingredients: data.ingredients,
+        imageUrl: data.imageUrl,
     });
 
     return recipeId;

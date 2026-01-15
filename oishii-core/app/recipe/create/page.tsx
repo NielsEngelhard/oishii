@@ -24,8 +24,6 @@ export default function CreateRecipePage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [apiError, setApiError] = useState<string | null>(null);
 
-    let recipeMainImage: File | null = null; 
-
     const { register, handleSubmit, formState: { errors }, setValue, watch, control } = useForm<CreateRecipeSchemaData>({
         resolver: zodResolver(createRecipeSchema),
         mode: "onChange",
@@ -40,13 +38,7 @@ export default function CreateRecipePage() {
         setIsSubmitting(true);
         setApiError(null);
 
-        try {            
-
-            const imageUrl = recipeMainImage ? await uploadRecipeImage(recipeMainImage) : undefined;
-
-            data.imageUrl = imageUrl;
-
-            // Send request to core API
+        try {
             const response = await fetch('/api/recipe/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -69,25 +61,6 @@ export default function CreateRecipePage() {
         }
     };
 
-    async function uploadRecipeImage(file: File): Promise<string> {
-        // 1. Get presigned URL
-        const response = await fetch("/api/upload-url", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ contentType: file.type }),
-        });
-        const { uploadUrl, imageUrl } = await response.json();
-
-        // 2. Upload directly to S3
-        await fetch(uploadUrl, {
-            method: "PUT",
-            headers: { "Content-Type": file.type },
-            body: file,
-        });
-
-        return imageUrl;
-    };
-
     return (
         <div className="flex flex-col container py-4 lg:py-6 space-y-6 max-w-3xl">
             
@@ -108,6 +81,9 @@ export default function CreateRecipePage() {
                     <InputGroup>
                         <FileInput
                             label="Recipe Photo"
+                            value={watch("imageUrl")}
+                            onChange={(url) => setValue("imageUrl", url)}
+                            error={(errors as FieldErrors<CreateRecipeSchemaData>).imageUrl?.message}
                         />
 
                         <Input
