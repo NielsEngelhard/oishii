@@ -1,10 +1,17 @@
 import createRecipe from "@/features/recipe/command/create-recipe-command";
+import { getCurrentUser } from "@/lib/security/auth/get-current-user";
 import { createRecipeSchema } from "@/schemas/recipe-schemas";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
         // TODO: dit gedeelte is 1 grote copy paste
+        const user = await getCurrentUser();
+
+        if (!user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         const body = await req.json();
 
         const result = createRecipeSchema.safeParse(body);
@@ -15,7 +22,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const recipeId = await createRecipe(result.data);
+        const recipeId = await createRecipe({ data: result.data, userId: user.id });
 
         return NextResponse.json({ success: true, recipeId }, { status: 201 });
     } catch (error) {

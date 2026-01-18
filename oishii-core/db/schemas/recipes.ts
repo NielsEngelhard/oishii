@@ -1,11 +1,13 @@
 import { InferSelectModel } from "drizzle-orm";
-import { integer, jsonb, pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { integer, jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { recipeDifficultyEnum } from "./enum/recipe-difficulty";
 import { ingredientSchemaData } from "@/schemas/ingredient-schemas";
 import { InstructionSchemaData } from "@/schemas/instruction-schemas";
+import { usersTable } from "./users";
 
 export const recipesTable = pgTable("recipes", {
   id: uuid("id").defaultRandom().primaryKey(),
+  userId: integer("user_id").notNull().references(() => usersTable.id),
   title: text("title").notNull(),
   description: text("description"),
   prepTime: text("prep_time"), // TODO: make number
@@ -14,6 +16,7 @@ export const recipesTable = pgTable("recipes", {
   difficulty: recipeDifficultyEnum("difficulty").notNull(),
   ingredients: jsonb("ingredients").notNull().$type<ingredientSchemaData[]>(),
   instructions: jsonb("instructions").notNull().$type<InstructionSchemaData[]>(),
-  imageUrl: text("image_url")
+  imageUrl: text("image_url"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 export type RecipesTable = InferSelectModel<typeof recipesTable>;
