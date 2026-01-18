@@ -1,4 +1,4 @@
-import createRecipe from "@/features/recipe/create-recipe-command";
+import createRecipe from "@/features/recipe/command/create-recipe-command";
 import { createRecipeSchema } from "@/schemas/recipe-schemas";
 import { NextResponse } from "next/server";
 
