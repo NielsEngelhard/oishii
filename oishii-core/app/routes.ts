@@ -4,3 +4,5 @@ export const PROFILE_ROUTE: string = "/profile";
 
 export const RECIPE_DETAILS_ROUTE = (recipeId: string): string => `/recipe/${recipeId}`;
 export const CREATE_RECIPE_ROUTE: string ="/recipe/create";
+
+export const MY_RECIPES_ROUTE: string = "/recipes/my";

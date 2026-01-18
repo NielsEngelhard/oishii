@@ -3,7 +3,7 @@
 import { BookCheck, BookOpen, ChevronDown, Handshake, LogIn, Plus, Search, Users } from "lucide-react";
 import Button from "../Button";
 import Link from "next/link";
-import { CREATE_RECIPE_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
+import { CREATE_RECIPE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
 import Logo from "./logo";
 import { useAuth } from "@/contexts/AuthContex";
 import Image from "next/image";
@@ -20,7 +20,9 @@ export default function Header() {
                 {/* Routes */}
                 <ul className="flex items-center gap-2 lg:gap-4">
                     <li>
-                        <Button text="My Recipes" Icon={BookOpen} variant="transparent" />
+                        <Link href={MY_RECIPES_ROUTE}>
+                            <Button text="My Recipes" Icon={BookOpen} variant="transparent" />
+                        </Link>
                     </li>
                     <li>
                         <Button text="Explore" Icon={Search} variant="transparent" />

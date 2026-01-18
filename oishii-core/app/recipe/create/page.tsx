@@ -12,6 +12,7 @@ import InstructionInputList from "@/components/specific/instruction/InstructionL
 import AiImportCard from "@/components/specific/recipe/AiImportCard";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import PageHeader from "@/components/ui/layout/PageHeader";
 import { createRecipeSchema, CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BookText, Clock, CookingPot, Gauge, List, Users } from "lucide-react";
@@ -64,10 +65,12 @@ export default function CreateRecipePage() {
     return (
         <div className="flex flex-col container py-4 lg:py-6 space-y-6 max-w-3xl">
             
-            <div className="">
-                <h1 className="text-2xl font-bold">Create Recipe</h1>
-                <p className="text-muted">Share your culinary creation with the world</p>
-            </div>
+            <PageHeader
+                title="Create Recipe"
+                description="Share your culinary creation with the world"
+            >
+
+            </PageHeader>
 
             <AiImportCard />
 
