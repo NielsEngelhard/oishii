@@ -1,11 +1,13 @@
 "use client";
 
+import { CREATE_RECIPE_ROUTE } from "@/app/routes";
 import RecipeGrid from "@/components/specific/recipe/RecipeGrid";
 import Button from "@/components/ui/Button";
 import PageHeader from "@/components/ui/layout/PageHeader";
 import SearchBar from "@/components/ui/SearchBar";
 import { IPaginatedResponse, IRecipeTeaser } from "@/models/recipe-models";
 import { Plus } from "lucide-react";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 const PAGE_SIZE = 10;
@@ -56,10 +58,12 @@ export default function MyRecipesPage() {
                 title="My Recipes"
                 description="Your personal collection of recipes"
             >
-                <Button
-                    text="Create"
-                    Icon={Plus}
-                />
+                <Link href={CREATE_RECIPE_ROUTE}>
+                    <Button
+                        text="Create"
+                        Icon={Plus}
+                    />                
+                </Link>
             </PageHeader>
 
             <SearchBar />

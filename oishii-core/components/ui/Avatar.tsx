@@ -4,7 +4,7 @@ interface Props {
     src?: string;
 }
 
-export default function Avatar({ src = "/img/user-placeholder.jpg" }: Props) {
+export default function Avatar({ src = "/placeholder/user-placeholder.png" }: Props) {
     return (
         <div className="relative h-8 w-8 rounded-full overflow-hidden">
             <Image

@@ -22,7 +22,7 @@ export default function RecipeCard({ recipe }: Props) {
                 {/* Image */}
                 <div className="relative w-full h-50">
                     <Image
-                        src={recipe.imageUrl || "/img/recipe-placeholder.jpg"}
+                        src={recipe.imageUrl || "/placeholder/recipe-placeholder.png"}
                         alt={recipe.title}
                         fill
                         className="object-cover"
