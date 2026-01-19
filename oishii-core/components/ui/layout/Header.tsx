@@ -52,7 +52,7 @@ export default function Header() {
                             </Link>
                             <Link
                                 href={PROFILE_ROUTE}
-                                className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-secondary/60 transition-colors"
+                                className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-secondary/20 transition-colors"
                             >
                             <div className="relative w-9 h-9 rounded-full overflow-hidden bg-secondary flex items-center justify-center">
                                 {user.avatar ? (

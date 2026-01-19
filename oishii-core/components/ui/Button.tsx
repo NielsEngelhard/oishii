@@ -32,10 +32,10 @@ export default function Button({
 
   // variant styles
   const variantStyles = {
-    primary: "bg-primary text-background hover:bg-primary/80",
-    secondary: "bg-secondary text-text hover:bg-secondary/80",
-    transparent: "bg-transparent text-text hover:bg-secondary/70",
-    skeleton: "text-text bg-background border border-border hover:bg-secondary/80"
+    primary: "bg-primary text-background hover:bg-primary/10",
+    secondary: "bg-secondary text-text hover:bg-secondary/10",
+    transparent: "bg-transparent text-text hover:bg-secondary/10",
+    skeleton: "text-text bg-background border border-border hover:bg-secondary/10"
   };
 
   return (

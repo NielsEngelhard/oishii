@@ -15,3 +15,6 @@ Technical
 USP
 - Multi language
 - Crete cook groups
+- All your recipes in one place
+- Easy filters. See your own, see your like
+- Rank your recipes and share them with your friends. Show them!
