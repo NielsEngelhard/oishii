@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 
 type FormData = LoginSchemaData | SignUpSchemaData;
@@ -128,7 +128,7 @@ function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
   );
 }
 
-export default function LoginPage() {
+function LoginContent() {
   const [isLogin, setIsLogin] = useState(true);
   const searchParams = useSearchParams();
   const expired = searchParams.get("expired") === "true";
@@ -163,5 +163,13 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginContent />
+    </Suspense>
   );
 }

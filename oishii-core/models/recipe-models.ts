@@ -4,7 +4,7 @@ export interface IRecipeTeaser {
     id: string;
     title: string;
     description: string | null;
-    cookTime: string;
+    cookTime: number;
     servings: number;
     difficulty: RecipeDifficulty;
     imageUrl: string | null;
