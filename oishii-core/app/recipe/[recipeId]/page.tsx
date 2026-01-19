@@ -19,7 +19,7 @@ export default function RecipeDetailsPage() {
                     fill
                     className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 via-20% to-transparent" />
             </div>
 
             {/* Content */}
