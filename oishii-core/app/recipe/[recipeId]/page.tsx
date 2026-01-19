@@ -6,10 +6,24 @@ import Divider from "@/components/ui/Divider";
 import Statistic from "@/components/ui/Statistic";
 import Tags from "@/components/ui/Tags";
 import { Clock, Gauge, Medal, Users, Wheat } from "lucide-react";
+import Image from "next/image";
 
 export default function RecipeDetailsPage() {
     return (
-        <div className="w-full px-2 sm:px-6 mt-4 container">
+        <div className="relative w-full">
+            {/* Hero Image */}
+            <div className="relative w-full h-64 sm:h-80 md:h-96">
+                <Image
+                    src={"/placeholder/recipe-placeholder.png"}
+                    alt={"recipe title"}
+                    fill
+                    className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+            </div>
+
+            {/* Content */}
+            <div className="relative px-2 sm:px-6 container -mt-16">
             <Card>
                 <div className="flex flex-col w-full p-2 sm:p-4 space-y-3">
                     {/* Tags */}
@@ -76,6 +90,7 @@ export default function RecipeDetailsPage() {
                     <InstructionListDisplay />
                 </div>
             </Card>
+            </div>
         </div>
     )
 }
