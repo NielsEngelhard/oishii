@@ -1,4 +1,7 @@
+Technical
 - Multi language
+- Seed endpoint
+
 
 - Tags met een emoji zijn supported anders kan het custom zijn. EMOJIS IN TAGS!
 - Optioneel foto toevoegen bij een stap

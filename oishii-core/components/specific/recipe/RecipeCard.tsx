@@ -52,7 +52,7 @@ export default function RecipeCard({ recipe }: Props) {
                     <div className="flex flex-row justify-between">
                         {/* By user */}
                         <div className="flex items-center gap-1 text-muted font-medium">
-                            <Avatar />
+                            <Avatar size="sm" />
                             <span>{recipe.author.name}</span>
                         </div>
                         

@@ -4,18 +4,36 @@ import Avatar from "@/components/ui/Avatar";
 import Card from "@/components/ui/Card";
 import Divider from "@/components/ui/Divider";
 import Statistic from "@/components/ui/Statistic";
-import Tags from "@/components/ui/Tags";
+import getRecipeDetails from "@/features/recipe/query/get-recipe-details-query";
 import { Clock, Gauge, Medal, Users, Wheat } from "lucide-react";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
-export default function RecipeDetailsPage() {
+interface Props {
+    params: Promise<{ recipeId: string }>;
+}
+
+function capitalizeFirst(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export default async function RecipeDetailsPage({ params }: Props) {
+    const { recipeId } = await params;
+    const recipe = await getRecipeDetails(recipeId);
+
+    if (!recipe) {
+        notFound();
+    }
+
+    const totalTime = (recipe.prepTime ?? 0) + recipe.cookTime;
+
     return (
         <div className="relative w-full">
             {/* Hero Image */}
             <div className="relative w-full h-64 sm:h-80 md:h-96">
                 <Image
-                    src={"/placeholder/recipe-placeholder.png"}
-                    alt={"recipe title"}
+                    src={recipe.imageUrl || "/placeholder/recipe-placeholder.png"}
+                    alt={recipe.title}
                     fill
                     className="object-cover"
                 />
@@ -26,13 +44,12 @@ export default function RecipeDetailsPage() {
             <div className="relative px-2 sm:px-6 container -mt-16 max-w-2xl flex justify-center mb-10">
             <Card>
                 <div className="flex flex-col w-full p-2 sm:p-4 space-y-3">
-                    {/* Tags */}
-                    <Tags tags={["example"]} />
-
                     {/* General text */}
                     <div className="flex flex-col">
-                        <h1>Miso Ramen</h1>
-                        <p className="text-muted text-lg font-medium">Rich and creamy miso-based ramen with tender chashu pork, soft-boiled egg, and fresh vegetables. A warming bowl of comfort.</p>                
+                        <h1>{recipe.title}</h1>
+                        {recipe.description && (
+                            <p className="text-muted text-lg font-medium">{recipe.description}</p>
+                        )}
                     </div>
 
                     {/* General numbers */}
@@ -40,40 +57,43 @@ export default function RecipeDetailsPage() {
                         <Statistic
                             Icon={Clock}
                             label="Total Time"
-                            value="75 min"
+                            value={`${totalTime} min`}
                             variant="primary"
                         />
 
                         <Statistic
                             Icon={Wheat}
                             label="Ingredients"
-                            value="10"
+                            value={String(recipe.ingredients.length)}
                             variant="secondary"
                         />
 
                         <Statistic
                             Icon={Users}
                             label="Servings"
-                            value="2"
+                            value={String(recipe.servings)}
                             variant="default"
                         />
 
                         <Statistic
                             Icon={Gauge}
                             label="Difficulty"
-                            value="Medium"
+                            value={capitalizeFirst(recipe.difficulty)}
                             variant="accent"
-                        />                                                                                    
+                        />
                     </div>
-                    
+
                     {/* Metadata */}
                     <div className="flex flex-row justify-between">
                         {/* By user */}
                         <div className="flex items-center gap-1 text-muted font-medium">
                             <Avatar />
-                            <span>Author Name</span>
+                            <div className="flex flex-col">
+                                <span>{recipe.author.name}</span>
+                                <span className="text-xs">Recipe creator</span>
+                            </div>
                         </div>
-                        
+
                         {/* Points */}
                         <div className="flex items-center gap-1 text-muted">
                             <Medal size={16} />
@@ -84,10 +104,10 @@ export default function RecipeDetailsPage() {
                     <Divider />
 
                     {/* Ingredients */}
-                    <IngredientListDisplay />
+                    <IngredientListDisplay ingredients={recipe.ingredients} />
 
                     {/* Instructions */}
-                    <InstructionListDisplay />
+                    <InstructionListDisplay instructions={recipe.instructions} />
                 </div>
             </Card>
             </div>
