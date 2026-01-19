@@ -23,7 +23,7 @@ export default function RecipeDetailsPage() {
             </div>
 
             {/* Content */}
-            <div className="relative px-2 sm:px-6 container -mt-16">
+            <div className="relative px-2 sm:px-6 container -mt-16 max-w-2xl flex justify-center mb-10">
             <Card>
                 <div className="flex flex-col w-full p-2 sm:p-4 space-y-3">
                     {/* Tags */}
