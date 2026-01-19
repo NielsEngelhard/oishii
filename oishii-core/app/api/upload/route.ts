@@ -1,10 +1,8 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { s3Client, BUCKET_NAME } from "@/lib/infrastructure/s3/s3-client";
+import { s3Client, BUCKET_NAME } from "@/lib/infrastructure/file-upload/s3/s3-client";
 import { NextResponse } from "next/server";
 import { generateUuid } from "@/lib/util/uuid-util";
-
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB TODO: reference in more general file
-const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/webp"]; // TODO: reference in more general file
+import { isAllowedFileSize, isAllowedType, maxFileSizeAsDisplayString } from "@/lib/infrastructure/file-upload/file-upload-constants";
 
 export async function POST(req: Request) {
     try {
@@ -19,17 +17,17 @@ export async function POST(req: Request) {
         }
 
         // Validate file type
-        if (!ALLOWED_TYPES.includes(file.type)) {
+        if (!isAllowedType(file.type)) {
             return NextResponse.json(
-                { error: `Invalid file type. Allowed: ${ALLOWED_TYPES.join(", ")}` },
+                { error: `Invalid file type.` },
                 { status: 400 }
             );
         }
 
         // Validate file size
-        if (file.size > MAX_FILE_SIZE) {
+        if (!isAllowedFileSize(file.size)) {
             return NextResponse.json(
-                { error: "File too large. Maximum size: 10MB" },
+                { error: `File too large. Maximum size: ${maxFileSizeAsDisplayString()}` },
                 { status: 400 }
             );
         }

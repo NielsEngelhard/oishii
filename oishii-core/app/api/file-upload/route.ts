@@ -1,15 +1,14 @@
-// app/api/upload-url/route.ts (or your preferred location)
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { s3Client, BUCKET_NAME } from "@/lib/s3/s3-client";
+import { s3Client, BUCKET_NAME } from "@/lib/infrastructure/file-upload/s3/s3-client";
 import { generateUuid } from "@/lib/util/uuid-util";
+import { isAllowedType } from "@/lib/infrastructure/file-upload/file-upload-constants";
 
 export async function POST(request: Request) {
     const { contentType } = await request.json();
     
     // Validate content type
-    const allowedTypes = ["image/jpeg", "image/png", "image/webp"]; // TODO: put somewhere else as config
-    if (!allowedTypes.includes(contentType)) {
+    if (!isAllowedType(contentType)) {
         return Response.json({ error: "Invalid file type" }, { status: 400 });
     }
 

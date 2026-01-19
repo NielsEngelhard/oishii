@@ -1,3 +1,6 @@
+- Multi language
+
+
 - Optioneel foto toevoegen bij een stap
 - Ipv huidige stappen gwn een blob met stappen JSON?!
 - recepten kunnen iconisch status krijgen in een bepaalde categorie (voor de gein)
