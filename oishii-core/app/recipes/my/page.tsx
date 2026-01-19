@@ -52,7 +52,7 @@ export default function MyRecipesPage() {
     };
 
     return (
-        <div className="flex flex-col container py-4 lg:py-6 space-y-6 max-w-3xl">
+        <div className="flex flex-col container py-4 lg:py-6 space-y-6">
 
             <PageHeader
                 title="My Recipes"

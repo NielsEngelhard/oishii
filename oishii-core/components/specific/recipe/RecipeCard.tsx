@@ -18,14 +18,14 @@ function getDifficultyLabel(difficulty: string): string {
 export default function RecipeCard({ recipe }: Props) {
     return (
         <Link href={`/recipe/${recipe.id}`}>
-            <div className="flex flex-col rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
+            <div className="flex flex-col rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer group">
                 {/* Image */}
-                <div className="relative w-full h-50">
+                <div className="relative w-full h-50 overflow-hidden">
                     <Image
                         src={recipe.imageUrl || "/placeholder/recipe-placeholder.png"}
                         alt={recipe.title}
                         fill
-                        className="object-cover"
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
                     />
 
                     <div className="absolute top-2 right-2 z-20">

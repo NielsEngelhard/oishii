@@ -5,6 +5,29 @@
   --foreground: #171717;
 }
 
+@theme {
+  /* Only override what you need, keep all defaults */
+  --breakpoint-lg: 1200px;
+  
+  --container-*: initial;
+  --container-lg: 1200px;
+}
+
+@layer utilities {
+  .container {
+    margin-inline: auto;
+    padding-inline: 1rem; /* default padding */
+    
+    @media (width >= 1080px) {
+      padding-inline: 2rem; /* md and up */
+    }
+    
+    @media (width >= 1200px) {
+      padding-inline: 3rem; /* lg and up */
+    }
+  }
+}
+
 @theme inline {
   --color-primary: #DD643C;
   --color-secondary: #F3EACE;
