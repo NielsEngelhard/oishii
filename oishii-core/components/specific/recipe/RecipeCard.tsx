@@ -3,7 +3,7 @@ import Divider from "@/components/ui/Divider";
 import MetaDataField from "@/components/ui/MetaDataField";
 import Tag from "@/components/ui/Tag";
 import { IRecipeTeaser } from "@/models/recipe-models";
-import { Clock, Users } from "lucide-react";
+import { Clock, Medal, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -54,6 +54,12 @@ export default function RecipeCard({ recipe }: Props) {
                         <div className="flex items-center gap-1 text-muted font-medium">
                             <Avatar />
                             <span>{recipe.author.name}</span>
+                        </div>
+                        
+                        {/* Points */}
+                        <div className="flex items-center gap-1 text-muted">
+                            <Medal size={16} />
+                            <span>0</span>
                         </div>
                     </div>
                 </div>
