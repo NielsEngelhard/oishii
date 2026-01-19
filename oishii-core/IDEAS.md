@@ -5,9 +5,13 @@ Technical
 - Share functionaliteit
 - Like/Save functionaliteit
 - Save functionaliteit met een soort mappenstructuur dat je zelf een mapje met recepten kan maken en delen, net als een spotify playlist lmz. Dan kan je bijv zeggen. 10 Zomerse pastas in een groep. Dit noem je een "Collection".
+- Update recipe, kan nu nog niet
+
+- Aantal personen aanpassen in de recipe details en dat alles mee aanpast qua waardes
+- Converten tussen units bijv amerikaans en europees wtf is een tablespoon
 
 - Tags met een emoji zijn supported anders kan het custom zijn. EMOJIS IN TAGS!
-- Optioneel foto toevoegen bij een stap
+- Optioneel foto toevoegen bij een instruction
 - Ipv huidige stappen gwn een blob met stappen JSON?!
 - recepten kunnen iconisch status krijgen in een bepaalde categorie (voor de gein)
 - Veel categorien bedenken, bijv. studenten en bulk

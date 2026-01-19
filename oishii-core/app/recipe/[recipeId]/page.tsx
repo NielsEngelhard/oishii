@@ -43,7 +43,7 @@ export default async function RecipeDetailsPage({ params }: Props) {
             {/* Content */}
             <div className="relative px-2 sm:px-6 container -mt-16 max-w-2xl flex justify-center mb-10">
             <Card>
-                <div className="flex flex-col w-full p-2 sm:p-4 space-y-3">
+                <div className="flex flex-col w-full p-2 sm:p-4 space-y-3 md:space-y-6">
                     {/* General text */}
                     <div className="flex flex-col">
                         <h1>{recipe.title}</h1>
@@ -101,7 +101,9 @@ export default async function RecipeDetailsPage({ params }: Props) {
                         </div>
                     </div>
 
-                    <Divider />
+                    <div className="my-4">
+                        <Divider />
+                    </div>
 
                     {/* Ingredients */}
                     <IngredientListDisplay ingredients={recipe.ingredients} />
