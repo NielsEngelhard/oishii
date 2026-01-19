@@ -6,7 +6,7 @@ Technical
 - Like/Save functionaliteit
 - Save functionaliteit met een soort mappenstructuur dat je zelf een mapje met recepten kan maken en delen, net als een spotify playlist lmz. Dan kan je bijv zeggen. 10 Zomerse pastas in een groep. Dit noem je een "Collection".
 - Update recipe, kan nu nog niet
-
+- Import with AI implementeren
 - Aantal personen aanpassen in de recipe details en dat alles mee aanpast qua waardes
 - Converten tussen units bijv amerikaans en europees wtf is een tablespoon
 
