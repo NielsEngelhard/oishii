@@ -12,7 +12,7 @@ export default function Header() {
     const { user, isLoading } = useAuth();
 
     return (
-        <header className="w-full h-16 border-b border-border justify-center flex">
+        <header className="w-full h-16 border-b border-border justify-center flex sticky top-0 z-50 bg-background">
             <div className="w-full h-full flex justify-between container">
                 {/* Logo */}
                 <Logo />
