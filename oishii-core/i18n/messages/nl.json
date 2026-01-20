@@ -72,7 +72,14 @@
     "addInstruction": "Stap toevoegen",
     "creating": "Aanmaken...",
     "recipeCreator": "Receptmaker",
-    "failedToFetch": "Recepten ophalen mislukt"
+    "failedToFetch": "Recepten ophalen mislukt",
+    "cuisine": "Keuken",
+    "allCuisines": "Alle keukens",
+    "allDifficulties": "Alle moeilijkheden",
+    "allTimes": "Alle tijden",
+    "under30min": "Onder 30 min",
+    "under60min": "Onder 60 min",
+    "over60min": "Meer dan 60 min"
   },
   "aiImport": {
     "importWithAi": "Importeren met AI",

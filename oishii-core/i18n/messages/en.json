@@ -72,7 +72,14 @@
     "addInstruction": "Add Instruction",
     "creating": "Creating...",
     "recipeCreator": "Recipe creator",
-    "failedToFetch": "Failed to fetch recipes"
+    "failedToFetch": "Failed to fetch recipes",
+    "cuisine": "Cuisine",
+    "allCuisines": "All cuisines",
+    "allDifficulties": "All difficulties",
+    "allTimes": "All times",
+    "under30min": "Under 30 min",
+    "under60min": "Under 60 min",
+    "over60min": "Over 60 min"
   },
   "aiImport": {
     "importWithAi": "Import with AI",
