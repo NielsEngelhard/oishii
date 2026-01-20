@@ -6,6 +6,7 @@ export const usersTable = pgTable("users", {
   name: text("name").notNull(),
   email: text("email").unique().notNull(),
   password: text("password").notNull(),
+  language: text("language").default("en").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 export type UsersTable = InferSelectModel<typeof usersTable>;

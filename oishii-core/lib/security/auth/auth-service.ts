@@ -2,6 +2,7 @@ export interface AuthUser {
     id: number;
     email: string;
     name: string;
+    language: string;
 }
 
 export interface IAuthService {

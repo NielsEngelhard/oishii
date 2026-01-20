@@ -1,0 +1,98 @@
+{
+  "common": {
+    "loading": "Laden...",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "create": "Aanmaken",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "search": "Zoeken...",
+    "previous": "Vorige",
+    "next": "Volgende",
+    "page": "Pagina {current} van {total}",
+    "showing": "{count} van {total} recepten weergegeven",
+    "networkError": "Netwerkfout. Probeer het opnieuw.",
+    "home": "Home"
+  },
+  "auth": {
+    "welcomeBack": "Welkom terug",
+    "createYourAccount": "Maak je account aan",
+    "signInToContinue": "Log in om verder te gaan naar je recepten",
+    "startJourney": "Begin vandaag je culinaire reis",
+    "signIn": "Inloggen",
+    "signUp": "Registreren",
+    "signOut": "Uitloggen",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "username": "Gebruikersnaam",
+    "emailPlaceholder": "jij@voorbeeld.nl",
+    "passwordPlaceholder": "********",
+    "dontHaveAccount": "Nog geen account?",
+    "alreadyHaveAccount": "Heb je al een account?",
+    "sessionExpired": "Je sessie is verlopen. Log opnieuw in.",
+    "termsAgreement": "Door verder te gaan, ga je akkoord met onze Servicevoorwaarden en Privacybeleid.",
+    "language": "Taal",
+    "selectLanguage": "Kies je voorkeurstaal"
+  },
+  "header": {
+    "myRecipes": "Mijn Recepten",
+    "explore": "Ontdekken",
+    "friends": "Vrienden",
+    "groups": "Groepen",
+    "createRecipe": "Recept maken"
+  },
+  "recipe": {
+    "createRecipe": "Recept Maken",
+    "shareCreation": "Deel je culinaire creatie met de wereld",
+    "myRecipes": "Mijn Recepten",
+    "personalCollection": "Je persoonlijke receptenverzameling",
+    "basicInformation": "Basisinformatie",
+    "recipePhoto": "Receptfoto",
+    "recipeTitle": "Recepttitel",
+    "recipeTitlePlaceholder": "Oma's geheime ramen",
+    "recipeDescription": "Receptomschrijving",
+    "recipeDescriptionPlaceholder": "Een korte beschrijving van je recept...",
+    "prepTime": "Voorbereidingstijd",
+    "cookTime": "Kooktijd",
+    "totalTime": "Totale tijd",
+    "servings": "Porties",
+    "difficulty": "Moeilijkheid",
+    "difficultyEasy": "Makkelijk",
+    "difficultyMedium": "Gemiddeld",
+    "difficultyHard": "Moeilijk",
+    "minutes": "minuten",
+    "people": "personen",
+    "ingredients": "Ingrediënten",
+    "ingredient": "Ingrediënt",
+    "amount": "Hoeveelheid",
+    "unit": "Eenheid",
+    "isSpice": "Is kruid",
+    "addIngredient": "Ingrediënt toevoegen",
+    "instructions": "Bereidingswijze",
+    "addInstruction": "Stap toevoegen",
+    "creating": "Aanmaken...",
+    "recipeCreator": "Receptmaker",
+    "failedToFetch": "Recepten ophalen mislukt"
+  },
+  "aiImport": {
+    "importWithAi": "Importeren met AI",
+    "magic": "Magie",
+    "aiDescription": "Plak een recept-URL en onze AI haalt alle details voor je op.",
+    "urlPlaceholder": "https://voorbeeld.nl/recept...",
+    "importRecipe": "Recept importeren"
+  },
+  "profile": {
+    "member": "Lid",
+    "settingsComingSoon": "Profielinstellingen en aanpassingen komen binnenkort!"
+  },
+  "languages": {
+    "en": "English",
+    "nl": "Nederlands"
+  },
+  "validation": {
+    "tooShort": "Te kort",
+    "tooLong": "Te lang",
+    "required": "Dit veld is verplicht",
+    "invalidEmail": "Ongeldig e-mailadres"
+  }
+}

@@ -6,6 +6,7 @@ export interface CreateUserCommand {
     username: string;
     email: string;
     password: string;
+    language?: string;
 }
 
 export async function createUser(data: CreateUserCommand): Promise<number> {
@@ -15,6 +16,7 @@ export async function createUser(data: CreateUserCommand): Promise<number> {
         name: data.username,
         email: data.email,
         password: hashedPassword,
+        language: data.language ?? 'en',
     }).returning({ id: usersTable.id });
 
     return user.id;

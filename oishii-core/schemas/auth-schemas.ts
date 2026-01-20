@@ -9,6 +9,7 @@ export type LoginSchemaData = z.infer<typeof loginSchema>;
 export const signUpSchema = z.object({
   email: z.email(),
   password: z.string().min(6, "Too short").max(100, "Too long"),
-  username: z.string().min(4, "Too short").max(30, "Too long")
+  username: z.string().min(4, "Too short").max(30, "Too long"),
+  language: z.string().optional().default("en"),
 });
 export type SignUpSchemaData = z.infer<typeof signUpSchema>;

@@ -1,5 +1,6 @@
 export interface CurrentUserData {
   id: string;
   username: string;
-  avatar?: string;    
+  avatar?: string;
+  language: string;
 }

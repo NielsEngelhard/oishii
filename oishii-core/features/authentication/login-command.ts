@@ -8,11 +8,20 @@ export interface LoginCommand {
     password: string;
 }
 
-export async function login(data: LoginCommand): Promise<number> {
-    const [result] = await db.select({ id: usersTable.id, password: usersTable.password })
-                           .from(usersTable)
-                           .where(eq(usersTable.email, data.email))
-                           .limit(1);
+export interface LoginResult {
+    userId: number;
+    language: string;
+}
+
+export async function login(data: LoginCommand): Promise<LoginResult> {
+    const [result] = await db.select({
+            id: usersTable.id,
+            password: usersTable.password,
+            language: usersTable.language,
+        })
+        .from(usersTable)
+        .where(eq(usersTable.email, data.email))
+        .limit(1);
 
     if (!result)
         throw new Error("User not found");
@@ -22,5 +31,8 @@ export async function login(data: LoginCommand): Promise<number> {
     if (!passwordsMatch)
         throw new Error("Invalid password");
 
-    return result.id;
+    return {
+        userId: result.id,
+        language: result.language
+    };
 }

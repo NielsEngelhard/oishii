@@ -31,6 +31,15 @@ export async function POST(req: Request) {
       path: "/",
     });
 
+    // Set language cookie for next-intl
+    cookieStore.set("NEXT_LOCALE", result.data.language ?? "en", {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 365 * 24 * 60 * 60, // 1 year
+      path: "/",
+    });
+
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Signup failed";

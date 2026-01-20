@@ -1,11 +1,15 @@
 "use client"
 
 import Input from "@/components/form/Input";
+import LanguageSelect from "@/components/form/LanguageSelect";
 import Button from "@/components/ui/Button";
 import Logo from "@/components/ui/layout/logo";
+import { Locale, defaultLocale } from "@/i18n/config";
+import { setLanguageCookie } from "@/lib/i18n/language";
 import { loginSchema, LoginSchemaData, signUpSchema, SignUpSchemaData } from "@/schemas/auth-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Lock, Mail, User } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
@@ -20,13 +24,22 @@ interface AuthFormProps {
 }
 
 function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
+  const t = useTranslations("auth");
+  const tCommon = useTranslations("common");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<Locale>(defaultLocale);
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(isLogin ? loginSchema : signUpSchema),
     mode: "onChange",
   });
+
+  const handleLanguageChange = (locale: Locale) => {
+    setSelectedLanguage(locale);
+    setLanguageCookie(locale);
+    window.location.reload();
+  };
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
@@ -34,10 +47,11 @@ function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
 
     try {
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/signup';
+      const payload = isLogin ? data : { ...data, language: selectedLanguage };
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();
@@ -49,7 +63,7 @@ function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
 
       window.location.href = redirectTo || '/';
     } catch {
-      setApiError('Network error. Please try again.');
+      setApiError(tCommon('networkError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -59,44 +73,51 @@ function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
     <>
       <div className="text-center mb-8">
         <h1 className="text-2xl font-serif font-semibold mb-2">
-          {isLogin ? 'Welcome back' : 'Create your account'}
+          {isLogin ? t('welcomeBack') : t('createYourAccount')}
         </h1>
         <p className="text-muted">
           {isLogin
-            ? 'Sign in to continue to your recipes'
-            : 'Start your culinary journey today'}
+            ? t('signInToContinue')
+            : t('startJourney')}
         </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         {!isLogin && (
           <Input
-            label="Username"
+            label={t('username')}
             type="text"
             Icon={User}
-            placeholder="Username"
+            placeholder={t('username')}
             error={(errors as FieldErrors<SignUpSchemaData>).username?.message}
             {...register("username")}
           />
         )}
 
         <Input
-          label="Email"
+          label={t('email')}
           Icon={Mail}
           type="email"
-          placeholder="you@example.com"
+          placeholder={t('emailPlaceholder')}
           error={errors.email?.message}
           {...register("email")}
         />
 
         <Input
-          label="Password"
+          label={t('password')}
           Icon={Lock}
           type="password"
-          placeholder="••••••••"
+          placeholder={t('passwordPlaceholder')}
           error={errors.password?.message}
           {...register("password")}
         />
+
+        {!isLogin && (
+          <LanguageSelect
+            value={selectedLanguage}
+            onChange={handleLanguageChange}
+          />
+        )}
 
         {apiError && (
           <p className="text-sm text-error text-center">{apiError}</p>
@@ -106,7 +127,7 @@ function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
           type="submit"
           variant="primary"
           className="w-full"
-          text={isSubmitting ? 'Loading...' : (isLogin ? 'Sign In' : 'Create Account')}
+          text={isSubmitting ? tCommon('loading') : (isLogin ? t('signIn') : t('createYourAccount'))}
           size="lg"
           disabled={isSubmitting}
         />
@@ -114,13 +135,13 @@ function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
 
       <div className="mt-6 text-center">
         <p className="text-muted">
-          {isLogin ? "Don't have an account?" : 'Already have an account?'}
+          {isLogin ? t('dontHaveAccount') : t('alreadyHaveAccount')}
           <button
             type="button"
             onClick={onToggleMode}
             className="ml-1 text-primary font-medium hover:underline"
           >
-            {isLogin ? 'Sign up' : 'Sign in'}
+            {isLogin ? t('signUp') : t('signIn')}
           </button>
         </p>
       </div>
@@ -129,6 +150,7 @@ function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
 }
 
 function LoginContent() {
+  const t = useTranslations("auth");
   const [isLogin, setIsLogin] = useState(true);
   const searchParams = useSearchParams();
   const expired = searchParams.get("expired") === "true";
@@ -145,7 +167,7 @@ function LoginContent() {
           {expired && (
             <div className="mb-6 p-3 bg-secondary rounded-lg text-center">
               <p className="text-sm text-muted">
-                Your session has expired. Please sign in again.
+                {t('sessionExpired')}
               </p>
             </div>
           )}
@@ -159,7 +181,7 @@ function LoginContent() {
         </div>
 
         <p className="text-center text-sm text-muted mt-6">
-          By continuing, you agree to our Terms of Service and Privacy Policy.
+          {t('termsAgreement')}
         </p>
       </div>
     </div>

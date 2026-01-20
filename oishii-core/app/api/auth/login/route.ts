@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const userId = await login(result.data);
+    const { userId, language } = await login(result.data);
     const sessionId = await authService.createSession(userId);
 
     const cookieStore = await cookies();
@@ -27,6 +27,15 @@ export async function POST(req: Request) {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       maxAge: 30 * 24 * 60 * 60, // 30 days
+      path: "/",
+    });
+
+    // Set language cookie for next-intl
+    cookieStore.set("NEXT_LOCALE", language, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 365 * 24 * 60 * 60, // 1 year
       path: "/",
     });
 

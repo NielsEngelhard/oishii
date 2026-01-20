@@ -7,9 +7,12 @@ import { CREATE_RECIPE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGN
 import Logo from "./logo";
 import { useAuth } from "@/contexts/AuthContex";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function Header() {
     const { user, isLoading } = useAuth();
+    const t = useTranslations("header");
+    const tAuth = useTranslations("auth");
 
     return (
         <header className="w-full h-16 border-b border-border justify-center flex sticky top-0 z-50 bg-background">
@@ -21,18 +24,18 @@ export default function Header() {
                 <ul className="flex items-center gap-2 lg:gap-4">
                     <li>
                         <Link href={MY_RECIPES_ROUTE}>
-                            <Button text="My Recipes" Icon={BookOpen} variant="transparent" />
+                            <Button text={t("myRecipes")} Icon={BookOpen} variant="transparent" />
                         </Link>
                     </li>
                     <li>
-                        <Button text="Explore" Icon={Search} variant="transparent" />
+                        <Button text={t("explore")} Icon={Search} variant="transparent" />
                     </li>
                     <li>
-                        <Button text="Friends" Icon={Handshake} variant="transparent" />
+                        <Button text={t("friends")} Icon={Handshake} variant="transparent" />
                     </li>
                     <li>
-                        <Button text="Groups" Icon={Users} variant="transparent" />
-                    </li>                                                
+                        <Button text={t("groups")} Icon={Users} variant="transparent" />
+                    </li>
                 </ul>
 
                 {/* Actions/Profile */}
@@ -46,7 +49,7 @@ export default function Header() {
                             <Link
                                 href={CREATE_RECIPE_ROUTE}
                                 className="p-2 rounded-xl hover:bg-secondary/60 transition-colors"
-                                title="Create recipe"
+                                title={t("createRecipe")}
                             >
                                 <Plus className="w-5 h-5 text-muted hover:text-primary transition-colors" />
                             </Link>
@@ -80,14 +83,14 @@ export default function Header() {
                                 <Link href={LOGIN_ROUTE}>
                                     <Button
                                         variant="skeleton"
-                                        text="Sign In"
+                                        text={tAuth("signIn")}
                                         Icon={LogIn}
                                     />
                                 </Link>
                                 <Link href={SIGNUP_ROUTE}>
                                     <Button
                                         variant="primary"
-                                        text="Sign Up!"
+                                        text={tAuth("signUp")}
                                         Icon={BookCheck}
                                     />
                                 </Link>

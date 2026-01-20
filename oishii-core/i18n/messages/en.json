@@ -1,0 +1,98 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "cancel": "Cancel",
+    "save": "Save",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search...",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {current} of {total}",
+    "showing": "Showing {count} of {total} recipes",
+    "networkError": "Network error. Please try again.",
+    "home": "Home"
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "createYourAccount": "Create your account",
+    "signInToContinue": "Sign in to continue to your recipes",
+    "startJourney": "Start your culinary journey today",
+    "signIn": "Sign In",
+    "signUp": "Sign Up!",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "password": "Password",
+    "username": "Username",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "********",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "sessionExpired": "Your session has expired. Please sign in again.",
+    "termsAgreement": "By continuing, you agree to our Terms of Service and Privacy Policy.",
+    "language": "Language",
+    "selectLanguage": "Select your preferred language"
+  },
+  "header": {
+    "myRecipes": "My Recipes",
+    "explore": "Explore",
+    "friends": "Friends",
+    "groups": "Groups",
+    "createRecipe": "Create recipe"
+  },
+  "recipe": {
+    "createRecipe": "Create Recipe",
+    "shareCreation": "Share your culinary creation with the world",
+    "myRecipes": "My Recipes",
+    "personalCollection": "Your personal collection of recipes",
+    "basicInformation": "Basic Information",
+    "recipePhoto": "Recipe Photo",
+    "recipeTitle": "Recipe Title",
+    "recipeTitlePlaceholder": "Grandma's secret ramen",
+    "recipeDescription": "Recipe Description",
+    "recipeDescriptionPlaceholder": "A brief description about your recipe...",
+    "prepTime": "Prep Time",
+    "cookTime": "Cook Time",
+    "totalTime": "Total Time",
+    "servings": "Servings",
+    "difficulty": "Difficulty",
+    "difficultyEasy": "Easy",
+    "difficultyMedium": "Medium",
+    "difficultyHard": "Hard",
+    "minutes": "minutes",
+    "people": "people",
+    "ingredients": "Ingredients",
+    "ingredient": "Ingredient",
+    "amount": "Amount",
+    "unit": "Unit",
+    "isSpice": "Is spice",
+    "addIngredient": "Add Ingredient",
+    "instructions": "Instructions",
+    "addInstruction": "Add Instruction",
+    "creating": "Creating...",
+    "recipeCreator": "Recipe creator",
+    "failedToFetch": "Failed to fetch recipes"
+  },
+  "aiImport": {
+    "importWithAi": "Import with AI",
+    "magic": "Magic",
+    "aiDescription": "Paste any recipe URL and our AI will extract all the details for you.",
+    "urlPlaceholder": "https://example.com/recipe...",
+    "importRecipe": "Import Recipe"
+  },
+  "profile": {
+    "member": "Member",
+    "settingsComingSoon": "Profile settings and customization coming soon!"
+  },
+  "languages": {
+    "en": "English",
+    "nl": "Nederlands"
+  },
+  "validation": {
+    "tooShort": "Too short",
+    "tooLong": "Too long",
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address"
+  }
+}

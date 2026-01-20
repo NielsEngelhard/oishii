@@ -16,12 +16,15 @@ import PageHeader from "@/components/ui/layout/PageHeader";
 import { createRecipeSchema, CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BookText, Clock, CookingPot, Gauge, List, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 
 export default function CreateRecipePage() {
     const router = useRouter();
+    const t = useTranslations("recipe");
+    const tCommon = useTranslations("common");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [apiError, setApiError] = useState<string | null>(null);
 
@@ -56,7 +59,7 @@ export default function CreateRecipePage() {
             // Success - redirect to the new recipe
             router.push(RECIPE_DETAILS_ROUTE(result.recipeId));
         } catch {
-            setApiError('Network error. Please try again.');
+            setApiError(tCommon('networkError'));
         } finally {
             setIsSubmitting(false);
         }
@@ -66,8 +69,8 @@ export default function CreateRecipePage() {
         <div className="flex flex-col container py-4 lg:py-6 space-y-6 max-w-2xl">
             
             <PageHeader
-                title="Create Recipe"
-                description="Share your culinary creation with the world"
+                title={t("createRecipe")}
+                description={t("shareCreation")}
             >
 
             </PageHeader>
@@ -78,55 +81,55 @@ export default function CreateRecipePage() {
                 <Card>
                     <h2 className="mb-3 flex items-center gap-2">
                         <BookText size={18} />
-                        Basic Information
+                        {t("basicInformation")}
                     </h2>
 
                     <InputGroup>
                         <FileInput
-                            label="Recipe Photo"
+                            label={t("recipePhoto")}
                             value={watch("imageUrl")}
                             onChange={(url) => setValue("imageUrl", url)}
                             error={(errors as FieldErrors<CreateRecipeSchemaData>).imageUrl?.message}
                         />
 
                         <Input
-                            label="Recipe Title"
+                            label={t("recipeTitle")}
                             type="text"
-                            placeholder="Grandma's secret ramen"
+                            placeholder={t("recipeTitlePlaceholder")}
                             error={(errors as FieldErrors<CreateRecipeSchemaData>).title?.message}
                             {...register("title")}
                         />
 
                         <TextArea
-                            label="Recipe Description"
-                            placeholder="A brief description about your recipe..."
+                            label={t("recipeDescription")}
+                            placeholder={t("recipeDescriptionPlaceholder")}
                             error={(errors as FieldErrors<CreateRecipeSchemaData>).description?.message}
                             {...register("description")}
                         />
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
                             <NumberInput
-                                label="Prep Time"
+                                label={t("prepTime")}
                                 Icon={Clock}
-                                postFix="minutes"
+                                postFix={t("minutes")}
                                 placeholder="15"
                                 error={(errors as FieldErrors<CreateRecipeSchemaData>).prepTime?.message}
                                 {...register("prepTime", { valueAsNumber: true })}
                             />
 
                             <NumberInput
-                                label="Cook Time"
+                                label={t("cookTime")}
                                 Icon={Clock}
-                                postFix="minutes"
+                                postFix={t("minutes")}
                                 error={(errors as FieldErrors<CreateRecipeSchemaData>).cookTime?.message}
                                 placeholder="30"
                                 {...register("cookTime", { valueAsNumber: true })}
                             />
 
                             <NumberInput
-                                label="Servings"
+                                label={t("servings")}
                                 Icon={Users}
-                                postFix="people"
+                                postFix={t("people")}
                                 placeholder="4"
                                 error={(errors as FieldErrors<CreateRecipeSchemaData>).servings?.message}
                                 {...register("servings", { valueAsNumber: true })}
@@ -138,11 +141,11 @@ export default function CreateRecipePage() {
                             value={watch("difficulty")}
                             onChange={(value) => setValue("difficulty", value as "easy" | "medium" | "hard")}
                             options={[
-                                { label: "Easy", value: "easy" },
-                                { label: "Medium", value: "medium" },
-                                { label: "Hard", value: "hard" }
+                                { label: t("difficultyEasy"), value: "easy" },
+                                { label: t("difficultyMedium"), value: "medium" },
+                                { label: t("difficultyHard"), value: "hard" }
                             ]}
-                            label="Difficulty"
+                            label={t("difficulty")}
                             Icon={Gauge}
                             error={(errors as FieldErrors<CreateRecipeSchemaData>).difficulty?.message}
                         />
@@ -152,7 +155,7 @@ export default function CreateRecipePage() {
                 <Card>
                     <h2 className="mb-3 flex items-center gap-2">
                         <CookingPot size={18} />
-                        Ingredients
+                        {t("ingredients")}
                     </h2>
 
                     <IngredientInputList
@@ -165,7 +168,7 @@ export default function CreateRecipePage() {
                 <Card>
                     <h2 className="mb-3 flex items-center gap-2">
                         <List size={18} />
-                        Instructions
+                        {t("instructions")}
                     </h2>
 
                     <InstructionInputList
@@ -186,7 +189,7 @@ export default function CreateRecipePage() {
                 <div className="flex flex-col md:flex-row gap-4">
                     <div>
                         <Button
-                            text={isSubmitting ? "Creating..." : "Create Recipe"}
+                            text={isSubmitting ? t("creating") : t("createRecipe")}
                             size="lg"
                             variant="primary"
                             type="submit"
@@ -195,7 +198,7 @@ export default function CreateRecipePage() {
                     </div>
                     <div>
                         <Button
-                            text="Cancel"
+                            text={tCommon("cancel")}
                             size="lg"
                             variant="skeleton"
                             type="button"

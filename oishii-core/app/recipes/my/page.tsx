@@ -7,12 +7,15 @@ import PageHeader from "@/components/ui/layout/PageHeader";
 import SearchBar from "@/components/ui/SearchBar";
 import { IPaginatedResponse, IRecipeTeaser } from "@/models/recipe-models";
 import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 const PAGE_SIZE = 10;
 
 export default function MyRecipesPage() {
+    const t = useTranslations("recipe");
+    const tCommon = useTranslations("common");
     const [recipes, setRecipes] = useState<IRecipeTeaser[]>([]);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState<IPaginatedResponse<IRecipeTeaser>["pagination"] | null>(null);
@@ -55,21 +58,21 @@ export default function MyRecipesPage() {
         <div className="flex flex-col container py-4 lg:py-6 space-y-6">
 
             <PageHeader
-                title="My Recipes"
-                description="Your personal collection of recipes"
+                title={t("myRecipes")}
+                description={t("personalCollection")}
             >
                 <Link href={CREATE_RECIPE_ROUTE}>
                     <Button
-                        text="Create"
+                        text={tCommon("create")}
                         Icon={Plus}
-                    />                
+                    />
                 </Link>
             </PageHeader>
 
             <SearchBar />
 
             {isLoading ? (
-                <div className="text-center py-12 text-muted">Loading...</div>
+                <div className="text-center py-12 text-muted">{tCommon("loading")}</div>
             ) : (
                 <>
                     <RecipeGrid recipes={recipes} />
@@ -81,17 +84,17 @@ export default function MyRecipesPage() {
                                 disabled={!pagination.hasPreviousPage}
                                 className="px-4 py-2 rounded-lg bg-secondary disabled:opacity-50 disabled:cursor-not-allowed hover:bg-secondary/80 transition-colors"
                             >
-                                Previous
+                                {tCommon("previous")}
                             </button>
                             <span className="text-sm text-muted">
-                                Page {pagination.page} of {pagination.totalPages}
+                                {tCommon("page", { current: pagination.page, total: pagination.totalPages })}
                             </span>
                             <button
                                 onClick={handleNextPage}
                                 disabled={!pagination.hasNextPage}
                                 className="px-4 py-2 rounded-lg bg-secondary disabled:opacity-50 disabled:cursor-not-allowed hover:bg-secondary/80 transition-colors"
                             >
-                                Next
+                                {tCommon("next")}
                             </button>
                         </div>
                     )}
