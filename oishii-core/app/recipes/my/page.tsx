@@ -2,9 +2,9 @@
 
 import { CREATE_RECIPE_ROUTE } from "@/app/routes";
 import RecipeGrid from "@/components/specific/recipe/RecipeGrid";
+import RecipesFilter from "@/components/specific/recipe/RecipesFilter";
 import Button from "@/components/ui/Button";
 import PageHeader from "@/components/ui/layout/PageHeader";
-import SearchBar from "@/components/ui/SearchBar";
 import { IPaginatedResponse, IRecipeTeaser } from "@/models/recipe-models";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -69,7 +69,7 @@ export default function MyRecipesPage() {
                 </Link>
             </PageHeader>
 
-            <SearchBar />
+            <RecipesFilter />
 
             {isLoading ? (
                 <div className="text-center py-12 text-muted">{tCommon("loading")}</div>

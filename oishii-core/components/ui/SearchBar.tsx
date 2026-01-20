@@ -14,7 +14,6 @@ export default function SearchBar({  }: Props) {
                 Icon={Search}
                 placeholder="Search..."
             ></Input>
-            <span className="text-muted text-sm mt-3">Showing 4 of 4 recipes</span>
         </div>
     )
 }
