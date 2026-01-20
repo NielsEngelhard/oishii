@@ -1,6 +1,9 @@
 Technical
-- Multi language
 - Seed endpoint
+
+- Optionele velden voor bijv okonomiyaki dat je kan zeggen het is dit OF dit OF dit en zo kan je ook vleesvervangers doen
+- optioneel extra toelichting een notitie bij het recept
+- recept language orgineel en AI vertaal knop
 
 - Share functionaliteit
 - Like/Save functionaliteit
@@ -14,7 +17,7 @@ Technical
 - Optioneel foto toevoegen bij een instruction
 - Ipv huidige stappen gwn een blob met stappen JSON?!
 - recepten kunnen iconisch status krijgen in een bepaalde categorie (voor de gein)
-- Veel categorien bedenken, bijv. studenten en bulk
+- Veel categorien bedenken, bijv. studenten en bulk <--- officiele tags
 - Sociaal aspect. Je kan een kookgroep aanmaken met je vrienden en daarin zie je iedere keer dat iemand iets kookt. Je volgt elkaar dan een soortvan. Je kan dan een post maken met een title, description en foto en een optioneel een "review" over hoe het was enzo. Zo kan je elkaar ook nieuwe recepten aanbevelen.
 - RANKEN: Op je persoonlijke pagina kun je al jouw recepten ranken. Misschien moet je alles cool kunnen drag-drop ranken. Een tier list bijhouden met je recepten. Zo'n coole S A B etc. zodat je makkelijk op je profiel kan zien hoe en wat. RANKEN kan wel leuk worden!
 - Tags beter uitleggen. Bijvoorbeeld pasta en kip toevoegen als tags en een uitleg erbij dat dit filteren en vinden van je recepten veel beter maakt. Dit is waarop internationaal gezocht kan worden multi language lmz.

@@ -66,8 +66,7 @@ export default function CreateRecipePage() {
     };
 
     return (
-        <div className="flex flex-col container py-4 lg:py-6 space-y-6 max-w-2xl">
-            
+        <div className="flex flex-col mx-auto px-4 py-4 space-y-4 max-w-sm w-full">
             <PageHeader
                 title={t("createRecipe")}
                 description={t("shareCreation")}
