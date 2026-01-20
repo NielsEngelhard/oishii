@@ -8,20 +8,42 @@ import { ChefHat, Clock, ListFilter, Utensils } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-interface Props {
-
+export interface RecipeFilterValues {
+    search: string;
+    cuisine: string;
+    difficulty: string;
+    totalTime: string;
 }
 
-export default function RecipesFilter({  }: Props) {
+interface Props {
+    filters: RecipeFilterValues;
+    onFilterChange: (filters: RecipeFilterValues) => void;
+    onSearchChange: (search: string) => void;
+    totalItems: number;
+    filteredItems: number;
+}
+
+export default function RecipesFilter({
+    filters,
+    onFilterChange,
+    onSearchChange,
+    totalItems,
+    filteredItems,
+}: Props) {
     const t = useTranslations("recipe");
+    const tCommon = useTranslations("common");
     const [showFilters, setShowFilters] = useState(false);
-    const [cuisine, setCuisine] = useState("");
-    const [difficulty, setDifficulty] = useState("");
-    const [totalTime, setTotalTime] = useState("");
 
     function toggleFilters() {
         setShowFilters(!showFilters);
     }
+
+    const handleSelectChange = (key: keyof RecipeFilterValues, value: string) => {
+        onFilterChange({
+            ...filters,
+            [key]: value,
+        });
+    };
 
     const cuisineOptions = [
         { label: t("allCuisines"), value: "" },
@@ -52,7 +74,10 @@ export default function RecipesFilter({  }: Props) {
         <div className="flex flex-col space-y-3 md:space-y-5">
             <div className="flex gap-2 md:gap-4">
                 <div className="flex-1">
-                    <SearchBar />
+                    <SearchBar
+                        value={filters.search}
+                        onChange={onSearchChange}
+                    />
                 </div>
                 <IconButton Icon={ListFilter} onClick={toggleFilters} />
             </div>
@@ -64,30 +89,32 @@ export default function RecipesFilter({  }: Props) {
                             label={t("cuisine")}
                             Icon={Utensils}
                             options={cuisineOptions}
-                            value={cuisine}
-                            onChange={setCuisine}
+                            value={filters.cuisine}
+                            onChange={(value) => handleSelectChange("cuisine", value)}
                         />
 
                         <SelectInput
                             label={t("difficulty")}
                             Icon={ChefHat}
                             options={difficultyOptions}
-                            value={difficulty}
-                            onChange={setDifficulty}
+                            value={filters.difficulty}
+                            onChange={(value) => handleSelectChange("difficulty", value)}
                         />
 
                         <SelectInput
                             label={t("totalTime")}
                             Icon={Clock}
                             options={totalTimeOptions}
-                            value={totalTime}
-                            onChange={setTotalTime}
+                            value={filters.totalTime}
+                            onChange={(value) => handleSelectChange("totalTime", value)}
                         />
                     </div>
                 </Card>
             )}
 
-            <span className="text-muted text-sm mt-3">Showing 4 of 4 recipes</span>
+            <span className="text-muted text-sm">
+                {tCommon("showing", { count: filteredItems, total: totalItems })}
+            </span>
         </div>
     )
 }
