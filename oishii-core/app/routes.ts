@@ -6,3 +6,7 @@ export const RECIPE_DETAILS_ROUTE = (recipeId: string): string => `/recipe/${rec
 export const CREATE_RECIPE_ROUTE: string ="/recipe/create";
 
 export const MY_RECIPES_ROUTE: string = "/recipes/my";
+
+export const USER_PROFILE_ROUTE = (userId: string): string => `/user/${userId}`;
+export const FRIENDS_ROUTE: string = "/friends";
+export const EXPLORE_ROUTE: string = "/explore";

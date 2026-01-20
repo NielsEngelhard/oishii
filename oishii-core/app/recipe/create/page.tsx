@@ -6,6 +6,7 @@ import Input from "@/components/form/Input";
 import InputGroup from "@/components/form/InputGroup";
 import NumberInput from "@/components/form/NumberInput";
 import SelectButtonInput from "@/components/form/SelectButtonInput";
+import SelectInput from "@/components/form/SelectInput";
 import TextArea from "@/components/form/TextArea";
 import IngredientInputList from "@/components/specific/ingredient/IngredientInputList";
 import InstructionInputList from "@/components/specific/instruction/InstructionList";
@@ -13,18 +14,22 @@ import AiImportCard from "@/components/specific/recipe/AiImportCard";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import PageHeader from "@/components/ui/layout/PageHeader";
+import { useAuth } from "@/contexts/AuthContex";
+import { locales } from "@/i18n/config";
 import { createRecipeSchema, CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BookText, Clock, CookingPot, Gauge, List, Users } from "lucide-react";
+import { BookText, Clock, CookingPot, Gauge, Languages, List, Lightbulb, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 
 export default function CreateRecipePage() {
     const router = useRouter();
+    const { user } = useAuth();
     const t = useTranslations("recipe");
     const tCommon = useTranslations("common");
+    const tLanguages = useTranslations("languages");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [apiError, setApiError] = useState<string | null>(null);
 
@@ -35,8 +40,16 @@ export default function CreateRecipePage() {
             ingredients: [{ name: "", amount: "", unit: "g", isSpice: false }],
             instructions: [{ text: "", index: 1 }],
             difficulty: "medium",
+            language: "en",
         }
     });
+
+    // Set language to user's language when user data becomes available
+    useEffect(() => {
+        if (user?.language) {
+            setValue("language", user.language as typeof locales[number]);
+        }
+    }, [user?.language, setValue]);
 
     const onSubmit = async (data: CreateRecipeSchemaData) => {
         setIsSubmitting(true);
@@ -76,7 +89,7 @@ export default function CreateRecipePage() {
 
             <AiImportCard />
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
                 <Card>
                     <h2 className="mb-3 flex items-center gap-2">
                         <BookText size={18} />
@@ -148,6 +161,18 @@ export default function CreateRecipePage() {
                             Icon={Gauge}
                             error={(errors as FieldErrors<CreateRecipeSchemaData>).difficulty?.message}
                         />
+
+                        <SelectInput
+                            label={t("originalLanguage")}
+                            Icon={Languages}
+                            value={watch("language")}
+                            onChange={(value) => setValue("language", value as typeof locales[number])}
+                            options={locales.map(locale => ({
+                                label: tLanguages(locale),
+                                value: locale
+                            }))}
+                            error={(errors as FieldErrors<CreateRecipeSchemaData>).language?.message}
+                        />
                     </InputGroup>
                 </Card>
 
@@ -174,6 +199,20 @@ export default function CreateRecipePage() {
                         register={register as any}
                         control={control as any}
                         errors={errors as any}
+                    />
+                </Card>
+
+                <Card>
+                    <h2 className="mb-3 flex items-center gap-2">
+                        <Lightbulb size={18} />
+                        {t("tipsAndNotes")}
+                    </h2>
+
+                    <TextArea
+                        label={t("notes")}
+                        placeholder={t("notesPlaceholder")}
+                        error={(errors as FieldErrors<CreateRecipeSchemaData>).notes?.message}
+                        {...register("notes")}
                     />
                 </Card>
 

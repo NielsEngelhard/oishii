@@ -79,7 +79,11 @@
     "allTimes": "All times",
     "under30min": "Under 30 min",
     "under60min": "Under 60 min",
-    "over60min": "Over 60 min"
+    "over60min": "Over 60 min",
+    "originalLanguage": "Original Language",
+    "tipsAndNotes": "Tips & Notes",
+    "notes": "Notes",
+    "notesPlaceholder": "Add any tips, tricks, or additional notes about this recipe..."
   },
   "aiImport": {
     "importWithAi": "Import with AI",

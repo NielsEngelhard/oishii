@@ -79,7 +79,11 @@
     "allTimes": "Alle tijden",
     "under30min": "Onder 30 min",
     "under60min": "Onder 60 min",
-    "over60min": "Meer dan 60 min"
+    "over60min": "Meer dan 60 min",
+    "originalLanguage": "Oorspronkelijke Taal",
+    "tipsAndNotes": "Tips & Notities",
+    "notes": "Notities",
+    "notesPlaceholder": "Voeg tips, trucs of extra notities over dit recept toe..."
   },
   "aiImport": {
     "importWithAi": "Importeren met AI",

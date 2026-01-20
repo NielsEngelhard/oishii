@@ -17,6 +17,8 @@ export const recipesTable = pgTable("recipes", {
   ingredients: jsonb("ingredients").notNull().$type<ingredientSchemaData[]>(),
   instructions: jsonb("instructions").notNull().$type<InstructionSchemaData[]>(),
   imageUrl: text("image_url"),
+  language: text("language").notNull().default('en'),
+  notes: text("notes"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 export type RecipesTable = InferSelectModel<typeof recipesTable>;

@@ -18,6 +18,8 @@ export default async function getRecipeDetails(
             imageUrl: recipesTable.imageUrl,
             ingredients: recipesTable.ingredients,
             instructions: recipesTable.instructions,
+            language: recipesTable.language,
+            notes: recipesTable.notes,
             createdAt: recipesTable.createdAt,
             authorId: usersTable.id,
             authorName: usersTable.name,
@@ -43,6 +45,8 @@ export default async function getRecipeDetails(
         imageUrl: recipe.imageUrl,
         ingredients: recipe.ingredients,
         instructions: recipe.instructions,
+        language: recipe.language,
+        notes: recipe.notes,
         createdAt: recipe.createdAt,
         author: {
             id: recipe.authorId,

@@ -24,6 +24,8 @@ export default async function createRecipe({ data, userId }: CreateRecipeParams)
         instructions: data.instructions,
         ingredients: data.ingredients,
         imageUrl: data.imageUrl,
+        language: data.language,
+        notes: data.notes,
     });
 
     return recipeId;

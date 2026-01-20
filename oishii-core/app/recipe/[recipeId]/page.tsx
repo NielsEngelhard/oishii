@@ -5,7 +5,8 @@ import Card from "@/components/ui/Card";
 import Divider from "@/components/ui/Divider";
 import Statistic from "@/components/ui/Statistic";
 import getRecipeDetails from "@/features/recipe/query/get-recipe-details-query";
-import { Clock, Gauge, Medal, Users, Wheat } from "lucide-react";
+import { Clock, Gauge, Languages, Lightbulb, Medal, Users, Wheat } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -20,6 +21,8 @@ function capitalizeFirst(str: string): string {
 export default async function RecipeDetailsPage({ params }: Props) {
     const { recipeId } = await params;
     const recipe = await getRecipeDetails(recipeId);
+    const t = await getTranslations("recipe");
+    const tLanguages = await getTranslations("languages");
 
     if (!recipe) {
         notFound();
@@ -90,14 +93,22 @@ export default async function RecipeDetailsPage({ params }: Props) {
                             <Avatar />
                             <div className="flex flex-col">
                                 <span>{recipe.author.name}</span>
-                                <span className="text-xs">Recipe creator</span>
+                                <span className="text-xs">{t("recipeCreator")}</span>
                             </div>
                         </div>
 
-                        {/* Points */}
-                        <div className="flex items-center gap-1 text-muted">
-                            <Medal size={16} />
-                            <span>0</span>
+                        <div className="flex items-center gap-4">
+                            {/* Language */}
+                            <div className="flex items-center gap-1 text-muted">
+                                <Languages size={16} />
+                                <span className="text-sm">{tLanguages(recipe.language as "en" | "nl")}</span>
+                            </div>
+
+                            {/* Points */}
+                            <div className="flex items-center gap-1 text-muted">
+                                <Medal size={16} />
+                                <span>0</span>
+                            </div>
                         </div>
                     </div>
 
@@ -110,6 +121,22 @@ export default async function RecipeDetailsPage({ params }: Props) {
 
                     {/* Instructions */}
                     <InstructionListDisplay instructions={recipe.instructions} />
+
+                    {/* Notes */}
+                    {recipe.notes && (
+                        <>
+                            <div className="my-4">
+                                <Divider />
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <h2 className="flex items-center gap-2">
+                                    <Lightbulb size={20} />
+                                    {t("tipsAndNotes")}
+                                </h2>
+                                <p className="text-muted whitespace-pre-wrap">{recipe.notes}</p>
+                            </div>
+                        </>
+                    )}
                 </div>
             </Card>
             </div>

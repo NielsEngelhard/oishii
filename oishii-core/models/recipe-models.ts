@@ -40,6 +40,8 @@ export interface IRecipeDetails {
     imageUrl: string | null;
     ingredients: ingredientSchemaData[];
     instructions: InstructionSchemaData[];
+    language: string;
+    notes: string | null;
     createdAt: Date;
     author: {
         id: number;

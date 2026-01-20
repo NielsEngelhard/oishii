@@ -1,4 +1,5 @@
 import { recipeDifficulties } from "@/db/schema";
+import { locales } from "@/i18n/config";
 import z from "zod";
 import { ingredientSchema } from "./ingredient-schemas";
 import { instructionSchema } from "./instruction-schemas";
@@ -13,6 +14,8 @@ export const createRecipeSchema = z.object({
   tags: z.array(z.string().min(2).max(30)).optional(),
   ingredients: z.array(ingredientSchema).min(1, "At least one ingredient required"),
   instructions: z.array(instructionSchema).min(1, "At least one instruction required"),
-  imageUrl: z.url().optional()
+  imageUrl: z.url().optional(),
+  language: z.enum(locales),
+  notes: z.string().max(2000).optional()
 });
 export type CreateRecipeSchemaData = z.infer<typeof createRecipeSchema>;

@@ -3,7 +3,7 @@
 import { BookCheck, BookOpen, ChevronDown, Handshake, LogIn, Plus, Search, Users } from "lucide-react";
 import Button from "../Button";
 import Link from "next/link";
-import { CREATE_RECIPE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
+import { CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FRIENDS_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
 import Logo from "./logo";
 import { useAuth } from "@/contexts/AuthContex";
 import Image from "next/image";
@@ -28,13 +28,14 @@ export default function Header() {
                         </Link>
                     </li>
                     <li>
-                        <Button text={t("explore")} Icon={Search} variant="transparent" />
+                        <Link href={EXPLORE_ROUTE}>
+                            <Button text={t("explore")} Icon={Search} variant="transparent" />
+                        </Link>
                     </li>
                     <li>
-                        <Button text={t("friends")} Icon={Handshake} variant="transparent" />
-                    </li>
-                    <li>
-                        <Button text={t("groups")} Icon={Users} variant="transparent" />
+                        <Link href={FRIENDS_ROUTE}>
+                            <Button text={t("friends")} Icon={Handshake} variant="transparent" />
+                        </Link>
                     </li>
                 </ul>
 

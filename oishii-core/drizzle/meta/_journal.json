@@ -36,6 +36,20 @@
       "when": 1768768832519,
       "tag": "0004_open_lethal_legion",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1768938713325,
+      "tag": "0005_large_shaman",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1768939181447,
+      "tag": "0006_wealthy_exiles",
+      "breakpoints": true
     }
   ]
 }
