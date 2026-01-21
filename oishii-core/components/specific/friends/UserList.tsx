@@ -1,31 +1,33 @@
+import { IUserTeaser } from "@/models/user-models"
 import UserListCard from "../user/UserListCard"
 
-interface Props {
-
+interface UserWithFriendStatus extends IUserTeaser {
+    isFriend: boolean;
 }
 
-const mockedUsers = [
-    {
-        id: 1,
-        name: "Yuki Fotomoto",
-        aboutMe: "Japaneasdasdasdecipe...",
-        totalRecipes: 24,
-        imgUrl: "/placeholder/user-placeholder.png"
-    },    
-    {
-        id: 2,
-        name: "Yuki Tanaka",
-        aboutMe: "Japanese home cook passionate about traditional recipe...",
-        totalRecipes: 22,
-        imgUrl: "/placeholder/user-placeholder.png"
-    }
-]
+interface Props {
+    users: UserWithFriendStatus[];
+    onFriendStatusChange?: () => void;
+}
 
-export default function UserList({  }: Props) {
+export default function UserList({ users, onFriendStatusChange }: Props) {
+    if (users.length === 0) {
+        return (
+            <div className="text-center text-muted py-8">
+                No users found
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col gap-2 md:gap-4 w-full">
-            {mockedUsers.map(user => (
-                <UserListCard />
+            {users.map(user => (
+                <UserListCard
+                    key={user.id}
+                    user={user}
+                    isFriend={user.isFriend}
+                    onFriendStatusChange={onFriendStatusChange}
+                />
             ))}
         </div>
     )

@@ -50,6 +50,13 @@
       "when": 1768939181447,
       "tag": "0006_wealthy_exiles",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1769025073072,
+      "tag": "0007_mixed_the_liberteens",
+      "breakpoints": true
     }
   ]
 }

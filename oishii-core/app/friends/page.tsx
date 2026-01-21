@@ -22,7 +22,7 @@ export default function FriendsPage() {
             {/* Toggle Search and MyFriends */}
             <SectionToggle
                 onSectionChange={(x) => setCurrentSection(x as friendsSection)}
-                activeSectionKey="my"
+                activeSectionKey={currentSection}
                 sections={[
                     { key: "my", label: "My Friends", Icon: Users },
                     { key: "search", label: "Find Friends", Icon: UserPlus }
