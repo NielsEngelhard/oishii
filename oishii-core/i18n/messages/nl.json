@@ -96,6 +96,16 @@
     "member": "Lid",
     "settingsComingSoon": "Profielinstellingen en aanpassingen komen binnenkort!"
   },
+  "userProfile": {
+    "recipesCreated": "Recepten",
+    "friends": "Vrienden",
+    "joined": "Lid sinds",
+    "addFriend": "Vriend toevoegen",
+    "removeFriend": "Vriend verwijderen",
+    "viewProfile": "Bekijk profiel",
+    "userNotFound": "Gebruiker niet gevonden",
+    "loading": "Profiel laden..."
+  },
   "languages": {
     "en": "English",
     "nl": "Nederlands"

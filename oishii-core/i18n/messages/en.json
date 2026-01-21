@@ -96,6 +96,16 @@
     "member": "Member",
     "settingsComingSoon": "Profile settings and customization coming soon!"
   },
+  "userProfile": {
+    "recipesCreated": "Recipes",
+    "friends": "Friends",
+    "joined": "Joined",
+    "addFriend": "Add Friend",
+    "removeFriend": "Remove Friend",
+    "viewProfile": "View Profile",
+    "userNotFound": "User not found",
+    "loading": "Loading profile..."
+  },
   "languages": {
     "en": "English",
     "nl": "Nederlands"
