@@ -16,7 +16,7 @@ const maxWidthClasses = {
 
 export default function NarrowPageWrapper({ children, maxWidth = "sm", className = "" }: Props) {
     return (
-        <div className={`flex flex-col mx-auto px-4 py-4 space-y-4 ${maxWidthClasses[maxWidth]} w-full ${className}`}>
+        <div className={`flex flex-col w-full ${maxWidthClasses[maxWidth]} mx-auto px-4 py-4 space-y-4 ${className}`}>
             {children}
         </div>
     );

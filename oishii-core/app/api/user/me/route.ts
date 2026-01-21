@@ -13,6 +13,7 @@ export async function GET() {
       id: String(user.id),
       username: user.name,
       language: user.language,
+      aboutMe: user.aboutMe,
     },
   });
 }

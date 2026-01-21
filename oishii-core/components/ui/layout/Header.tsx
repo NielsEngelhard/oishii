@@ -3,19 +3,21 @@
 import { BookCheck, BookOpen, ChevronDown, Handshake, LogIn, Plus, Search, User, X } from "lucide-react";
 import Button from "../Button";
 import Link from "next/link";
-import { CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FRIENDS_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
+import { CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FRIENDS_ROUTE, HOME_LANDING_PAGE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
 import Logo from "./logo";
 import { useAuth } from "@/contexts/AuthContex";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
     const { user, isLoading } = useAuth();
+    const router = useRouter();
     const t = useTranslations("header");
     const tAuth = useTranslations("auth");
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);    
 
     // Close menu on route change or escape key
     useEffect(() => {
@@ -44,12 +46,22 @@ export default function Header() {
         { href: FRIENDS_ROUTE, label: t("friends"), Icon: Handshake },
     ];
 
+    const onLogoClick = () => {
+        if (!user) {
+            router.push(HOME_LANDING_PAGE_ROUTE);
+        } else {
+            router.push(MY_RECIPES_ROUTE);
+        }
+    }
+
     return (
         <>
             <header className="w-full h-16 border-b border-border justify-center flex sticky top-0 z-50 bg-background">
                 <div className="w-full h-full flex justify-between items-center container px-4">
                     {/* Logo */}
-                    <Logo />
+                    <button className="cursor-pointer transition-transform duration-300 hover:scale-110" onClick={onLogoClick}>
+                        <Logo />
+                    </button>
 
                     {/* Desktop Navigation */}
                     <ul className="hidden md:flex items-center gap-2 lg:gap-4">
