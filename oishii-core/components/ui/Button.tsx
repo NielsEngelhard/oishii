@@ -21,13 +21,13 @@ export default function Button({
 }: ButtonProps) {
   // shared base styles
   const baseStyles =
-    "rounded-xl transition-all duration-200 flex items-center gap-2 justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:cursor-pointer";
+    "rounded-xl transition-all duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:cursor-pointer";
 
   // size styles
   const sizeStyles = {
-    sm: "px-2 py-1 text-sm",
-    md: "py-2 px-4 text-base",
-    lg: "px-4 py-3 text-lg"
+    sm: "px-2 py-1 text-sm gap-0.5",
+    md: "py-2 px-4 text-base gap-1",
+    lg: "px-4 py-3 text-lg gap-2"
   };
 
   // variant styles
