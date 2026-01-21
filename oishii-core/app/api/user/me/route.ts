@@ -12,8 +12,7 @@ export async function GET() {
     user: {
       id: String(user.id),
       username: user.name,
-      language: user.language,
-      aboutMe: user.aboutMe,
+      language: user.language
     },
   });
 }

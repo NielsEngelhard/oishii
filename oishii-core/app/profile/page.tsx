@@ -22,7 +22,7 @@ export default function ProfilePage() {
     const tLanguages = useTranslations("languages");
 
     // About Me state
-    const [aboutMe, setAboutMe] = useState(user?.aboutMe || "");
+    const [aboutMe, setAboutMe] = useState(user?.aboutMe || ""); // TODO RETRIEVE FROM BACK_END
     const [aboutMeLoading, setAboutMeLoading] = useState(false);
     const [aboutMeSuccess, setAboutMeSuccess] = useState(false);
     const [aboutMeError, setAboutMeError] = useState<string | null>(null);
@@ -61,7 +61,7 @@ export default function ProfilePage() {
             if (response.ok) {
                 setAboutMeSuccess(true);
                 if (user) {
-                    setUser({ ...user, aboutMe: aboutMe || null });
+                    setUser({ ...user,  });
                 }
                 setTimeout(() => setAboutMeSuccess(false), 3000);
             } else {

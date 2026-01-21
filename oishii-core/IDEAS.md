@@ -4,11 +4,12 @@ Technical
 
 
 MUST
-- User details pagina
-    - Inzien andere users
-    - Eigen profiel met opties voor update profiel bijv. voor wachtwoord en taal
+- Profile page testen + smaller maken
+- Op user details page recepten van andere mensen kunnen inzien - miss aparte pagina met recepten van en danL
+    - filter voor recepten die ze hebben opgeslagen;
+    - filter voor recepten die ze zelf hebben gemaakt
+
 - Share functionaliteit
-- Like/Save functionaliteit
 - Update recipe, kan nu nog niet
 - Import with AI implementeren <-- dit zit wel achter premium functionaliteit dus je moet dan wel een premium account hebben
 

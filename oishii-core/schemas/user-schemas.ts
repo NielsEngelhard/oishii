@@ -3,5 +3,4 @@ export interface CurrentUserData {
   username: string;
   avatar?: string;
   language: string;
-  aboutMe: string | null;
 }
