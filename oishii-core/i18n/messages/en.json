@@ -83,7 +83,13 @@
     "originalLanguage": "Original Language",
     "tipsAndNotes": "Tips & Notes",
     "notes": "Notes",
-    "notesPlaceholder": "Add any tips, tricks, or additional notes about this recipe..."
+    "notesPlaceholder": "Add any tips, tricks, or additional notes about this recipe...",
+    "like": "Like",
+    "unlike": "Unlike",
+    "likes": "likes",
+    "includeLikedRecipes": "Include liked recipes",
+    "showingOwnAndLiked": "Showing your recipes and liked recipes",
+    "showingOwnOnly": "Showing only your recipes"
   },
   "aiImport": {
     "importWithAi": "Import with AI",

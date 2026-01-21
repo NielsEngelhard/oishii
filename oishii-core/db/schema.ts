@@ -2,6 +2,7 @@ export * from './schemas/users';
 export * from './schemas/sessions';
 export * from './schemas/recipes';
 export * from './schemas/friendships';
+export * from './schemas/recipe-likes';
 
 // enum
 export * from './schemas/enum/recipe-difficulty';

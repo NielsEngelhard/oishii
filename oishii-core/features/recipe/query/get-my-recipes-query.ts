@@ -1,8 +1,8 @@
-import { recipesTable, usersTable } from "@/db/schema";
+import { recipesTable, usersTable, recipeLikesTable } from "@/db/schema";
 import { RecipeDifficulty } from "@/db/schemas/enum/recipe-difficulty";
 import { db } from "@/lib/db/db";
 import { IPaginatedResponse, IRecipeTeaser } from "@/models/recipe-models";
-import { eq, desc, sql, and, ilike, lte, gt, SQL } from "drizzle-orm";
+import { eq, desc, sql, and, ilike, lte, gt, SQL, or } from "drizzle-orm";
 
 export interface RecipeFilters {
     search?: string;
@@ -16,6 +16,7 @@ interface GetMyRecipesParams {
     page: number;
     pageSize: number;
     filters?: RecipeFilters;
+    includeLiked?: boolean;
 }
 
 export default async function getMyRecipes({
@@ -23,11 +24,42 @@ export default async function getMyRecipes({
     page,
     pageSize,
     filters,
+    includeLiked = true,
 }: GetMyRecipesParams): Promise<IPaginatedResponse<IRecipeTeaser>> {
     const offset = (page - 1) * pageSize;
 
+    // Subquery for like count
+    const likeCountSubquery = db
+        .select({
+            recipeId: recipeLikesTable.recipeId,
+            count: sql<number>`count(*)::int`.as('like_count'),
+        })
+        .from(recipeLikesTable)
+        .groupBy(recipeLikesTable.recipeId)
+        .as('like_counts');
+
+    // Subquery for user's likes
+    const userLikesSubquery = db
+        .select({
+            recipeId: recipeLikesTable.recipeId,
+        })
+        .from(recipeLikesTable)
+        .where(eq(recipeLikesTable.userId, userId))
+        .as('user_likes');
+
+    // Build base condition - either owned by user OR liked by user (if includeLiked)
+    let ownershipCondition: SQL;
+    if (includeLiked) {
+        ownershipCondition = or(
+            eq(recipesTable.userId, userId),
+            sql`${userLikesSubquery.recipeId} IS NOT NULL`
+        )!;
+    } else {
+        ownershipCondition = eq(recipesTable.userId, userId);
+    }
+
     // Build filter conditions
-    const conditions: SQL[] = [eq(recipesTable.userId, userId)];
+    const conditions: SQL[] = [ownershipCondition];
 
     if (filters?.search) {
         conditions.push(ilike(recipesTable.title, `%${filters.search}%`));
@@ -51,15 +83,17 @@ export default async function getMyRecipes({
     const whereClause = and(...conditions);
 
     // Get total count with filters
-    const countResult = await db
+    const countQuery = db
         .select({ count: sql<number>`count(*)::int` })
         .from(recipesTable)
+        .leftJoin(userLikesSubquery, eq(recipesTable.id, userLikesSubquery.recipeId))
         .where(whereClause);
 
+    const countResult = await countQuery;
     const totalItems = countResult[0]?.count ?? 0;
     const totalPages = Math.ceil(totalItems / pageSize);
 
-    // Get paginated recipes with author info
+    // Get paginated recipes with author info and like data
     const recipes = await db
         .select({
             id: recipesTable.id,
@@ -72,9 +106,13 @@ export default async function getMyRecipes({
             createdAt: recipesTable.createdAt,
             authorId: usersTable.id,
             authorName: usersTable.name,
+            likeCount: sql<number>`COALESCE(${likeCountSubquery.count}, 0)`,
+            isLiked: sql<boolean>`${userLikesSubquery.recipeId} IS NOT NULL`,
         })
         .from(recipesTable)
         .innerJoin(usersTable, eq(recipesTable.userId, usersTable.id))
+        .leftJoin(likeCountSubquery, eq(recipesTable.id, likeCountSubquery.recipeId))
+        .leftJoin(userLikesSubquery, eq(recipesTable.id, userLikesSubquery.recipeId))
         .where(whereClause)
         .orderBy(desc(recipesTable.createdAt))
         .limit(pageSize)
@@ -93,6 +131,9 @@ export default async function getMyRecipes({
             id: recipe.authorId,
             name: recipe.authorName,
         },
+        likeCount: recipe.likeCount,
+        isLiked: recipe.isLiked,
+        isOwner: recipe.authorId === userId,
     }));
 
     return {

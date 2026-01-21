@@ -1,12 +1,42 @@
-import { recipesTable, usersTable } from "@/db/schema";
+import { recipesTable, usersTable, recipeLikesTable } from "@/db/schema";
 import { db } from "@/lib/db/db";
 import { IRecipeDetails } from "@/models/recipe-models";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
+
+interface GetRecipeDetailsParams {
+    recipeId: string;
+    currentUserId?: number;
+}
 
 export default async function getRecipeDetails(
-    recipeId: string
+    recipeIdOrParams: string | GetRecipeDetailsParams
 ): Promise<IRecipeDetails | null> {
-    const result = await db
+    const { recipeId, currentUserId } = typeof recipeIdOrParams === 'string'
+        ? { recipeId: recipeIdOrParams, currentUserId: undefined }
+        : recipeIdOrParams;
+
+    // Subquery for like count
+    const likeCountSubquery = db
+        .select({
+            recipeId: recipeLikesTable.recipeId,
+            count: sql<number>`count(*)::int`.as('like_count'),
+        })
+        .from(recipeLikesTable)
+        .groupBy(recipeLikesTable.recipeId)
+        .as('like_counts');
+
+    // Subquery for user's like (only if currentUserId provided)
+    const userLikesSubquery = currentUserId
+        ? db
+            .select({
+                recipeId: recipeLikesTable.recipeId,
+            })
+            .from(recipeLikesTable)
+            .where(eq(recipeLikesTable.userId, currentUserId))
+            .as('user_likes')
+        : null;
+
+    const baseQuery = db
         .select({
             id: recipesTable.id,
             title: recipesTable.title,
@@ -23,9 +53,21 @@ export default async function getRecipeDetails(
             createdAt: recipesTable.createdAt,
             authorId: usersTable.id,
             authorName: usersTable.name,
+            likeCount: sql<number>`COALESCE(${likeCountSubquery.count}, 0)`,
+            isLiked: userLikesSubquery
+                ? sql<boolean>`${userLikesSubquery.recipeId} IS NOT NULL`
+                : sql<boolean>`false`,
         })
         .from(recipesTable)
         .innerJoin(usersTable, eq(recipesTable.userId, usersTable.id))
+        .leftJoin(likeCountSubquery, eq(recipesTable.id, likeCountSubquery.recipeId));
+
+    // Add user likes join if currentUserId provided
+    const queryWithUserLikes = userLikesSubquery
+        ? baseQuery.leftJoin(userLikesSubquery, eq(recipesTable.id, userLikesSubquery.recipeId))
+        : baseQuery;
+
+    const result = await queryWithUserLikes
         .where(eq(recipesTable.id, recipeId))
         .limit(1);
 
@@ -52,5 +94,8 @@ export default async function getRecipeDetails(
             id: recipe.authorId,
             name: recipe.authorName,
         },
+        likeCount: recipe.likeCount,
+        isLiked: recipe.isLiked,
+        isOwner: currentUserId ? recipe.authorId === currentUserId : false,
     };
 }

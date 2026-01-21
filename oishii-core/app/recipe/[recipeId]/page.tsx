@@ -1,11 +1,13 @@
 import IngredientListDisplay from "@/components/specific/ingredient/IngredientListDisplay";
 import InstructionListDisplay from "@/components/specific/instruction/InstructionListDisplay";
+import RecipeLikeButton from "@/components/specific/recipe/RecipeLikeButton";
 import Avatar from "@/components/ui/Avatar";
 import Card from "@/components/ui/Card";
 import Divider from "@/components/ui/Divider";
 import Statistic from "@/components/ui/Statistic";
 import getRecipeDetails from "@/features/recipe/query/get-recipe-details-query";
-import { Clock, Gauge, Languages, Lightbulb, Medal, Users, Wheat } from "lucide-react";
+import { getCurrentUser } from "@/lib/security/auth/get-current-user";
+import { Clock, Gauge, Languages, Lightbulb, Users, Wheat } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -20,7 +22,12 @@ function capitalizeFirst(str: string): string {
 
 export default async function RecipeDetailsPage({ params }: Props) {
     const { recipeId } = await params;
-    const recipe = await getRecipeDetails(recipeId);
+    const currentUser = await getCurrentUser();
+
+    const recipe = await getRecipeDetails({
+        recipeId,
+        currentUserId: currentUser?.id,
+    });
     const t = await getTranslations("recipe");
     const tLanguages = await getTranslations("languages");
 
@@ -41,6 +48,18 @@ export default async function RecipeDetailsPage({ params }: Props) {
                     className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 via-20% to-transparent" />
+
+                {/* Like button in hero */}
+                {currentUser && (
+                    <div className="absolute top-4 right-4 z-20">
+                        <RecipeLikeButton
+                            recipeId={recipe.id}
+                            initialIsLiked={recipe.isLiked}
+                            initialLikeCount={recipe.likeCount}
+                            isOwner={recipe.isOwner}
+                        />
+                    </div>
+                )}
             </div>
 
             {/* Content */}
@@ -97,18 +116,10 @@ export default async function RecipeDetailsPage({ params }: Props) {
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4">
-                            {/* Language */}
-                            <div className="flex items-center gap-1 text-muted">
-                                <Languages size={16} />
-                                <span className="text-sm">{tLanguages(recipe.language as "en" | "nl")}</span>
-                            </div>
-
-                            {/* Points */}
-                            <div className="flex items-center gap-1 text-muted">
-                                <Medal size={16} />
-                                <span>0</span>
-                            </div>
+                        {/* Language */}
+                        <div className="flex items-center gap-1 text-muted">
+                            <Languages size={16} />
+                            <span className="text-sm">{tLanguages(recipe.language as "en" | "nl")}</span>
                         </div>
                     </div>
 

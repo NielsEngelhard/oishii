@@ -3,6 +3,15 @@ Technical
 - Admin dashboard met statistics X accounts created en X recipes created en X AI scrape used en X AI photo enhancement used  
 
 
+
+Cool! Now just 2 minor tweaks:
+- I asked you before to make the my profile page less width. The NarrowPage component seems to not work because the whole page is full width of the entire page!
+- AboutMe should not be in the CurrentUser local data. For e.g. the profile page this should be fetched from the server, so create a new back-end endpoint that fetches info for the my profile page. Also statistics about my profile should be displayed here. Come up with some nice statistics! The CurrentUser should not be extended in any way.
+
+
+
+
+
 MUST
 - Profile page testen + smaller maken
 - Op user details page recepten van andere mensen kunnen inzien - miss aparte pagina met recepten van en danL
@@ -55,3 +64,7 @@ USP
 - All your recipes in one place
 - Easy filters. See your own, see your like
 - Rank your recipes and share them with your friends. Show them!
+
+
+Voor op de home page
+- Uiteindelijk is het de bedoeling dat je een eigen kookboek kan printen op basis van de recepten die jij wilt. Zo heb je iets leuks en fysieks. "Cooking is a hobby and something physical to display is nice to have"

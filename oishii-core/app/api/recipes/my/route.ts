@@ -40,11 +40,16 @@ export async function GET(req: Request) {
         }
     }
 
+    // Parse includeLiked parameter (default: true)
+    const includeLikedParam = searchParams.get("includeLiked");
+    const includeLiked = includeLikedParam !== "false";
+
     const result = await getMyRecipes({
         userId: user.id,
         page,
         pageSize,
         filters,
+        includeLiked,
     });
 
     return NextResponse.json(result);

@@ -1,21 +1,53 @@
+"use client"
+
 import Avatar from "@/components/ui/Avatar";
 import Divider from "@/components/ui/Divider";
 import MetaDataField from "@/components/ui/MetaDataField";
 import Tag from "@/components/ui/Tag";
 import { IRecipeTeaser } from "@/models/recipe-models";
-import { Clock, Medal, Users } from "lucide-react";
+import { Clock, Heart, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import clsx from "clsx";
 
 interface Props {
     recipe: IRecipeTeaser;
+    onLikeChange?: (recipeId: string, isLiked: boolean) => void;
 }
 
 function getDifficultyLabel(difficulty: string): string {
     return difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
 }
 
-export default function RecipeCard({ recipe }: Props) {
+export default function RecipeCard({ recipe, onLikeChange }: Props) {
+    const [isLiked, setIsLiked] = useState(recipe.isLiked);
+    const [likeCount, setLikeCount] = useState(recipe.likeCount);
+    const [isLiking, setIsLiking] = useState(false);
+
+    const handleLikeClick = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (recipe.isOwner || isLiking) return;
+
+        setIsLiking(true);
+        try {
+            const response = await fetch(`/api/recipe/${recipe.id}/like`, {
+                method: "POST",
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setIsLiked(data.isLiked);
+                setLikeCount(prev => data.isLiked ? prev + 1 : prev - 1);
+                onLikeChange?.(recipe.id, data.isLiked);
+            }
+        } finally {
+            setIsLiking(false);
+        }
+    };
+
     return (
         <Link href={`/recipe/${recipe.id}`}>
             <div className="flex flex-col rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer group">
@@ -31,6 +63,28 @@ export default function RecipeCard({ recipe }: Props) {
                     <div className="absolute top-2 right-2 z-20">
                         <Tag text={getDifficultyLabel(recipe.difficulty)} variant="secondary" />
                     </div>
+
+                    {/* Like button - only show if not owner */}
+                    {!recipe.isOwner && (
+                        <button
+                            onClick={handleLikeClick}
+                            disabled={isLiking}
+                            className={clsx(
+                                "absolute top-2 left-2 z-20 p-2 rounded-full transition-all duration-200",
+                                "bg-background/80 backdrop-blur-sm hover:bg-background",
+                                "hover:scale-110 active:scale-95",
+                                isLiking && "opacity-50 cursor-not-allowed"
+                            )}
+                        >
+                            <Heart
+                                size={18}
+                                className={clsx(
+                                    "transition-colors duration-200",
+                                    isLiked ? "fill-red-500 text-red-500" : "text-muted hover:text-red-400"
+                                )}
+                            />
+                        </button>
+                    )}
                 </div>
 
                 {/* Body */}
@@ -55,11 +109,16 @@ export default function RecipeCard({ recipe }: Props) {
                             <Avatar size="sm" />
                             <span>{recipe.author.name}</span>
                         </div>
-                        
-                        {/* Points */}
+
+                        {/* Likes */}
                         <div className="flex items-center gap-1 text-muted">
-                            <Medal size={16} />
-                            <span>0</span>
+                            <Heart
+                                size={16}
+                                className={clsx(
+                                    isLiked && "fill-red-500 text-red-500"
+                                )}
+                            />
+                            <span>{likeCount}</span>
                         </div>
                     </div>
                 </div>

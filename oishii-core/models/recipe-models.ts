@@ -15,6 +15,9 @@ export interface IRecipeTeaser {
         id: number;
         name: string;
     };
+    likeCount: number;
+    isLiked: boolean;
+    isOwner: boolean;
 }
 
 export interface IPaginatedResponse<T> {
@@ -47,4 +50,7 @@ export interface IRecipeDetails {
         id: number;
         name: string;
     };
+    likeCount: number;
+    isLiked: boolean;
+    isOwner: boolean;
 }

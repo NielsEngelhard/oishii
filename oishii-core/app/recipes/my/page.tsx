@@ -21,6 +21,7 @@ export default function MyRecipesPage() {
     const [pagination, setPagination] = useState<IPaginatedResponse<IRecipeTeaser>["pagination"] | null>(null);
     const [totalItems, setTotalItems] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [includeLiked, setIncludeLiked] = useState(true);
     const [filters, setFilters] = useState<RecipeFilterValues>({
         search: "",
         cuisine: "",
@@ -33,12 +34,13 @@ export default function MyRecipesPage() {
     // Track if initial total has been fetched
     const initialTotalFetched = useRef(false);
 
-    const fetchRecipes = useCallback(async (pageNum: number, currentFilters: RecipeFilterValues) => {
+    const fetchRecipes = useCallback(async (pageNum: number, currentFilters: RecipeFilterValues, includeL: boolean) => {
         setIsLoading(true);
         try {
             const params = new URLSearchParams({
                 page: String(pageNum),
                 pageSize: String(PAGE_SIZE),
+                includeLiked: String(includeL),
             });
 
             if (currentFilters.search) {
@@ -61,7 +63,7 @@ export default function MyRecipesPage() {
             setPagination(data.pagination);
 
             // On first load without filters, store the total count
-            if (!initialTotalFetched.current && !currentFilters.search && !currentFilters.difficulty && !currentFilters.totalTime) {
+            if (!initialTotalFetched.current && !currentFilters.search && !currentFilters.difficulty && !currentFilters.totalTime && includeL) {
                 setTotalItems(data.pagination.totalItems);
                 initialTotalFetched.current = true;
             }
@@ -76,7 +78,7 @@ export default function MyRecipesPage() {
     useEffect(() => {
         const fetchTotalCount = async () => {
             try {
-                const response = await fetch(`/api/recipes/my?page=1&pageSize=1`);
+                const response = await fetch(`/api/recipes/my?page=1&pageSize=1&includeLiked=true`);
                 if (response.ok) {
                     const data: IPaginatedResponse<IRecipeTeaser> = await response.json();
                     setTotalItems(data.pagination.totalItems);
@@ -91,8 +93,8 @@ export default function MyRecipesPage() {
 
     // Fetch recipes when page or filters change (except search which is debounced)
     useEffect(() => {
-        fetchRecipes(page, filters);
-    }, [page, filters.difficulty, filters.totalTime, filters.cuisine, fetchRecipes]);
+        fetchRecipes(page, filters, includeLiked);
+    }, [page, filters.difficulty, filters.totalTime, filters.cuisine, includeLiked, fetchRecipes]);
 
     // Handle search with debouncing
     const handleSearchChange = useCallback((search: string) => {
@@ -106,9 +108,15 @@ export default function MyRecipesPage() {
         // Set new timeout for debounced search
         searchTimeoutRef.current = setTimeout(() => {
             setPage(1); // Reset to first page on search
-            fetchRecipes(1, { ...filters, search });
+            fetchRecipes(1, { ...filters, search }, includeLiked);
         }, 500);
-    }, [filters, fetchRecipes]);
+    }, [filters, includeLiked, fetchRecipes]);
+
+    // Handle includeLiked change
+    const handleIncludeLikedChange = useCallback((value: boolean) => {
+        setIncludeLiked(value);
+        setPage(1); // Reset to first page
+    }, []);
 
     // Handle filter changes (immediate)
     const handleFilterChange = useCallback((newFilters: RecipeFilterValues) => {
@@ -158,6 +166,9 @@ export default function MyRecipesPage() {
                 onSearchChange={handleSearchChange}
                 totalItems={totalItems}
                 filteredItems={pagination?.totalItems ?? 0}
+                includeLiked={includeLiked}
+                onIncludeLikedChange={handleIncludeLikedChange}
+                showLikedToggle={true}
             />
 
             {isLoading ? (

@@ -57,6 +57,13 @@
       "when": 1769025073072,
       "tag": "0007_mixed_the_liberteens",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1769027308318,
+      "tag": "0008_little_maverick",
+      "breakpoints": true
     }
   ]
 }

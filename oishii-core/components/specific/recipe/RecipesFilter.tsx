@@ -4,9 +4,10 @@ import SelectInput from "@/components/form/SelectInput";
 import Card from "@/components/ui/Card";
 import IconButton from "@/components/ui/IconButton";
 import SearchBar from "@/components/ui/SearchBar";
-import { ChefHat, Clock, ListFilter, Utensils } from "lucide-react";
+import { ChefHat, Clock, Heart, ListFilter, Utensils } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import clsx from "clsx";
 
 export interface RecipeFilterValues {
     search: string;
@@ -21,6 +22,9 @@ interface Props {
     onSearchChange: (search: string) => void;
     totalItems: number;
     filteredItems: number;
+    includeLiked?: boolean;
+    onIncludeLikedChange?: (includeLiked: boolean) => void;
+    showLikedToggle?: boolean;
 }
 
 export default function RecipesFilter({
@@ -29,6 +33,9 @@ export default function RecipesFilter({
     onSearchChange,
     totalItems,
     filteredItems,
+    includeLiked = true,
+    onIncludeLikedChange,
+    showLikedToggle = false,
 }: Props) {
     const t = useTranslations("recipe");
     const tCommon = useTranslations("common");
@@ -112,9 +119,30 @@ export default function RecipesFilter({
                 </Card>
             )}
 
-            <span className="text-muted text-sm">
-                {tCommon("showing", { count: filteredItems, total: totalItems })}
-            </span>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <span className="text-muted text-sm">
+                    {tCommon("showing", { count: filteredItems, total: totalItems })}
+                </span>
+
+                {showLikedToggle && onIncludeLikedChange && (
+                    <button
+                        onClick={() => onIncludeLikedChange(!includeLiked)}
+                        className={clsx(
+                            "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all duration-200",
+                            "hover:scale-105 active:scale-95",
+                            includeLiked
+                                ? "bg-red-500/10 text-red-500"
+                                : "bg-background-secondary text-muted"
+                        )}
+                    >
+                        <Heart
+                            size={16}
+                            className={clsx(includeLiked && "fill-red-500")}
+                        />
+                        <span>{t("includeLikedRecipes")}</span>
+                    </button>
+                )}
+            </div>
         </div>
     )
 }

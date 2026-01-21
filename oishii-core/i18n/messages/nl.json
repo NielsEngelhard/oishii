@@ -83,7 +83,13 @@
     "originalLanguage": "Oorspronkelijke Taal",
     "tipsAndNotes": "Tips & Notities",
     "notes": "Notities",
-    "notesPlaceholder": "Voeg tips, trucs of extra notities over dit recept toe..."
+    "notesPlaceholder": "Voeg tips, trucs of extra notities over dit recept toe...",
+    "like": "Leuk",
+    "unlike": "Niet meer leuk",
+    "likes": "likes",
+    "includeLikedRecipes": "Inclusief gelikete recepten",
+    "showingOwnAndLiked": "Je recepten en gelikete recepten",
+    "showingOwnOnly": "Alleen je eigen recepten"
   },
   "aiImport": {
     "importWithAi": "Importeren met AI",
