@@ -1,3 +1,4 @@
+import SearchBar from "@/components/ui/SearchBar";
 import UserList from "./UserList";
 
 interface Props {
@@ -15,7 +16,8 @@ const mockedFriends = [
 
 export default function MyFriendsSection({  }: Props) {
     return (
-        <div className="w-full">
+        <div className="w-full flex flex-col space-y-3 md:space-y-6">
+            <SearchBar placeholder="Search your friends..." />
             <UserList />
         </div>
     )
