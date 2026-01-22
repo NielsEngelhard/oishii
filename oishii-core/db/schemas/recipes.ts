@@ -3,6 +3,7 @@ import { integer, jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-c
 import { recipeDifficultyEnum } from "./enum/recipe-difficulty";
 import { ingredientSchemaData } from "@/schemas/ingredient-schemas";
 import { InstructionSchemaData } from "@/schemas/instruction-schemas";
+import { NoteSchemaData } from "@/schemas/note-schemas";
 import { usersTable } from "./users";
 
 export const recipesTable = pgTable("recipes", {
@@ -18,7 +19,7 @@ export const recipesTable = pgTable("recipes", {
   instructions: jsonb("instructions").notNull().$type<InstructionSchemaData[]>(),
   imageUrl: text("image_url"),
   language: text("language").notNull().default('en'),
-  notes: text("notes"),
+  notes: jsonb("notes").$type<NoteSchemaData[]>(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 export type RecipesTable = InferSelectModel<typeof recipesTable>;

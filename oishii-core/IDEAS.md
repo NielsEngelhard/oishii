@@ -1,20 +1,10 @@
 Technical
 - Seed endpoint
-- Admin dashboard met statistics X accounts created en X recipes created en X AI scrape used en X AI photo enhancement used  
 
-
-
-Cool! Now just 2 minor tweaks:
-- I asked you before to make the my profile page less width. The NarrowPage component seems to not work because the whole page is full width of the entire page!
-- AboutMe should not be in the CurrentUser local data. For e.g. the profile page this should be fetched from the server, so create a new back-end endpoint that fetches info for the my profile page. Also statistics about my profile should be displayed here. Come up with some nice statistics! The CurrentUser should not be extended in any way.
-
-
-
+- recept slug zodat de URL leesbaarder wordt
 
 
 MUST
-- Je kan een lijst aan notities toevoegen bij een recept.
-- Profile page testen + smaller maken
 - Op user details page recepten van andere mensen kunnen inzien - miss aparte pagina met recepten van en danL
     - filter voor recepten die ze hebben opgeslagen;F
     - filter voor recepten die ze zelf hebben gemaakt

@@ -37,36 +37,27 @@ export default function ProfilePage() {
     const [passwordError, setPasswordError] = useState<string | null>(null);
 
     const [userDetails, setUserDetails] = useState<IUserDetails | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);    
 
     // Language state
-const [selectedLanguage, setSelectedLanguage] = useState<Locale>(userDetails?.language as Locale || "en");
+    const [selectedLanguage, setSelectedLanguage] = useState<Locale>(userDetails?.language as Locale || "en");
     const [languageLoading, setLanguageLoading] = useState(false);
 
     const fetchUser = useCallback(async () => {
-        setIsLoading(true);
-        setError(null);
+        if (!user) return;
 
         try {
-            const response = await fetch(`/api/users/me`);
+            const response = await fetch(`/api/users/${user?.id}`);
             if (!response.ok) {
-                if (response.status === 404) {
-                    // setError(t("userNotFound"));
-                } else {
-                    setError("Failed to load user");
-                }
                 return;
             }
 
             const data = await response.json();
             setUserDetails(data);
-        } catch {
-            setError("Failed to load user");
-        } finally {
-            setIsLoading(false);
-        }
-    }, [t]);
+            setAboutMe(data.aboutMe || "");
+            setSelectedLanguage(data.language as Locale);
+        } catch {}
+        
+    }, [user]);
 
     useEffect(() => {
         fetchUser();

@@ -1,6 +1,7 @@
 import { RecipeDifficulty } from "@/db/schemas/enum/recipe-difficulty";
 import { ingredientSchemaData } from "@/schemas/ingredient-schemas";
 import { InstructionSchemaData } from "@/schemas/instruction-schemas";
+import { NoteSchemaData } from "@/schemas/note-schemas";
 
 export interface IRecipeTeaser {
     id: string;
@@ -44,7 +45,7 @@ export interface IRecipeDetails {
     ingredients: ingredientSchemaData[];
     instructions: InstructionSchemaData[];
     language: string;
-    notes: string | null;
+    notes: NoteSchemaData[] | null;
     createdAt: Date;
     author: {
         id: number;

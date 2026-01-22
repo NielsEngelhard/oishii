@@ -10,6 +10,7 @@ import SelectInput from "@/components/form/SelectInput";
 import TextArea from "@/components/form/TextArea";
 import IngredientInputList from "@/components/specific/ingredient/IngredientInputList";
 import InstructionInputList from "@/components/specific/instruction/InstructionList";
+import NoteInputList from "@/components/specific/note/NoteInputList";
 import AiImportCard from "@/components/specific/recipe/AiImportCard";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -39,6 +40,7 @@ export default function CreateRecipePage() {
         defaultValues: {
             ingredients: [{ name: "", amount: "", unit: "g", isSpice: false }],
             instructions: [{ text: "", index: 1 }],
+            notes: [],
             difficulty: "medium",
             language: "en",
         }
@@ -208,11 +210,11 @@ export default function CreateRecipePage() {
                         {t("tipsAndNotes")}
                     </h2>
 
-                    <TextArea
-                        label={t("notes")}
-                        placeholder={t("notesPlaceholder")}
-                        error={(errors as FieldErrors<CreateRecipeSchemaData>).notes?.message}
-                        {...register("notes")}
+                    <NoteInputList
+                        register={register as any}
+                        control={control as any}
+                        errors={errors as any}
+                        setValue={setValue as any}
                     />
                 </Card>
 

@@ -1,5 +1,6 @@
 import IngredientListDisplay from "@/components/specific/ingredient/IngredientListDisplay";
 import InstructionListDisplay from "@/components/specific/instruction/InstructionListDisplay";
+import NoteListDisplay from "@/components/specific/note/NoteListDisplay";
 import RecipeLikeButton from "@/components/specific/recipe/RecipeLikeButton";
 import Avatar from "@/components/ui/Avatar";
 import Card from "@/components/ui/Card";
@@ -134,18 +135,12 @@ export default async function RecipeDetailsPage({ params }: Props) {
                     <InstructionListDisplay instructions={recipe.instructions} />
 
                     {/* Notes */}
-                    {recipe.notes && (
+                    {recipe.notes && recipe.notes.length > 0 && (
                         <>
                             <div className="my-4">
                                 <Divider />
                             </div>
-                            <div className="flex flex-col gap-2">
-                                <h2 className="flex items-center gap-2">
-                                    <Lightbulb size={20} />
-                                    {t("tipsAndNotes")}
-                                </h2>
-                                <p className="text-muted whitespace-pre-wrap">{recipe.notes}</p>
-                            </div>
+                            <NoteListDisplay notes={recipe.notes} />
                         </>
                     )}
                 </div>
