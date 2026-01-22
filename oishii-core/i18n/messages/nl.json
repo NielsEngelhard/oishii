@@ -100,7 +100,15 @@
     "likes": "likes",
     "includeLikedRecipes": "Inclusief gelikete recepten",
     "showingOwnAndLiked": "Je recepten en gelikete recepten",
-    "showingOwnOnly": "Alleen je eigen recepten"
+    "showingOwnOnly": "Alleen je eigen recepten",
+    "editRecipe": "Recept Bewerken",
+    "updateYourRecipe": "Werk je receptdetails bij",
+    "saving": "Opslaan...",
+    "saveChanges": "Wijzigingen Opslaan",
+    "createdAt": "Aangemaakt",
+    "updatedAt": "Bijgewerkt",
+    "recipeNotFound": "Recept niet gevonden",
+    "notAuthorized": "Je bent niet gemachtigd om dit recept te bewerken"
   },
   "aiImport": {
     "importWithAi": "Importeren met AI",

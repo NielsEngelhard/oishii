@@ -1,12 +1,9 @@
 Technical
 - Seed endpoint
 
-- recept slug zodat de URL leesbaarder wordt
-
-
 MUST
 -----------------------------------------------------------
-Cool! Now can you also implement the optional option to add a photo for a specific step with a short note on that specific step? Make it very UI friendly! It should:
+Cool! Now can you also implement the optional option to add a photo for a specific step/instruction of a recipe with a short note on that specific step? Make it very UI friendly! It should:
 - Be easy and optional to add in the create recipe form;
 - Be easy to look at in the recipe details. Here it should be extremely UX friendly!
 
@@ -19,33 +16,44 @@ I want to change the recipe id. Currently it is a number, but I want it to be a 
 
 Lets first go into plan mode to discuss the strategy
 -------------------------------------------------------------
+I want to add the functionality for sharing a recipe. In the RecipeCard and the RecipeDetails there should be options to share the recipe. When clicking on the "share recipe button" that you will add accordingly, you will have the options too:
+- Copy the link to the recipe;
+- Share the recipe via whatsapp;
+- Maybe other sharing methods will also become available later but for now only these too. Keep in mind that I want to extend it someday.
 
+I am thinking about some sort of popup/modal with the share options. It should be extremely UI friendly, also on mobile.
 
-I want to add the functionality for sharing a recipe. I also want to change the recipe ID to be a 
+Lets go into plan mode to discuss it first!
+-------------------------------------------------------------
+Currently creating a recipe is possible. This is nice. The option to update a recipe (only available for your own recipes) does not exist yet. This should be implemented too! Keep it the same as the create form, but already prefilled and having thus the option to save the recipe. Also add CreatedAt and UpdatedAt to the UI of the recipe details page.
 
 -------------------------------------------------------------
+The tags should play a big role regarding a recipe. I want the tags to be the main thing people can search/filter on. This should also be multi lingual. I want to support a wide range of official tags, like vegan and bulk and idk pasta, rice, etc. The offical tags all have an emoji in their name. The idea I figured out:
+- Tags should be multilingual. So that people can more easily search/filter on them;
+- Instead of the current Cuisine filter in the my recipes page, this should be filter on tags/items. I dont know a good name for it yet, but the main goal is that tags are the main item to filter on to make it work multi lingual;
+- When you want to add a tag that is not an official tag, this is possible, but that won't be translated and won't support an emoji;
+- For now I want you to have 5 official tags as some sort of proof of concept. In a later update I will extend this with more tags (hundreds probably.)
+- 
+- A disclaimer (small) in the create recipe form that explains why tags are important for e.g. searchability multi language etc.
+
+Lets first go into plan mode to discuss how to implement this, because it will be a big update I think.
+
 -------------------------------------------------------------
+In my previous prompt I asked you to extend the working of tags and. This is nice in how it works! Now I want you to create all official tags for me that are supported in version one of the app. I defined these categories:
+- tags based on main ingredient, like pasta, rice, potato etc;
+- tags like vegan, chicken, beef
+- tags like soup,
+These are just examples. I want you to come up with a big list of tags that makes sense and will cover most cases regarding searchability. 
 -------------------------------------------------------------
+I can navigate to other users their profile. This is nice. Now I can see the profile of my friends for example. Now I want to extend this page with a button to see their recipes. This should look a lot like the my recipes page, but then it is for someone elses recipes. Please implement this for me! Lets first go into plan mode!
 -------------------------------------------------------------
-
-
-
-
-- Op user details page recepten van andere mensen kunnen inzien - miss aparte pagina met recepten van en danL
-    - filter voor recepten die ze hebben opgeslagen;
-    - filter voor recepten die ze zelf hebben gemaakt
-
-- Share functionaliteit
-- Update recipe, kan nu nog niet
 - Import with AI implementeren <-- dit zit wel achter premium functionaliteit dus je moet dan wel een premium account hebben
+DIT MOET IK NOG EVEN GOED ONDERZOEKEN OOK QUA RATE LIMITING EN PLAN ETC.
+-------------------------------------------------------------
 
-- Tags in het algemeen
-- Tags met een emoji zijn supported anders kan het custom zijn. EMOJIS IN TAGS!
-- Tags beter uitleggen. Bijvoorbeeld pasta en kip toevoegen als tags en een uitleg erbij dat dit filteren en vinden van je recepten veel beter maakt. Dit is waarop internationaal gezocht kan worden multi language lmz.
 
-- Optioneel foto toevoegen bij een instruction
-- Veel categorien bedenken, bijv. studenten en bulk <--- officiele tags
-- Meer fotos kunnen toevoegen van het recept uberhaupt, meer prominent aanwezig op de 
+
+
 
 
 SHOULD

@@ -100,7 +100,15 @@
     "likes": "likes",
     "includeLikedRecipes": "Include liked recipes",
     "showingOwnAndLiked": "Showing your recipes and liked recipes",
-    "showingOwnOnly": "Showing only your recipes"
+    "showingOwnOnly": "Showing only your recipes",
+    "editRecipe": "Edit Recipe",
+    "updateYourRecipe": "Update your recipe details",
+    "saving": "Saving...",
+    "saveChanges": "Save Changes",
+    "createdAt": "Created",
+    "updatedAt": "Updated",
+    "recipeNotFound": "Recipe not found",
+    "notAuthorized": "You are not authorized to edit this recipe"
   },
   "aiImport": {
     "importWithAi": "Import with AI",

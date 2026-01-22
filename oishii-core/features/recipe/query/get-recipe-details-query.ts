@@ -51,6 +51,7 @@ export default async function getRecipeDetails(
             language: recipesTable.language,
             notes: recipesTable.notes,
             createdAt: recipesTable.createdAt,
+            updatedAt: recipesTable.updatedAt,
             authorId: usersTable.id,
             authorName: usersTable.name,
             likeCount: sql<number>`COALESCE(${likeCountSubquery.count}, 0)`,
@@ -90,6 +91,7 @@ export default async function getRecipeDetails(
         language: recipe.language,
         notes: recipe.notes,
         createdAt: recipe.createdAt,
+        updatedAt: recipe.updatedAt,
         author: {
             id: recipe.authorId,
             name: recipe.authorName,

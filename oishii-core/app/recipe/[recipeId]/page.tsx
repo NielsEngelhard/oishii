@@ -1,3 +1,4 @@
+import { EDIT_RECIPE_ROUTE } from "@/app/routes";
 import IngredientListDisplay from "@/components/specific/ingredient/IngredientListDisplay";
 import InstructionListDisplay from "@/components/specific/instruction/InstructionListDisplay";
 import NoteListDisplay from "@/components/specific/note/NoteListDisplay";
@@ -10,9 +11,10 @@ import Statistic from "@/components/ui/Statistic";
 import getRecipeDetails from "@/features/recipe/query/get-recipe-details-query";
 import { Locale } from "@/i18n/config";
 import { getCurrentUser } from "@/lib/security/auth/get-current-user";
-import { Clock, Gauge, Users, Wheat } from "lucide-react";
+import { Calendar, Clock, Edit, Gauge, Users, Wheat } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -52,9 +54,17 @@ export default async function RecipeDetailsPage({ params }: Props) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 via-20% to-transparent" />
 
-                {/* Like button in hero */}
+                {/* Action buttons in hero */}
                 {currentUser && (
-                    <div className="absolute top-4 right-4 z-20">
+                    <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+                        {recipe.isOwner && (
+                            <Link
+                                href={EDIT_RECIPE_ROUTE(recipe.id)}
+                                className="p-2 bg-background/80 hover:bg-background rounded-full transition-colors"
+                            >
+                                <Edit size={20} className="text-foreground" />
+                            </Link>
+                        )}
                         <RecipeLikeButton
                             recipeId={recipe.id}
                             initialIsLiked={recipe.isLiked}
@@ -145,6 +155,23 @@ export default async function RecipeDetailsPage({ params }: Props) {
                             <NoteListDisplay notes={recipe.notes} />
                         </>
                     )}
+
+                    {/* Timestamps */}
+                    <div className="my-4">
+                        <Divider />
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-4 text-xs text-muted">
+                        <div className="flex items-center gap-1.5">
+                            <Calendar size={14} />
+                            <span>{t("createdAt")}: {new Date(recipe.createdAt).toLocaleDateString()}</span>
+                        </div>
+                        {recipe.updatedAt && recipe.updatedAt > recipe.createdAt && (
+                            <div className="flex items-center gap-1.5">
+                                <Edit size={14} />
+                                <span>{t("updatedAt")}: {new Date(recipe.updatedAt).toLocaleDateString()}</span>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </Card>
             </div>

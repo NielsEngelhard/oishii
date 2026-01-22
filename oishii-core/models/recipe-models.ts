@@ -47,6 +47,7 @@ export interface IRecipeDetails {
     language: string;
     notes: NoteSchemaData[] | null;
     createdAt: Date;
+    updatedAt: Date;
     author: {
         id: number;
         name: string;
