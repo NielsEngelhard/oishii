@@ -1,9 +1,9 @@
 "use client"
 
-import { BookCheck, BookOpen, ChevronDown, Handshake, LogIn, Plus, Search, User, X } from "lucide-react";
+import { BookCheck, BookOpen, ChevronDown, Handshake, Home, LogIn, Plus, Search, Users, X } from "lucide-react";
 import Button from "../Button";
 import Link from "next/link";
-import { CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FRIENDS_ROUTE, HOME_LANDING_PAGE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
+import { ABOUT_ROUTE, CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FRIENDS_ROUTE, HOME_LANDING_PAGE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
 import Logo from "./logo";
 import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
@@ -18,6 +18,10 @@ export default function Header() {
     const t = useTranslations("header");
     const tAuth = useTranslations("auth");
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);    
+
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
 
     // Close menu on route change or escape key
     useEffect(() => {
@@ -40,11 +44,21 @@ export default function Header() {
 
     const closeMenu = () => setMobileMenuOpen(false);
 
-    const navLinks = [
+    // When not logged in
+    const unAuthorizedNavLinks = [
+        { href: HOME_LANDING_PAGE_ROUTE, label: t("home"), Icon: Home },
+        { href: EXPLORE_ROUTE, label: t("explore"), Icon: Search },
+        { href: ABOUT_ROUTE, label: t("about"), Icon: Users },
+    ]
+
+    // When logged in
+    const authorizedNavLinks = [
         { href: MY_RECIPES_ROUTE, label: t("myRecipes"), Icon: BookOpen },
         { href: EXPLORE_ROUTE, label: t("explore"), Icon: Search },
         { href: FRIENDS_ROUTE, label: t("friends"), Icon: Handshake },
-    ];
+    ]
+
+    const navLinks = user ? authorizedNavLinks : unAuthorizedNavLinks;
 
     const onLogoClick = () => {
         if (!user) {

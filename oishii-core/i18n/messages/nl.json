@@ -39,7 +39,9 @@
     "explore": "Ontdekken",
     "friends": "Vrienden",
     "groups": "Groepen",
-    "createRecipe": "Recept maken"
+    "createRecipe": "Recept maken",
+    "home": "Start",
+    "about": "Over"
   },
   "recipe": {
     "createRecipe": "Recept Maken",

@@ -1,4 +1,5 @@
 export const HOME_LANDING_PAGE_ROUTE: string = "/";
+export const ABOUT_ROUTE: string = "/about";
 
 export const LOGIN_ROUTE: string = "/login";
 export const SIGNUP_ROUTE: string = "/login?sign-up";

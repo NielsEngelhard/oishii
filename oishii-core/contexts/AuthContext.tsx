@@ -28,10 +28,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Fetch current user from your API on mount
     async function loadUser() {
       try {
-        const res = await fetch("/api/users/me");
+        const res = await fetch("/api/user/me");
+
         if (res.ok) {
           const data = await res.json();
-          setUser(data.user);
+          setUser(data);
 
           // Sync user's language to cookie if it differs
           if (data.user?.language && isValidLocale(data.user.language)) {

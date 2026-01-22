@@ -39,7 +39,9 @@
     "explore": "Explore",
     "friends": "Friends",
     "groups": "Groups",
-    "createRecipe": "Create recipe"
+    "createRecipe": "Create recipe",
+    "home": "Home",
+    "about": "About"
   },
   "recipe": {
     "createRecipe": "Create Recipe",
