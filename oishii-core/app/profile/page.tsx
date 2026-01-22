@@ -309,7 +309,7 @@ const [selectedLanguage, setSelectedLanguage] = useState<Locale>(userDetails?.la
                 <Card>
                     <div className="flex items-center gap-2 mb-2">
                         <LogOut size={18} className="text-error" />
-                        <h2 className="text-lg font-semibold">{t("dangerZone")}</h2>
+                        <h2 className="text-lg font-semibold">{t("logout")}</h2>
                     </div>
                     <p className="text-sm text-muted mb-4">{t("signOutDescription")}</p>
 

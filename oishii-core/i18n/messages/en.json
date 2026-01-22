@@ -115,7 +115,7 @@
     "confirmPassword": "Confirm New Password",
     "languageSettings": "Language",
     "languageDescription": "Choose your preferred language for the application. This affects all text and labels throughout the app.",
-    "dangerZone": "Danger Zone",
+    "logout": "Logout",
     "signOutDescription": "Sign out of your account on this device.",
     "update": "Update",
     "updating": "Updating...",

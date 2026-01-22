@@ -115,7 +115,7 @@
     "confirmPassword": "Bevestig Nieuw Wachtwoord",
     "languageSettings": "Taal",
     "languageDescription": "Kies je voorkeurstaal voor de applicatie. Dit heeft invloed op alle tekst en labels in de app.",
-    "dangerZone": "Gevarenzone",
+    "logout": "Uitloggen",
     "signOutDescription": "Log uit van je account op dit apparaat.",
     "update": "Bijwerken",
     "updating": "Bijwerken...",

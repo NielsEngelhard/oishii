@@ -13,6 +13,7 @@
   
   --container-*: initial;
   --container-sm: 700px;
+  --container-md: 900px;
   --container-lg: 1200px;
 }
 
