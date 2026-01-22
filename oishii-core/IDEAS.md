@@ -1,13 +1,9 @@
 Technical
-- Seed endpoint
+- Seed endpoint (voor lokaal development)
 
-MUST
+V1
 -----------------------------------------------------------
-Cool! Now can you also implement the optional option to add a photo for a specific step/instruction of a recipe with a short note on that specific step? Make it very UI friendly! It should:
-- Be easy and optional to add in the create recipe form;
-- Be easy to look at in the recipe details. Here it should be extremely UX friendly!
 
-Lets go into plan mode first to discuss the strategy to take!
 -------------------------------------------------------------
 I want to change the recipe id. Currently it is a number, but I want it to be a string. It should be the name of the recipe in kebab case. So Lekkere Pasta should become lekkere-pasta. If that already exists it should start nummering it like "lekkere-pasta-2" and then "lekkere-pasta-3". My plan is too:
 - Keep the current number as id just to be sure;
@@ -51,20 +47,22 @@ I can navigate to other users their profile. This is nice. Now I can see the pro
 DIT MOET IK NOG EVEN GOED ONDERZOEKEN OOK QUA RATE LIMITING EN PLAN ETC.
 -------------------------------------------------------------
 
-
-
-
-
-
-SHOULD
-- Plak gwn een text en dan zet AI het automatisch om naar dit formaat in Create User
-    - Knop IMPORT RECIPE met options voor AI of scrape oid idk
-- Andere mensen kunnen fotos toevoegen van de keer dat ze het hebben gekookt en de meest recente zijn dan ook te zien bij de details
-- Je eigen plaatje/foto kunnen optimaliseren d.m.v. AI zodat het minder grauw is lmz <-- dit zit wel achter premium functionaliteit
-- AI vertaal knop voor recepten
-- Aantal personen aanpassen in de recipe details en dat alles mee aanpast qua waardes
 - Converten tussen units bijv amerikaans en europees wtf is een tablespoon
-- Ipv huidige stappen gwn een blob met stappen JSON?!
+- Aantal personen aanpassen in de recipe details en dat alles mee aanpast qua waardes
+
+- main image more visible
+
+V1.5
+DE AI UPDATE
+- Miss zelf je eigen chatgpt model kunnen linken. Dan heb ik minder load. Als free user kan je dat. Premium user mag mijn AI gebruiken.
+- AI vertaal knop voor recepten
+- Je eigen plaatje/foto kunnen optimaliseren d.m.v. AI zodat het minder grauw is lmz <-- dit zit wel achter premium functionaliteit
+- Knop IMPORT RECIPE met options voor AI of scrape oid idk
+- Plak gwn een text en dan zet AI het automatisch om naar dit formaat in Create User
+
+
+V2
+- Andere mensen kunnen fotos toevoegen van de keer dat ze het hebben gekookt en de meest recente zijn dan ook te zien bij de details
 - Sociaal aspect. Je kan een kookgroep aanmaken met je vrienden en daarin zie je iedere keer dat iemand iets kookt. Je volgt elkaar dan een soortvan. Je kan dan een post maken met een title, description en foto en een optioneel een "review" over hoe het was enzo. Zo kan je elkaar ook nieuwe recepten aanbevelen.
 - RANKEN: Op je persoonlijke pagina kun je al jouw recepten ranken. Misschien moet je alles cool kunnen drag-drop ranken. Een tier list bijhouden met je recepten. Zo'n coole S A B etc. zodat je makkelijk op je profiel kan zien hoe en wat. RANKEN kan wel leuk worden!
 - Plaatjes bij een ingredient, bijvoorbeeld voor een speciale saus dat je er een plaatje bij kan doen - uiteindelijk ingredienten delen dmv een zoekfunctie zodat plaatjes ook gedeeld kunnen worden.
@@ -77,20 +75,15 @@ SHOULD
 
             Lets go first into plan mode to resolve any questions.
 
-COULD
+V3
 - Save functionaliteit met een soort mappenstructuur dat je zelf een mapje met recepten kan maken en delen, net als een spotify playlist lmz. Dan kan je bijv zeggen. 10 Zomerse pastas in een groep. Dit noem je een "Collection".
 - recepten kunnen iconisch status krijgen in een bepaalde categorie (voor de gein)
 
 
+Can you implement the home page. This is the / route. Currently it is not implemented yet. It should consist of the following blocks (in column order):
+- A nice hero/intro page stating that this is a nice humble cooking app to make your life easier and you can easily share with your friends;
+- A block stating that there is AI implemented to make life easier. The AI is actually very handy to e.g. convert a recipe from a web url to the website or convert just any kind of text to a recipe in the format of this app. This will save you a lot of effort by easily mapping the recipe to this website where you can start. You can also enhance your images of the recipe with AI, because normally the lighting etc. is not spot on when you cooked something and it might look a bit underwhelming, the AI can fix the image for you!
+- A block with USP's that are 1. the app is multi language 2) all your own recipes in one place and available for other people to get inspired 3: you can easily filter and search for recipes 4: you can make a ranking of your recipes, which is fun
+- A about page stating that the app is not finished yet and is still in development 
 
-
-USP
-- Multi language
-- Crete cook groups
-- All your recipes in one place
-- Easy filters. See your own, see your like
-- Rank your recipes and share them with your friends. Show them!
-
-
-Voor op de home page
-- Uiteindelijk is het de bedoeling dat je een eigen kookboek kan printen op basis van de recepten die jij wilt. Zo heb je iets leuks en fysieks. "Cooking is a hobby and something physical to display is nice to have"
+It should match the vibe of the app and look clean. Also it should have subtle animations and design choices, like the subtle animation in the Logo of the header. I really like that! Also it should make use of the i18n labels.

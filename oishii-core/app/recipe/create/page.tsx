@@ -196,6 +196,7 @@ export default function CreateRecipePage() {
                         register={register as any}
                         control={control as any}
                         errors={errors as any}
+                        setValue={setValue as any}
                     />
                 </Card>
 

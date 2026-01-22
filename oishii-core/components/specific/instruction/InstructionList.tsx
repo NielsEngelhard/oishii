@@ -2,13 +2,16 @@
 
 import Button from "@/components/ui/Button";
 import { Plus } from "lucide-react";
-import { Control, FieldErrors, useFieldArray, UseFormRegister } from "react-hook-form";
+import { useTranslations } from "next-intl";
+import { Control, FieldErrors, useFieldArray, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import InstructionInputRow from "./InstructionInputRow";
 
 interface FormWithInstructions {
     instructions: {
         index: number;
         text: string;
+        imageUrl?: string;
+        note?: string;
     }[];
 }
 
@@ -16,9 +19,11 @@ interface Props {
     register: UseFormRegister<FormWithInstructions>;
     control: Control<FormWithInstructions>;
     errors?: FieldErrors<FormWithInstructions>;
+    setValue: UseFormSetValue<FormWithInstructions>;
 }
 
-export default function InstructionInputList({ register, control, errors }: Props) {
+export default function InstructionInputList({ register, control, errors, setValue }: Props) {
+    const t = useTranslations("recipe");
     const { fields, append, remove } = useFieldArray({
         control,
         name: "instructions",
@@ -26,6 +31,10 @@ export default function InstructionInputList({ register, control, errors }: Prop
 
     const handleAddInstruction = () => {
         append({ text: "", index: fields.length + 1 });
+    };
+
+    const handleImageChange = (index: number, url: string | undefined) => {
+        setValue(`instructions.${index}.imageUrl`, url);
     };
 
     return (
@@ -39,6 +48,7 @@ export default function InstructionInputList({ register, control, errors }: Prop
                         control={control}
                         errors={errors}
                         onDelete={() => remove(index)}
+                        onImageChange={handleImageChange}
                     />
                 ))}
             </div>
@@ -48,7 +58,7 @@ export default function InstructionInputList({ register, control, errors }: Prop
                 <Button
                     variant="skeleton"
                     Icon={Plus}
-                    text="Add Instruction"
+                    text={t("addInstruction")}
                     size="sm"
                     onClick={handleAddInstruction}
                     type="button"
