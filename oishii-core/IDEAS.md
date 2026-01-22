@@ -13,9 +13,10 @@ Cool! Now just 2 minor tweaks:
 
 
 MUST
+- Je kan een lijst aan notities toevoegen bij een recept.
 - Profile page testen + smaller maken
 - Op user details page recepten van andere mensen kunnen inzien - miss aparte pagina met recepten van en danL
-    - filter voor recepten die ze hebben opgeslagen;
+    - filter voor recepten die ze hebben opgeslagen;F
     - filter voor recepten die ze zelf hebben gemaakt
 
 - Share functionaliteit
@@ -32,6 +33,8 @@ MUST
 
 
 SHOULD
+- Plak gwn een text en dan zet AI het automatisch om naar dit formaat in Create User
+    - Knop IMPORT RECIPE met options voor AI of scrape oid idk
 - Andere mensen kunnen fotos toevoegen van de keer dat ze het hebben gekookt en de meest recente zijn dan ook te zien bij de details
 - Flags in the language selects
 - Je eigen plaatje/foto kunnen optimaliseren d.m.v. AI zodat het minder grauw is lmz <-- dit zit wel achter premium functionaliteit

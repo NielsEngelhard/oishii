@@ -14,4 +14,5 @@ export interface IUserDetails {
     createdAt: Date;
     isFriend: boolean;
     isCurrentUser: boolean;
+    language: string;
 }

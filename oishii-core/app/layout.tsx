@@ -3,7 +3,7 @@ import { Nunito, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/ui/layout/Header";
 import localFont from "next/font/local";
-import { AuthProvider } from "@/contexts/AuthContex";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "@/i18n/types";

@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Fetch current user from your API on mount
     async function loadUser() {
       try {
-        const res = await fetch("/api/user/me");
+        const res = await fetch("/api/users/me");
         if (res.ok) {
           const data = await res.json();
           setUser(data.user);

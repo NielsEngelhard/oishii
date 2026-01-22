@@ -14,7 +14,7 @@ import AiImportCard from "@/components/specific/recipe/AiImportCard";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import PageHeader from "@/components/ui/layout/PageHeader";
-import { useAuth } from "@/contexts/AuthContex";
+import { useAuth } from "@/contexts/AuthContext";
 import { locales } from "@/i18n/config";
 import { createRecipeSchema, CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";

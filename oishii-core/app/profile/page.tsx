@@ -7,22 +7,23 @@ import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import NarrowPageWrapper from "@/components/ui/layout/NarrowPageWrapper";
-import { useAuth } from "@/contexts/AuthContex";
+import { useAuth } from "@/contexts/AuthContext";
 import { locales, Locale } from "@/i18n/config";
+import { IUserDetails } from "@/models/user-models";
 import { Check, Globe, Key, LogOut, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function ProfilePage() {
-    const { user, clearUser, updateLanguage, setUser } = useAuth();
+    const { updateLanguage, setUser, clearUser, user } = useAuth();
     const router = useRouter();
     const t = useTranslations("profile");
     const tAuth = useTranslations("auth");
     const tLanguages = useTranslations("languages");
 
     // About Me state
-    const [aboutMe, setAboutMe] = useState(user?.aboutMe || ""); // TODO RETRIEVE FROM BACK_END
+    const [aboutMe, setAboutMe] = useState("");
     const [aboutMeLoading, setAboutMeLoading] = useState(false);
     const [aboutMeSuccess, setAboutMeSuccess] = useState(false);
     const [aboutMeError, setAboutMeError] = useState<string | null>(null);
@@ -35,9 +36,41 @@ export default function ProfilePage() {
     const [passwordSuccess, setPasswordSuccess] = useState(false);
     const [passwordError, setPasswordError] = useState<string | null>(null);
 
+    const [userDetails, setUserDetails] = useState<IUserDetails | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);    
+
     // Language state
-    const [selectedLanguage, setSelectedLanguage] = useState<Locale>(user?.language as Locale || "en");
+const [selectedLanguage, setSelectedLanguage] = useState<Locale>(userDetails?.language as Locale || "en");
     const [languageLoading, setLanguageLoading] = useState(false);
+
+    const fetchUser = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            const response = await fetch(`/api/users/me`);
+            if (!response.ok) {
+                if (response.status === 404) {
+                    // setError(t("userNotFound"));
+                } else {
+                    setError("Failed to load user");
+                }
+                return;
+            }
+
+            const data = await response.json();
+            setUserDetails(data);
+        } catch {
+            setError("Failed to load user");
+        } finally {
+            setIsLoading(false);
+        }
+    }, [t]);
+
+    useEffect(() => {
+        fetchUser();
+    }, [fetchUser]);
 
     const handleLogout = async () => {
         await fetch("/api/auth/logout", { method: "POST" });

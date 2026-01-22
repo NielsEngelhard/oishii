@@ -5,7 +5,7 @@ import Button from "../Button";
 import Link from "next/link";
 import { CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FRIENDS_ROUTE, HOME_LANDING_PAGE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
 import Logo from "./logo";
-import { useAuth } from "@/contexts/AuthContex";
+import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
