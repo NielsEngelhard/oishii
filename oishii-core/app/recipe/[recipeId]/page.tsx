@@ -8,7 +8,7 @@ import Divider from "@/components/ui/Divider";
 import Statistic from "@/components/ui/Statistic";
 import getRecipeDetails from "@/features/recipe/query/get-recipe-details-query";
 import { getCurrentUser } from "@/lib/security/auth/get-current-user";
-import { Clock, Gauge, Languages, Lightbulb, Users, Wheat } from "lucide-react";
+import { Clock, Gauge, Languages, Users, Wheat } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
