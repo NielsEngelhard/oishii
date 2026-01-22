@@ -32,6 +32,7 @@ export default async function searchUsers({
             id: usersTable.id,
             name: usersTable.name,
             aboutMe: usersTable.aboutMe,
+            language: usersTable.language,
             totalRecipes: sql<number>`count(${recipesTable.id})::int`,
         })
         .from(usersTable)
@@ -39,7 +40,7 @@ export default async function searchUsers({
         .where(
             ne(usersTable.id, userId)
         )
-        .groupBy(usersTable.id, usersTable.name, usersTable.aboutMe)
+        .groupBy(usersTable.id, usersTable.name, usersTable.aboutMe, usersTable.language)
         .having(ilike(usersTable.name, `%${search}%`))
         .limit(limit);
 

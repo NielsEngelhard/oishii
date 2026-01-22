@@ -7,6 +7,7 @@ import InputGroup from "@/components/form/InputGroup";
 import NumberInput from "@/components/form/NumberInput";
 import SelectButtonInput from "@/components/form/SelectButtonInput";
 import SelectInput from "@/components/form/SelectInput";
+import LanguageSelectInput from "@/components/form/LanguageSelectInput";
 import TextArea from "@/components/form/TextArea";
 import IngredientInputList from "@/components/specific/ingredient/IngredientInputList";
 import InstructionInputList from "@/components/specific/instruction/InstructionList";
@@ -19,7 +20,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { locales } from "@/i18n/config";
 import { createRecipeSchema, CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BookText, Clock, CookingPot, Gauge, Languages, List, Lightbulb, Users } from "lucide-react";
+import { BookText, Clock, CookingPot, Gauge, List, Lightbulb, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -30,7 +31,6 @@ export default function CreateRecipePage() {
     const { user } = useAuth();
     const t = useTranslations("recipe");
     const tCommon = useTranslations("common");
-    const tLanguages = useTranslations("languages");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [apiError, setApiError] = useState<string | null>(null);
 
@@ -164,15 +164,10 @@ export default function CreateRecipePage() {
                             error={(errors as FieldErrors<CreateRecipeSchemaData>).difficulty?.message}
                         />
 
-                        <SelectInput
+                        <LanguageSelectInput
                             label={t("originalLanguage")}
-                            Icon={Languages}
                             value={watch("language")}
-                            onChange={(value) => setValue("language", value as typeof locales[number])}
-                            options={locales.map(locale => ({
-                                label: tLanguages(locale),
-                                value: locale
-                            }))}
+                            onChange={(value) => setValue("language", value)}
                             error={(errors as FieldErrors<CreateRecipeSchemaData>).language?.message}
                         />
                     </InputGroup>

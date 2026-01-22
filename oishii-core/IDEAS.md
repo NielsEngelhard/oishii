@@ -5,8 +5,34 @@ Technical
 
 
 MUST
+-----------------------------------------------------------
+Cool! Now can you also implement the optional option to add a photo for a specific step with a short note on that specific step? Make it very UI friendly! It should:
+- Be easy and optional to add in the create recipe form;
+- Be easy to look at in the recipe details. Here it should be extremely UX friendly!
+
+Lets go into plan mode first to discuss the strategy to take!
+-------------------------------------------------------------
+I want to change the recipe id. Currently it is a number, but I want it to be a string. It should be the name of the recipe in kebab case. So Lekkere Pasta should become lekkere-pasta. If that already exists it should start nummering it like "lekkere-pasta-2" and then "lekkere-pasta-3". My plan is too:
+- Keep the current number as id just to be sure;
+- Add a new unique field called slug that represents the earlier mentioned logic;
+- Searching a recipe (http endpoint) is now done via this slug and not via the id;
+
+Lets first go into plan mode to discuss the strategy
+-------------------------------------------------------------
+
+
+I want to add the functionality for sharing a recipe. I also want to change the recipe ID to be a 
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+
+
+
 - Op user details page recepten van andere mensen kunnen inzien - miss aparte pagina met recepten van en danL
-    - filter voor recepten die ze hebben opgeslagen;F
+    - filter voor recepten die ze hebben opgeslagen;
     - filter voor recepten die ze zelf hebben gemaakt
 
 - Share functionaliteit
@@ -26,7 +52,6 @@ SHOULD
 - Plak gwn een text en dan zet AI het automatisch om naar dit formaat in Create User
     - Knop IMPORT RECIPE met options voor AI of scrape oid idk
 - Andere mensen kunnen fotos toevoegen van de keer dat ze het hebben gekookt en de meest recente zijn dan ook te zien bij de details
-- Flags in the language selects
 - Je eigen plaatje/foto kunnen optimaliseren d.m.v. AI zodat het minder grauw is lmz <-- dit zit wel achter premium functionaliteit
 - AI vertaal knop voor recepten
 - Aantal personen aanpassen in de recipe details en dat alles mee aanpast qua waardes

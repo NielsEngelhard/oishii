@@ -3,6 +3,7 @@ export interface IUserTeaser {
     name: string;
     aboutMe: string | null;
     totalRecipes: number;
+    language: string;
 }
 
 export interface IUserDetails {

@@ -1,5 +1,6 @@
 "use client"
 
+import LanguageFlag from "@/components/ui/LanguageFlag";
 import { locales, type Locale } from "@/i18n/config";
 import { useTranslations } from "next-intl";
 import { Globe } from "lucide-react";
@@ -27,12 +28,13 @@ export default function LanguageSelect({ value, onChange, showLabel = true }: Pr
             key={locale}
             type="button"
             onClick={() => onChange(locale)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
               value === locale
                 ? "bg-primary text-white"
                 : "bg-secondary hover:bg-secondary/80 text-foreground"
             }`}
           >
+            <LanguageFlag locale={locale} size="sm" />
             {t(locale)}
           </button>
         ))}

@@ -5,10 +5,12 @@ import RecipeLikeButton from "@/components/specific/recipe/RecipeLikeButton";
 import Avatar from "@/components/ui/Avatar";
 import Card from "@/components/ui/Card";
 import Divider from "@/components/ui/Divider";
+import LanguageFlag from "@/components/ui/LanguageFlag";
 import Statistic from "@/components/ui/Statistic";
 import getRecipeDetails from "@/features/recipe/query/get-recipe-details-query";
+import { Locale } from "@/i18n/config";
 import { getCurrentUser } from "@/lib/security/auth/get-current-user";
-import { Clock, Gauge, Languages, Users, Wheat } from "lucide-react";
+import { Clock, Gauge, Users, Wheat } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -118,8 +120,8 @@ export default async function RecipeDetailsPage({ params }: Props) {
                         </div>
 
                         {/* Language */}
-                        <div className="flex items-center gap-1 text-muted">
-                            <Languages size={16} />
+                        <div className="flex items-center gap-2 text-muted">
+                            <LanguageFlag locale={recipe.language as Locale} size="md" />
                             <span className="text-sm">{tLanguages(recipe.language as "en" | "nl")}</span>
                         </div>
                     </div>

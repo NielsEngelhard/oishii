@@ -4,6 +4,8 @@ import { USER_PROFILE_ROUTE } from "@/app/routes";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import LanguageFlag from "@/components/ui/LanguageFlag";
+import { Locale } from "@/i18n/config";
 import { IUserTeaser } from "@/models/user-models";
 import { Plus, UserMinus, Loader2 } from "lucide-react";
 import Link from "next/link";
@@ -71,7 +73,10 @@ export default function UserListCard({ user, isFriend, onFriendStatusChange }: P
                     />
 
                     <div className="flex flex-col">
-                        <span className="font-semibold">{user.name}</span>
+                        <div className="flex items-center gap-1.5">
+                            <span className="font-semibold">{user.name}</span>
+                            <LanguageFlag locale={user.language as Locale} size="sm" />
+                        </div>
                         {user.aboutMe && (
                             <span className="text-muted line-clamp-1">{user.aboutMe}</span>
                         )}

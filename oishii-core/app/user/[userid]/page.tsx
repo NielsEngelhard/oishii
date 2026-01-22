@@ -4,9 +4,11 @@ import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Divider from "@/components/ui/Divider";
+import LanguageFlag from "@/components/ui/LanguageFlag";
 import NarrowPageWrapper from "@/components/ui/layout/NarrowPageWrapper";
+import { Locale } from "@/i18n/config";
 import { IUserDetails } from "@/models/user-models";
-import { Calendar, ChefHat, Loader2, UserMinus, UserPlus, Users } from "lucide-react";
+import { Calendar, ChefHat, Globe, Loader2, UserMinus, UserPlus, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -15,6 +17,7 @@ export default function UserProfilePage() {
     const params = useParams();
     const userId = params.userid as string;
     const t = useTranslations("userProfile");
+    const tLanguages = useTranslations("languages");
 
     const [user, setUser] = useState<IUserDetails | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -168,7 +171,7 @@ export default function UserProfilePage() {
                 <Divider />
 
                 {/* Stats Section */}
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div className="flex flex-col items-center p-4 bg-background-secondary rounded-xl">
                         <ChefHat className="w-5 h-5 text-primary mb-1" />
                         <span className="text-2xl font-bold">{user.totalRecipes}</span>
@@ -185,6 +188,15 @@ export default function UserProfilePage() {
                         <Calendar className="w-5 h-5 text-accent mb-1" />
                         <span className="text-sm font-bold">{formatDate(user.createdAt)}</span>
                         <span className="text-xs text-muted">{t("joined")}</span>
+                    </div>
+
+                    <div className="flex flex-col items-center p-4 bg-background-secondary rounded-xl">
+                        <Globe className="w-5 h-5 text-muted mb-1" />
+                        <div className="flex items-center gap-1.5">
+                            <LanguageFlag locale={user.language as Locale} size="md" />
+                            <span className="text-sm font-bold">{tLanguages(user.language as "en" | "nl")}</span>
+                        </div>
+                        <span className="text-xs text-muted">{t("language")}</span>
                     </div>
                 </div>
             </Card>

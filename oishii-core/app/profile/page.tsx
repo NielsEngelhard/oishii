@@ -1,14 +1,14 @@
 "use client"
 
 import Input from "@/components/form/Input";
-import SelectInput from "@/components/form/SelectInput";
+import LanguageSelectInput from "@/components/form/LanguageSelectInput";
 import TextArea from "@/components/form/TextArea";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import NarrowPageWrapper from "@/components/ui/layout/NarrowPageWrapper";
 import { useAuth } from "@/contexts/AuthContext";
-import { locales, Locale } from "@/i18n/config";
+import { Locale } from "@/i18n/config";
 import { IUserDetails } from "@/models/user-models";
 import { Check, Globe, Key, LogOut, User } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -20,7 +20,6 @@ export default function ProfilePage() {
     const router = useRouter();
     const t = useTranslations("profile");
     const tAuth = useTranslations("auth");
-    const tLanguages = useTranslations("languages");
 
     // About Me state
     const [aboutMe, setAboutMe] = useState("");
@@ -276,13 +275,9 @@ export default function ProfilePage() {
                     <p className="text-sm text-muted mb-4">{t("languageDescription")}</p>
 
                     <div className="space-y-4">
-                        <SelectInput
+                        <LanguageSelectInput
                             value={selectedLanguage}
-                            onChange={(value) => setSelectedLanguage(value as Locale)}
-                            options={locales.map(locale => ({
-                                label: tLanguages(locale),
-                                value: locale,
-                            }))}
+                            onChange={(value) => setSelectedLanguage(value)}
                         />
 
                         <div className="flex justify-end">

@@ -3,7 +3,12 @@
     "allow": [
       "Bash(pnpm lint)",
       "Bash(pnpm db:generate)",
-      "Bash(pnpm build)"
+      "Bash(pnpm build)",
+      "Bash(pnpm add country-flag-icons)",
+      "Bash(pnpm install)",
+      "Bash(set CI=true)",
+      "Bash($env:CI=\"true\")",
+      "Bash(CI=true pnpm install)"
     ]
   }
 }
