@@ -6,6 +6,7 @@ import RecipesFilter, { RecipeFilterValues } from "@/components/specific/recipe/
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import PageHeader from "@/components/ui/layout/PageHeader";
+import { buildUserRecipesUrl } from "@/lib/util/recipe-query-params";
 import { IUserDetails } from "@/models/user-models";
 import { IPaginatedResponse, IRecipeTeaser } from "@/models/recipe-models";
 import { ArrowLeft, Loader2 } from "lucide-react";
@@ -68,23 +69,14 @@ export default function UserRecipesPage() {
     const fetchRecipes = useCallback(async (pageNum: number, currentFilters: RecipeFilterValues, includeL: boolean) => {
         setIsLoading(true);
         try {
-            const params = new URLSearchParams({
-                page: String(pageNum),
-                pageSize: String(PAGE_SIZE),
-                includeLiked: String(includeL),
+            const url = buildUserRecipesUrl(userId, {
+                page: pageNum,
+                pageSize: PAGE_SIZE,
+                includeLiked: includeL,
+                filters: currentFilters,
             });
 
-            if (currentFilters.search) {
-                params.set("search", currentFilters.search);
-            }
-            if (currentFilters.difficulty) {
-                params.set("difficulty", currentFilters.difficulty);
-            }
-            if (currentFilters.totalTime) {
-                params.set("totalTime", currentFilters.totalTime);
-            }
-
-            const response = await fetch(`/api/users/${userId}/recipes?${params.toString()}`);
+            const response = await fetch(url);
             if (!response.ok) {
                 throw new Error("Failed to fetch recipes");
             }
@@ -112,7 +104,13 @@ export default function UserRecipesPage() {
     useEffect(() => {
         const fetchTotalCount = async () => {
             try {
-                const response = await fetch(`/api/users/${userId}/recipes?page=1&pageSize=1&includeLiked=false`);
+                const url = buildUserRecipesUrl(userId, {
+                    page: 1,
+                    pageSize: 1,
+                    includeLiked: false,
+                    filters: { search: "", cuisine: "", difficulty: "", totalTime: "" },
+                });
+                const response = await fetch(url);
                 if (response.ok) {
                     const data: IPaginatedResponse<IRecipeTeaser> = await response.json();
                     setTotalItems(data.pagination.totalItems);

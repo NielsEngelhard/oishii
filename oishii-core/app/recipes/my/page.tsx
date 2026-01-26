@@ -6,6 +6,7 @@ import RecipesFilter, { RecipeFilterValues } from "@/components/specific/recipe/
 import Button from "@/components/ui/Button";
 import PageHeader from "@/components/ui/layout/PageHeader";
 import { useAuth } from "@/contexts/AuthContext";
+import { buildUserRecipesUrl } from "@/lib/util/recipe-query-params";
 import { IPaginatedResponse, IRecipeTeaser } from "@/models/recipe-models";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -39,24 +40,14 @@ export default function MyRecipesPage() {
     const fetchRecipes = useCallback(async (pageNum: number, currentFilters: RecipeFilterValues, includeL: boolean) => {
         setIsLoading(true);
         try {
-            const params = new URLSearchParams({
-                page: String(pageNum),
-                pageSize: String(PAGE_SIZE),
-                includeLiked: String(includeL),
+            const url = buildUserRecipesUrl(user!.id, {
+                page: pageNum,
+                pageSize: PAGE_SIZE,
+                includeLiked: includeL,
+                filters: currentFilters,
             });
 
-            if (currentFilters.search) {
-                params.set("search", currentFilters.search);
-            }
-            if (currentFilters.difficulty) {
-                params.set("difficulty", currentFilters.difficulty);
-            }
-            if (currentFilters.totalTime) {
-                params.set("totalTime", currentFilters.totalTime);
-            }
-            // Note: cuisine filter is mocked for now, not sent to backend
-
-            const response = await fetch(`/api/users/${user!.id}/recipes?${params.toString()}`);
+            const response = await fetch(url);
             if (!response.ok) {
                 throw new Error("Failed to fetch recipes");
             }
@@ -78,9 +69,16 @@ export default function MyRecipesPage() {
 
     // Fetch total items count once on mount (without filters)
     useEffect(() => {
+        if (!user) return;
         const fetchTotalCount = async () => {
             try {
-                const response = await fetch(`/api/recipes/my?page=1&pageSize=1&includeLiked=true`);
+                const url = buildUserRecipesUrl(user.id, {
+                    page: 1,
+                    pageSize: 1,
+                    includeLiked: true,
+                    filters: { search: "", cuisine: "", difficulty: "", totalTime: "" },
+                });
+                const response = await fetch(url);
                 if (response.ok) {
                     const data: IPaginatedResponse<IRecipeTeaser> = await response.json();
                     setTotalItems(data.pagination.totalItems);
@@ -91,7 +89,7 @@ export default function MyRecipesPage() {
             }
         };
         fetchTotalCount();
-    }, []);
+    }, [user]);
 
     // Fetch recipes when page or filters change (except search which is debounced)
     useEffect(() => {
