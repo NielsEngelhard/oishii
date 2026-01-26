@@ -19,7 +19,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface Props {
-    params: Promise<{ recipeId: string }>;
+    params: Promise<{ slug: string }>;
 }
 
 function capitalizeFirst(str: string): string {
@@ -27,11 +27,11 @@ function capitalizeFirst(str: string): string {
 }
 
 export default async function RecipeDetailsPage({ params }: Props) {
-    const { recipeId } = await params;
+    const { slug } = await params;
     const currentUser = await getCurrentUser();
 
     const recipe = await getRecipeDetails({
-        recipeId,
+        slug,
         currentUserId: currentUser?.id,
     });
     const t = await getTranslations("recipe");
@@ -57,19 +57,19 @@ export default async function RecipeDetailsPage({ params }: Props) {
 
                 {/* Action buttons in hero */}
                 <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-                    <ShareButton recipeId={recipe.id} recipeTitle={recipe.title} variant="detail" />
+                    <ShareButton recipeSlug={recipe.slug} recipeTitle={recipe.title} variant="detail" />
                     {currentUser && (
                         <>
                             {recipe.isOwner && (
                                 <Link
-                                    href={EDIT_RECIPE_ROUTE(recipe.id)}
+                                    href={EDIT_RECIPE_ROUTE(recipe.slug)}
                                     className="p-2 bg-background/80 hover:bg-background rounded-full transition-colors"
                                 >
                                     <Edit size={20} className="text-foreground" />
                                 </Link>
                             )}
                             <RecipeLikeButton
-                                recipeId={recipe.id}
+                                recipeSlug={recipe.slug}
                                 initialIsLiked={recipe.isLiked}
                                 initialLikeCount={recipe.likeCount}
                                 isOwner={recipe.isOwner}

@@ -72,7 +72,7 @@ export default function CreateRecipePage() {
             }
 
             // Success - redirect to the new recipe
-            router.push(RECIPE_DETAILS_ROUTE(result.recipeId));
+            router.push(RECIPE_DETAILS_ROUTE(result.slug));
         } catch {
             setApiError(tCommon('networkError'));
         } finally {

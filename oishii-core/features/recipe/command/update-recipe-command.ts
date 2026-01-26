@@ -4,12 +4,12 @@ import { CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { eq, and } from "drizzle-orm";
 
 interface UpdateRecipeParams {
-    recipeId: string;
+    slug: string;
     data: CreateRecipeSchemaData;
     userId: number;
 }
 
-export default async function updateRecipe({ recipeId, data, userId }: UpdateRecipeParams): Promise<boolean> {
+export default async function updateRecipe({ slug, data, userId }: UpdateRecipeParams): Promise<boolean> {
     const result = await db
         .update(recipesTable)
         .set({
@@ -28,7 +28,7 @@ export default async function updateRecipe({ recipeId, data, userId }: UpdateRec
         })
         .where(
             and(
-                eq(recipesTable.id, recipeId),
+                eq(recipesTable.slug, slug),
                 eq(recipesTable.userId, userId)
             )
         )

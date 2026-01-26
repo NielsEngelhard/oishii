@@ -5,13 +5,13 @@ import { useState } from "react";
 import clsx from "clsx";
 
 interface Props {
-    recipeId: string;
+    recipeSlug: string;
     initialIsLiked: boolean;
     initialLikeCount: number;
     isOwner: boolean;
 }
 
-export default function RecipeLikeButton({ recipeId, initialIsLiked, initialLikeCount, isOwner }: Props) {
+export default function RecipeLikeButton({ recipeSlug, initialIsLiked, initialLikeCount, isOwner }: Props) {
     const [isLiked, setIsLiked] = useState(initialIsLiked);
     const [likeCount, setLikeCount] = useState(initialLikeCount);
     const [isLiking, setIsLiking] = useState(false);
@@ -21,7 +21,7 @@ export default function RecipeLikeButton({ recipeId, initialIsLiked, initialLike
 
         setIsLiking(true);
         try {
-            const response = await fetch(`/api/recipe/${recipeId}/like`, {
+            const response = await fetch(`/api/recipe/${recipeSlug}/like`, {
                 method: "POST",
             });
 

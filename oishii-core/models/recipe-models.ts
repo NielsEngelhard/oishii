@@ -5,6 +5,7 @@ import { NoteSchemaData } from "@/schemas/note-schemas";
 
 export interface IRecipeTeaser {
     id: string;
+    slug: string;
     title: string;
     description: string | null;
     cookTime: number;
@@ -35,6 +36,7 @@ export interface IPaginatedResponse<T> {
 
 export interface IRecipeDetails {
     id: string;
+    slug: string;
     title: string;
     description: string | null;
     prepTime: number | null;

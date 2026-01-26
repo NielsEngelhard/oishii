@@ -14,7 +14,7 @@ import clsx from "clsx";
 
 interface Props {
     recipe: IRecipeTeaser;
-    onLikeChange?: (recipeId: string, isLiked: boolean) => void;
+    onLikeChange?: (recipeSlug: string, isLiked: boolean) => void;
 }
 
 function getDifficultyLabel(difficulty: string): string {
@@ -34,7 +34,7 @@ export default function RecipeCard({ recipe, onLikeChange }: Props) {
 
         setIsLiking(true);
         try {
-            const response = await fetch(`/api/recipe/${recipe.id}/like`, {
+            const response = await fetch(`/api/recipe/${recipe.slug}/like`, {
                 method: "POST",
             });
 
@@ -42,7 +42,7 @@ export default function RecipeCard({ recipe, onLikeChange }: Props) {
                 const data = await response.json();
                 setIsLiked(data.isLiked);
                 setLikeCount(prev => data.isLiked ? prev + 1 : prev - 1);
-                onLikeChange?.(recipe.id, data.isLiked);
+                onLikeChange?.(recipe.slug, data.isLiked);
             }
         } finally {
             setIsLiking(false);
@@ -50,7 +50,7 @@ export default function RecipeCard({ recipe, onLikeChange }: Props) {
     };
 
     return (
-        <Link href={`/recipe/${recipe.id}`}>
+        <Link href={`/recipe/${recipe.slug}`}>
             <div className="flex flex-col rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer group">
                 {/* Image */}
                 <div className="relative w-full h-50 overflow-hidden">
@@ -62,7 +62,7 @@ export default function RecipeCard({ recipe, onLikeChange }: Props) {
                     />
 
                     <div className="absolute top-2 right-2 z-20 flex items-center gap-2">
-                        <ShareButton recipeId={recipe.id} recipeTitle={recipe.title} variant="card" />
+                        <ShareButton recipeSlug={recipe.slug} recipeTitle={recipe.title} variant="card" />
                         <Tag text={getDifficultyLabel(recipe.difficulty)} variant="secondary" />
                     </div>
 

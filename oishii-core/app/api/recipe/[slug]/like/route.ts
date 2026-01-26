@@ -3,7 +3,7 @@ import { getCurrentUser } from "@/lib/security/auth/get-current-user";
 import { NextResponse } from "next/server";
 
 interface RouteParams {
-    params: Promise<{ recipeId: string }>;
+    params: Promise<{ slug: string }>;
 }
 
 export async function POST(req: Request, { params }: RouteParams) {
@@ -13,11 +13,11 @@ export async function POST(req: Request, { params }: RouteParams) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { recipeId } = await params;
+    const { slug } = await params;
 
     const result = await toggleRecipeLike({
         userId: user.id,
-        recipeId,
+        slug,
     });
 
     if (!result.success) {

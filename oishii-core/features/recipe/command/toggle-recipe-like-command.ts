@@ -4,7 +4,7 @@ import { eq, and } from "drizzle-orm";
 
 interface ToggleRecipeLikeParams {
     userId: number;
-    recipeId: string;
+    slug: string;
 }
 
 interface ToggleRecipeLikeResult {
@@ -13,17 +13,19 @@ interface ToggleRecipeLikeResult {
     error?: string;
 }
 
-export default async function toggleRecipeLike({ userId, recipeId }: ToggleRecipeLikeParams): Promise<ToggleRecipeLikeResult> {
-    // Check if recipe exists and get owner
+export default async function toggleRecipeLike({ userId, slug }: ToggleRecipeLikeParams): Promise<ToggleRecipeLikeResult> {
+    // Check if recipe exists and get owner and id
     const recipe = await db
-        .select({ userId: recipesTable.userId })
+        .select({ id: recipesTable.id, userId: recipesTable.userId })
         .from(recipesTable)
-        .where(eq(recipesTable.id, recipeId))
+        .where(eq(recipesTable.slug, slug))
         .limit(1);
 
     if (recipe.length === 0) {
         return { success: false, isLiked: false, error: "Recipe not found" };
     }
+
+    const recipeId = recipe[0].id;
 
     // Can't like your own recipe
     if (recipe[0].userId === userId) {

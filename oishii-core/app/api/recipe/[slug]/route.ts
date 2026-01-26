@@ -6,19 +6,19 @@ import { NextResponse } from "next/server";
 
 export async function GET(
     req: Request,
-    { params }: { params: Promise<{ recipeId: string }> }
+    { params }: { params: Promise<{ slug: string }> }
 ) {
     try {
-        const { recipeId } = await params;
+        const { slug } = await params;
 
-        if (!recipeId) {
+        if (!slug) {
             return NextResponse.json(
-                { error: "Recipe ID is required" },
+                { error: "Recipe slug is required" },
                 { status: 400 }
             );
         }
 
-        const recipe = await getRecipeDetails(recipeId);
+        const recipe = await getRecipeDetails(slug);
 
         if (!recipe) {
             return NextResponse.json(
@@ -39,7 +39,7 @@ export async function GET(
 
 export async function PUT(
     req: Request,
-    { params }: { params: Promise<{ recipeId: string }> }
+    { params }: { params: Promise<{ slug: string }> }
 ) {
     try {
         const user = await getCurrentUser();
@@ -48,11 +48,11 @@ export async function PUT(
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const { recipeId } = await params;
+        const { slug } = await params;
 
-        if (!recipeId) {
+        if (!slug) {
             return NextResponse.json(
-                { error: "Recipe ID is required" },
+                { error: "Recipe slug is required" },
                 { status: 400 }
             );
         }
@@ -68,7 +68,7 @@ export async function PUT(
         }
 
         const updated = await updateRecipe({
-            recipeId,
+            slug,
             data: result.data,
             userId: user.id,
         });
@@ -80,7 +80,7 @@ export async function PUT(
             );
         }
 
-        return NextResponse.json({ success: true, recipeId });
+        return NextResponse.json({ success: true, slug });
     } catch (error) {
         console.error("Failed to update recipe:", error);
         const message = error instanceof Error ? error.message : "Failed to update recipe";

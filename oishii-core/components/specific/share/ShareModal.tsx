@@ -17,17 +17,17 @@ interface ShareOption {
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  recipeId: string;
+  recipeSlug: string;
   recipeTitle: string;
 }
 
-export default function ShareModal({ isOpen, onClose, recipeId, recipeTitle }: Props) {
+export default function ShareModal({ isOpen, onClose, recipeSlug, recipeTitle }: Props) {
   const t = useTranslations("share");
   const { showToast } = useToast();
 
   const getRecipeUrl = () => {
     if (typeof window === "undefined") return "";
-    return `${window.location.origin}/recipe/${recipeId}`;
+    return `${window.location.origin}/recipe/${recipeSlug}`;
   };
 
   const handleCopyLink = async () => {

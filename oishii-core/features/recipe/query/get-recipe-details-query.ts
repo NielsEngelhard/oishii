@@ -4,16 +4,16 @@ import { IRecipeDetails } from "@/models/recipe-models";
 import { eq, sql } from "drizzle-orm";
 
 interface GetRecipeDetailsParams {
-    recipeId: string;
+    slug: string;
     currentUserId?: number;
 }
 
 export default async function getRecipeDetails(
-    recipeIdOrParams: string | GetRecipeDetailsParams
+    slugOrParams: string | GetRecipeDetailsParams
 ): Promise<IRecipeDetails | null> {
-    const { recipeId, currentUserId } = typeof recipeIdOrParams === 'string'
-        ? { recipeId: recipeIdOrParams, currentUserId: undefined }
-        : recipeIdOrParams;
+    const { slug, currentUserId } = typeof slugOrParams === 'string'
+        ? { slug: slugOrParams, currentUserId: undefined }
+        : slugOrParams;
 
     // Subquery for like count
     const likeCountSubquery = db
@@ -39,6 +39,7 @@ export default async function getRecipeDetails(
     const baseQuery = db
         .select({
             id: recipesTable.id,
+            slug: recipesTable.slug,
             title: recipesTable.title,
             description: recipesTable.description,
             prepTime: recipesTable.prepTime,
@@ -69,7 +70,7 @@ export default async function getRecipeDetails(
         : baseQuery;
 
     const result = await queryWithUserLikes
-        .where(eq(recipesTable.id, recipeId))
+        .where(eq(recipesTable.slug, slug))
         .limit(1);
 
     const recipe = result[0];
@@ -79,6 +80,7 @@ export default async function getRecipeDetails(
 
     return {
         id: recipe.id,
+        slug: recipe.slug,
         title: recipe.title,
         description: recipe.description,
         prepTime: recipe.prepTime,

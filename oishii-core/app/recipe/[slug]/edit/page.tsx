@@ -27,7 +27,7 @@ import { FieldErrors, useForm } from "react-hook-form";
 export default function EditRecipePage() {
     const router = useRouter();
     const params = useParams();
-    const recipeId = params.recipeId as string;
+    const slug = params.slug as string;
     const t = useTranslations("recipe");
     const tCommon = useTranslations("common");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,7 +52,7 @@ export default function EditRecipePage() {
         setLoadError(null);
 
         try {
-            const response = await fetch(`/api/recipe/${recipeId}`);
+            const response = await fetch(`/api/recipe/${slug}`);
 
             if (!response.ok) {
                 if (response.status === 404) {
@@ -90,7 +90,7 @@ export default function EditRecipePage() {
         } finally {
             setIsLoading(false);
         }
-    }, [recipeId, reset, t]);
+    }, [slug, reset, t]);
 
     useEffect(() => {
         fetchRecipe();
@@ -101,7 +101,7 @@ export default function EditRecipePage() {
         setApiError(null);
 
         try {
-            const response = await fetch(`/api/recipe/${recipeId}`, {
+            const response = await fetch(`/api/recipe/${slug}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
@@ -115,7 +115,7 @@ export default function EditRecipePage() {
             }
 
             // Success - redirect to the recipe details
-            router.push(RECIPE_DETAILS_ROUTE(recipeId));
+            router.push(RECIPE_DETAILS_ROUTE(slug));
         } catch {
             setApiError(tCommon('networkError'));
         } finally {

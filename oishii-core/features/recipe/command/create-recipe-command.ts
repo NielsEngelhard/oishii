@@ -1,5 +1,6 @@
 import { recipesTable } from "@/db/schema";
 import { db } from "@/lib/db/db";
+import { generateUniqueSlug } from "@/lib/util/slug-util";
 import { generateUuid } from "@/lib/util/uuid-util";
 import { CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 
@@ -8,12 +9,18 @@ interface CreateRecipeParams {
     userId: number;
 }
 
-// Returns recipeId
-export default async function createRecipe({ data, userId }: CreateRecipeParams): Promise<string> {
+interface CreateRecipeResult {
+    recipeId: string;
+    slug: string;
+}
+
+export default async function createRecipe({ data, userId }: CreateRecipeParams): Promise<CreateRecipeResult> {
     const recipeId = generateUuid();
+    const slug = await generateUniqueSlug(data.title);
 
     await db.insert(recipesTable).values({
         id: recipeId,
+        slug,
         userId,
         title: data.title,
         description: data.description,
@@ -28,5 +35,5 @@ export default async function createRecipe({ data, userId }: CreateRecipeParams)
         notes: data.notes,
     });
 
-    return recipeId;
+    return { recipeId, slug };
 }

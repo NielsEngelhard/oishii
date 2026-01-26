@@ -22,9 +22,9 @@ export async function POST(req: Request) {
             );
         }
 
-        const recipeId = await createRecipe({ data: result.data, userId: user.id });
+        const { slug } = await createRecipe({ data: result.data, userId: user.id });
 
-        return NextResponse.json({ success: true, recipeId }, { status: 201 });
+        return NextResponse.json({ success: true, slug }, { status: 201 });
     } catch (error) {
         console.error("Failed to create recipe:", error);
         const message = error instanceof Error ? error.message : "Failed to create recipe";

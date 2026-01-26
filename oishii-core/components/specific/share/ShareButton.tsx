@@ -6,12 +6,12 @@ import ShareModal from "./ShareModal";
 import clsx from "clsx";
 
 interface Props {
-  recipeId: string;
+  recipeSlug: string;
   recipeTitle: string;
   variant?: "card" | "detail";
 }
 
-export default function ShareButton({ recipeId, recipeTitle, variant = "card" }: Props) {
+export default function ShareButton({ recipeSlug, recipeTitle, variant = "card" }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = (e: React.MouseEvent) => {
@@ -45,7 +45,7 @@ export default function ShareButton({ recipeId, recipeTitle, variant = "card" }:
       <ShareModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        recipeId={recipeId}
+        recipeSlug={recipeSlug}
         recipeTitle={recipeTitle}
       />
     </>

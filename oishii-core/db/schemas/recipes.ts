@@ -8,6 +8,7 @@ import { usersTable } from "./users";
 
 export const recipesTable = pgTable("recipes", {
   id: uuid("id").defaultRandom().primaryKey(),
+  slug: text("slug").notNull().unique(),
   userId: integer("user_id").notNull().references(() => usersTable.id),
   title: text("title").notNull(),
   description: text("description"),

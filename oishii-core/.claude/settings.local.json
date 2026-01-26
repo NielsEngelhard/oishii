@@ -8,7 +8,15 @@
       "Bash(pnpm install)",
       "Bash(set CI=true)",
       "Bash($env:CI=\"true\")",
-      "Bash(CI=true pnpm install)"
+      "Bash(CI=true pnpm install)",
+      "Bash(git -C \"C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\" mv \"app/api/recipe/[recipeId]\" \"app/api/recipe/[slug]\")",
+      "Bash(powershell -Command \"Rename-Item -Path ''C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\app\\\\api\\\\recipe\\\\[recipeId]'' -NewName ''[slug]''\")",
+      "Bash(powershell -Command \"Rename-Item -LiteralPath ''C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\app\\\\api\\\\recipe\\\\[recipeId]'' -NewName ''[slug]''\")",
+      "Bash(powershell -Command \"New-Item -ItemType Directory -Path ''C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\app\\\\api\\\\recipe\\\\[slug]'' -Force; New-Item -ItemType Directory -Path ''C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\app\\\\api\\\\recipe\\\\[slug]\\\\like'' -Force\")",
+      "Bash(powershell -Command \"Remove-Item -LiteralPath ''C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\app\\\\api\\\\recipe\\\\[recipeId]'' -Recurse -Force\")",
+      "Bash(powershell -Command \"Get-ChildItem -LiteralPath ''C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\app\\\\recipe'' -Recurse -Name\")",
+      "Bash(powershell -Command \"New-Item -ItemType Directory -Path ''C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\app\\\\recipe\\\\[slug]'' -Force; New-Item -ItemType Directory -Path ''C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\app\\\\recipe\\\\[slug]\\\\edit'' -Force\")",
+      "Bash(powershell -Command \"Remove-Item -LiteralPath ''C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\app\\\\recipe\\\\[recipeId]'' -Recurse -Force\")"
     ]
   }
 }

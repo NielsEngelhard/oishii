@@ -97,6 +97,7 @@ export default async function getMyRecipes({
     const recipes = await db
         .select({
             id: recipesTable.id,
+            slug: recipesTable.slug,
             title: recipesTable.title,
             description: recipesTable.description,
             cookTime: recipesTable.cookTime,
@@ -120,6 +121,7 @@ export default async function getMyRecipes({
 
     const items: IRecipeTeaser[] = recipes.map((recipe) => ({
         id: recipe.id,
+        slug: recipe.slug,
         title: recipe.title,
         description: recipe.description,
         cookTime: recipe.cookTime,
