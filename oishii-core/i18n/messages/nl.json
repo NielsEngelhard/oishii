@@ -156,8 +156,13 @@
     "addFriend": "Vriend toevoegen",
     "removeFriend": "Vriend verwijderen",
     "viewProfile": "Bekijk profiel",
+    "viewRecipes": "Bekijk Recepten",
     "userNotFound": "Gebruiker niet gevonden",
-    "loading": "Profiel laden..."
+    "loading": "Profiel laden...",
+    "usersRecipes": "Recepten van {name}",
+    "recipesCreatedBy": "Recepten gemaakt door {name}",
+    "noRecipesYet": "Nog geen recepten",
+    "backToProfile": "Terug naar Profiel"
   },
   "languages": {
     "en": "English",

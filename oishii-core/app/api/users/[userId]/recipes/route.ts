@@ -5,12 +5,20 @@ import { NextResponse } from "next/server";
 
 const DEFAULT_PAGE_SIZE = 10;
 
-export async function GET(req: Request) {
-    const user = await getCurrentUser();
+interface RouteParams {
+    params: Promise<{ userId: string }>;
+}
 
-    if (!user) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+export async function GET(req: Request, { params }: RouteParams) {
+    const { userId } = await params;
+    const targetUserId = parseInt(userId, 10);
+
+    if (isNaN(targetUserId)) {
+        return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
     }
+
+    // Get current user for like status (optional)
+    const currentUser = await getCurrentUser();
 
     const { searchParams } = new URL(req.url);
     const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
@@ -40,13 +48,13 @@ export async function GET(req: Request) {
         }
     }
 
-    // Parse includeLiked parameter (default: true)
+    // Parse includeLiked parameter (default: false for viewing other users)
     const includeLikedParam = searchParams.get("includeLiked");
-    const includeLiked = includeLikedParam !== "false";
+    const includeLiked = includeLikedParam === "true";
 
     const result = await getUserRecipes({
-        targetUserId: user.id,
-        currentUserId: user.id,
+        targetUserId,
+        currentUserId: currentUser?.id,
         page,
         pageSize,
         filters,

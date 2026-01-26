@@ -1,29 +1,37 @@
 "use client";
 
-import { CREATE_RECIPE_ROUTE } from "@/app/routes";
+import { USER_PROFILE_ROUTE } from "@/app/routes";
 import RecipeGrid from "@/components/specific/recipe/RecipeGrid";
 import RecipesFilter, { RecipeFilterValues } from "@/components/specific/recipe/RecipesFilter";
 import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
 import PageHeader from "@/components/ui/layout/PageHeader";
-import { useAuth } from "@/contexts/AuthContext";
+import { IUserDetails } from "@/models/user-models";
 import { IPaginatedResponse, IRecipeTeaser } from "@/models/recipe-models";
-import { Plus } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const PAGE_SIZE = 10;
 
-export default function MyRecipesPage() {
-    const t = useTranslations("recipe");
-    const { user } = useAuth();
+export default function UserRecipesPage() {
+    const params = useParams();
+    const userId = params.userid as string;
+    const t = useTranslations("userProfile");
+    const tRecipe = useTranslations("recipe");
     const tCommon = useTranslations("common");
+
+    const [user, setUser] = useState<IUserDetails | null>(null);
     const [recipes, setRecipes] = useState<IRecipeTeaser[]>([]);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState<IPaginatedResponse<IRecipeTeaser>["pagination"] | null>(null);
     const [totalItems, setTotalItems] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
-    const [includeLiked, setIncludeLiked] = useState(true);
+    const [userLoading, setUserLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [includeLiked, setIncludeLiked] = useState(false);
     const [filters, setFilters] = useState<RecipeFilterValues>({
         search: "",
         cuisine: "",
@@ -31,11 +39,32 @@ export default function MyRecipesPage() {
         totalTime: "",
     });
 
-    // Ref for debounce timeout
     const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    // Track if initial total has been fetched
     const initialTotalFetched = useRef(false);
 
+    // Fetch user info
+    const fetchUser = useCallback(async () => {
+        setUserLoading(true);
+        try {
+            const response = await fetch(`/api/users/${userId}`);
+            if (!response.ok) {
+                if (response.status === 404) {
+                    setError(t("userNotFound"));
+                } else {
+                    setError("Failed to load user");
+                }
+                return;
+            }
+            const data = await response.json();
+            setUser(data);
+        } catch {
+            setError("Failed to load user");
+        } finally {
+            setUserLoading(false);
+        }
+    }, [userId, t]);
+
+    // Fetch recipes
     const fetchRecipes = useCallback(async (pageNum: number, currentFilters: RecipeFilterValues, includeL: boolean) => {
         setIsLoading(true);
         try {
@@ -54,9 +83,8 @@ export default function MyRecipesPage() {
             if (currentFilters.totalTime) {
                 params.set("totalTime", currentFilters.totalTime);
             }
-            // Note: cuisine filter is mocked for now, not sent to backend
 
-            const response = await fetch(`/api/users/${user!.id}/recipes?${params.toString()}`);
+            const response = await fetch(`/api/users/${userId}/recipes?${params.toString()}`);
             if (!response.ok) {
                 throw new Error("Failed to fetch recipes");
             }
@@ -65,33 +93,37 @@ export default function MyRecipesPage() {
             setPagination(data.pagination);
 
             // On first load without filters, store the total count
-            if (!initialTotalFetched.current && !currentFilters.search && !currentFilters.difficulty && !currentFilters.totalTime && includeL) {
+            if (!initialTotalFetched.current && !currentFilters.search && !currentFilters.difficulty && !currentFilters.totalTime && !includeL) {
                 setTotalItems(data.pagination.totalItems);
                 initialTotalFetched.current = true;
             }
-        } catch (error) {
-            console.error("Error fetching recipes:", error);
+        } catch (err) {
+            console.error("Error fetching recipes:", err);
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    }, [userId]);
+
+    useEffect(() => {
+        fetchUser();
+    }, [fetchUser]);
 
     // Fetch total items count once on mount (without filters)
     useEffect(() => {
         const fetchTotalCount = async () => {
             try {
-                const response = await fetch(`/api/recipes/my?page=1&pageSize=1&includeLiked=true`);
+                const response = await fetch(`/api/users/${userId}/recipes?page=1&pageSize=1&includeLiked=false`);
                 if (response.ok) {
                     const data: IPaginatedResponse<IRecipeTeaser> = await response.json();
                     setTotalItems(data.pagination.totalItems);
                     initialTotalFetched.current = true;
                 }
-            } catch (error) {
-                console.error("Error fetching total count:", error);
+            } catch (err) {
+                console.error("Error fetching total count:", err);
             }
         };
         fetchTotalCount();
-    }, []);
+    }, [userId]);
 
     // Fetch recipes when page or filters change (except search which is debounced)
     useEffect(() => {
@@ -102,14 +134,12 @@ export default function MyRecipesPage() {
     const handleSearchChange = useCallback((search: string) => {
         setFilters(prev => ({ ...prev, search }));
 
-        // Clear existing timeout
         if (searchTimeoutRef.current) {
             clearTimeout(searchTimeoutRef.current);
         }
 
-        // Set new timeout for debounced search
         searchTimeoutRef.current = setTimeout(() => {
-            setPage(1); // Reset to first page on search
+            setPage(1);
             fetchRecipes(1, { ...filters, search }, includeLiked);
         }, 500);
     }, [filters, includeLiked, fetchRecipes]);
@@ -117,13 +147,13 @@ export default function MyRecipesPage() {
     // Handle includeLiked change
     const handleIncludeLikedChange = useCallback((value: boolean) => {
         setIncludeLiked(value);
-        setPage(1); // Reset to first page
+        setPage(1);
     }, []);
 
     // Handle filter changes (immediate)
     const handleFilterChange = useCallback((newFilters: RecipeFilterValues) => {
         setFilters(newFilters);
-        setPage(1); // Reset to first page on filter change
+        setPage(1);
     }, []);
 
     // Cleanup timeout on unmount
@@ -147,17 +177,40 @@ export default function MyRecipesPage() {
         }
     };
 
+    if (userLoading) {
+        return (
+            <div className="flex flex-col container py-4 lg:py-6 space-y-6">
+                <Card className="flex items-center justify-center py-12">
+                    <div className="flex flex-col items-center gap-2">
+                        <Loader2 className="w-8 h-8 animate-spin text-muted" />
+                        <span className="text-muted">{tCommon("loading")}</span>
+                    </div>
+                </Card>
+            </div>
+        );
+    }
+
+    if (error || !user) {
+        return (
+            <div className="flex flex-col container py-4 lg:py-6 space-y-6">
+                <Card className="flex items-center justify-center py-12">
+                    <span className="text-muted">{error || t("userNotFound")}</span>
+                </Card>
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col container py-4 lg:py-6 space-y-6">
-
             <PageHeader
-                title={t("myRecipes")}
-                description={t("personalCollection")}
+                title={t("usersRecipes", { name: user.name })}
+                description={t("recipesCreatedBy", { name: user.name })}
             >
-                <Link href={CREATE_RECIPE_ROUTE}>
+                <Link href={USER_PROFILE_ROUTE(userId)}>
                     <Button
-                        text={tCommon("create")}
-                        Icon={Plus}
+                        text={t("backToProfile")}
+                        Icon={ArrowLeft}
+                        variant="skeleton"
                     />
                 </Link>
             </PageHeader>
@@ -175,6 +228,10 @@ export default function MyRecipesPage() {
 
             {isLoading ? (
                 <div className="text-center py-12 text-muted">{tCommon("loading")}</div>
+            ) : recipes.length === 0 ? (
+                <Card className="flex items-center justify-center py-12">
+                    <span className="text-muted">{t("noRecipesYet")}</span>
+                </Card>
             ) : (
                 <>
                     <RecipeGrid recipes={recipes} />
@@ -203,5 +260,5 @@ export default function MyRecipesPage() {
                 </>
             )}
         </div>
-    )
+    );
 }

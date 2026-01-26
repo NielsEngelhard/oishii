@@ -1,5 +1,6 @@
 "use client"
 
+import { USER_RECIPES_ROUTE } from "@/app/routes";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -10,6 +11,7 @@ import { Locale } from "@/i18n/config";
 import { IUserDetails } from "@/models/user-models";
 import { Calendar, ChefHat, Globe, Loader2, UserMinus, UserPlus, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -199,6 +201,22 @@ export default function UserProfilePage() {
                         <span className="text-xs text-muted">{t("language")}</span>
                     </div>
                 </div>
+
+                {/* View Recipes Button */}
+                {user.totalRecipes > 0 && (
+                    <>
+                        <Divider />
+                        <div className="flex justify-center">
+                            <Link href={USER_RECIPES_ROUTE(userId)}>
+                                <Button
+                                    Icon={ChefHat}
+                                    text={t("viewRecipes")}
+                                    size="lg"
+                                />
+                            </Link>
+                        </div>
+                    </>
+                )}
             </Card>
         </NarrowPageWrapper>
     )

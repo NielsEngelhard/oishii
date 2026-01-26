@@ -11,21 +11,26 @@ export interface RecipeFilters {
     minTotalTime?: number;
 }
 
-interface GetMyRecipesParams {
-    userId: number;
+interface GetUserRecipesParams {
+    /** The user whose recipes (owned/liked) we're viewing */
+    targetUserId: number;
+    /** The logged-in user (for isLiked/isOwner status). If not provided, isLiked will be false */
+    currentUserId?: number;
     page: number;
     pageSize: number;
     filters?: RecipeFilters;
+    /** Whether to include recipes liked by targetUserId (default: true) */
     includeLiked?: boolean;
 }
 
-export default async function getMyRecipes({
-    userId,
+export default async function getUserRecipes({
+    targetUserId,
+    currentUserId,
     page,
     pageSize,
     filters,
     includeLiked = true,
-}: GetMyRecipesParams): Promise<IPaginatedResponse<IRecipeTeaser>> {
+}: GetUserRecipesParams): Promise<IPaginatedResponse<IRecipeTeaser>> {
     const offset = (page - 1) * pageSize;
 
     // Subquery for like count
@@ -38,24 +43,35 @@ export default async function getMyRecipes({
         .groupBy(recipeLikesTable.recipeId)
         .as('like_counts');
 
-    // Subquery for user's likes
-    const userLikesSubquery = db
+    // Subquery for target user's likes (to determine which recipes to show)
+    const targetUserLikesSubquery = db
         .select({
             recipeId: recipeLikesTable.recipeId,
         })
         .from(recipeLikesTable)
-        .where(eq(recipeLikesTable.userId, userId))
-        .as('user_likes');
+        .where(eq(recipeLikesTable.userId, targetUserId))
+        .as('target_user_likes');
 
-    // Build base condition - either owned by user OR liked by user (if includeLiked)
+    // Subquery for current user's likes (to show isLiked status)
+    const currentUserLikesSubquery = currentUserId
+        ? db
+            .select({
+                recipeId: recipeLikesTable.recipeId,
+            })
+            .from(recipeLikesTable)
+            .where(eq(recipeLikesTable.userId, currentUserId))
+            .as('current_user_likes')
+        : null;
+
+    // Build base condition - either owned by target user OR liked by target user (if includeLiked)
     let ownershipCondition: SQL;
     if (includeLiked) {
         ownershipCondition = or(
-            eq(recipesTable.userId, userId),
-            sql`${userLikesSubquery.recipeId} IS NOT NULL`
+            eq(recipesTable.userId, targetUserId),
+            sql`${targetUserLikesSubquery.recipeId} IS NOT NULL`
         )!;
     } else {
-        ownershipCondition = eq(recipesTable.userId, userId);
+        ownershipCondition = eq(recipesTable.userId, targetUserId);
     }
 
     // Build filter conditions
@@ -86,7 +102,7 @@ export default async function getMyRecipes({
     const countQuery = db
         .select({ count: sql<number>`count(*)::int` })
         .from(recipesTable)
-        .leftJoin(userLikesSubquery, eq(recipesTable.id, userLikesSubquery.recipeId))
+        .leftJoin(targetUserLikesSubquery, eq(recipesTable.id, targetUserLikesSubquery.recipeId))
         .where(whereClause);
 
     const countResult = await countQuery;
@@ -94,7 +110,7 @@ export default async function getMyRecipes({
     const totalPages = Math.ceil(totalItems / pageSize);
 
     // Get paginated recipes with author info and like data
-    const recipes = await db
+    let query = db
         .select({
             id: recipesTable.id,
             slug: recipesTable.slug,
@@ -108,12 +124,21 @@ export default async function getMyRecipes({
             authorId: usersTable.id,
             authorName: usersTable.name,
             likeCount: sql<number>`COALESCE(${likeCountSubquery.count}, 0)`,
-            isLiked: sql<boolean>`${userLikesSubquery.recipeId} IS NOT NULL`,
+            isLiked: currentUserLikesSubquery
+                ? sql<boolean>`${currentUserLikesSubquery.recipeId} IS NOT NULL`
+                : sql<boolean>`false`,
         })
         .from(recipesTable)
         .innerJoin(usersTable, eq(recipesTable.userId, usersTable.id))
         .leftJoin(likeCountSubquery, eq(recipesTable.id, likeCountSubquery.recipeId))
-        .leftJoin(userLikesSubquery, eq(recipesTable.id, userLikesSubquery.recipeId))
+        .leftJoin(targetUserLikesSubquery, eq(recipesTable.id, targetUserLikesSubquery.recipeId));
+
+    // Add current user likes join if logged in
+    if (currentUserLikesSubquery) {
+        query = query.leftJoin(currentUserLikesSubquery, eq(recipesTable.id, currentUserLikesSubquery.recipeId)) as typeof query;
+    }
+
+    const recipes = await query
         .where(whereClause)
         .orderBy(desc(recipesTable.createdAt))
         .limit(pageSize)
@@ -135,7 +160,7 @@ export default async function getMyRecipes({
         },
         likeCount: recipe.likeCount,
         isLiked: recipe.isLiked,
-        isOwner: recipe.authorId === userId,
+        isOwner: currentUserId ? recipe.authorId === currentUserId : false,
     }));
 
     return {

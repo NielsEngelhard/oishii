@@ -156,8 +156,13 @@
     "addFriend": "Add Friend",
     "removeFriend": "Remove Friend",
     "viewProfile": "View Profile",
+    "viewRecipes": "View Recipes",
     "userNotFound": "User not found",
-    "loading": "Loading profile..."
+    "loading": "Loading profile...",
+    "usersRecipes": "{name}'s Recipes",
+    "recipesCreatedBy": "Recipes created by {name}",
+    "noRecipesYet": "No recipes yet",
+    "backToProfile": "Back to Profile"
   },
   "languages": {
     "en": "English",
