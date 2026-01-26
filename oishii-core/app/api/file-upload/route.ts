@@ -4,12 +4,24 @@ import { s3Client, BUCKET_NAME } from "@/lib/infrastructure/file-upload/s3/s3-cl
 import { generateUuid } from "@/lib/util/uuid-util";
 import { isAllowedType } from "@/lib/infrastructure/file-upload/file-upload-constants";
 
+const MOCK_IMAGE_UPLOADS = process.env.MOCK_IMAGE_UPLOADS === "true";
+const PLACEHOLDER_IMAGE_URL = "/placeholder/recipe-placeholder.png";
+
 export async function POST(request: Request) {
     const { contentType } = await request.json();
-    
+
     // Validate content type
     if (!isAllowedType(contentType)) {
         return Response.json({ error: "Invalid file type" }, { status: 400 });
+    }
+
+    // Mock upload: return placeholder URL without generating presigned S3 URL
+    if (MOCK_IMAGE_UPLOADS) {
+        return Response.json({
+            uploadUrl: null,
+            imageUrl: PLACEHOLDER_IMAGE_URL,
+            mocked: true
+        });
     }
 
     const extension = contentType.split("/")[1];

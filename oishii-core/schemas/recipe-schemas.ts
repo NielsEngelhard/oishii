@@ -15,7 +15,10 @@ export const createRecipeSchema = z.object({
   tags: z.array(z.string().min(2).max(30)).optional(),
   ingredients: z.array(ingredientSchema).min(1, "At least one ingredient required"),
   instructions: z.array(instructionSchema).min(1, "At least one instruction required"),
-  imageUrl: z.url().optional(),
+  imageUrl: z.string().refine(
+    (val) => val.startsWith("/") || val.startsWith("http://") || val.startsWith("https://"),
+    { message: "Invalid URL" }
+  ).optional(),
   language: z.enum(locales),
   notes: z.array(noteSchema).max(10).optional()
 });

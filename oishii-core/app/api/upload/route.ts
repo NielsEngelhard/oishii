@@ -4,6 +4,9 @@ import { NextResponse } from "next/server";
 import { generateUuid } from "@/lib/util/uuid-util";
 import { isAllowedFileSize, isAllowedType, maxFileSizeAsDisplayString } from "@/lib/infrastructure/file-upload/file-upload-constants";
 
+const MOCK_IMAGE_UPLOADS = process.env.MOCK_IMAGE_UPLOADS === "true";
+const PLACEHOLDER_IMAGE_URL = "/placeholder/recipe-placeholder.png";
+
 export async function POST(req: Request) {
     try {
         const formData = await req.formData();
@@ -30,6 +33,11 @@ export async function POST(req: Request) {
                 { error: `File too large. Maximum size: ${maxFileSizeAsDisplayString()}` },
                 { status: 400 }
             );
+        }
+
+        // Mock upload: return placeholder URL without uploading to S3
+        if (MOCK_IMAGE_UPLOADS) {
+            return NextResponse.json({ url: PLACEHOLDER_IMAGE_URL }, { status: 201 });
         }
 
         // Generate unique filename

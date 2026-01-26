@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/ui/layout/Header";
 import localFont from "next/font/local";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ToastProvider } from "@/contexts/ToastContext";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "@/i18n/types";
@@ -49,11 +50,13 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <AuthProvider>
-            <Header />
+            <ToastProvider>
+              <Header />
 
-            <div className="flex justify-center w-full">
-              {children}
-            </div>
+              <div className="flex justify-center w-full">
+                {children}
+              </div>
+            </ToastProvider>
           </AuthProvider>
         </NextIntlClientProvider>
       </body>

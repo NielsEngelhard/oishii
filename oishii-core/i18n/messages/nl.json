@@ -168,5 +168,11 @@
     "tooLong": "Te lang",
     "required": "Dit veld is verplicht",
     "invalidEmail": "Ongeldig e-mailadres"
+  },
+  "share": {
+    "shareRecipe": "Recept Delen",
+    "copyLink": "Link kopiëren",
+    "shareViaWhatsApp": "Delen via WhatsApp",
+    "linkCopied": "Link gekopieerd naar klembord!"
   }
 }

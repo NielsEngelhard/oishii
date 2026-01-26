@@ -3,6 +3,7 @@ import IngredientListDisplay from "@/components/specific/ingredient/IngredientLi
 import InstructionListDisplay from "@/components/specific/instruction/InstructionListDisplay";
 import NoteListDisplay from "@/components/specific/note/NoteListDisplay";
 import RecipeLikeButton from "@/components/specific/recipe/RecipeLikeButton";
+import ShareButton from "@/components/specific/share/ShareButton";
 import Avatar from "@/components/ui/Avatar";
 import Card from "@/components/ui/Card";
 import Divider from "@/components/ui/Divider";
@@ -55,24 +56,27 @@ export default async function RecipeDetailsPage({ params }: Props) {
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 via-20% to-transparent" />
 
                 {/* Action buttons in hero */}
-                {currentUser && (
-                    <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-                        {recipe.isOwner && (
-                            <Link
-                                href={EDIT_RECIPE_ROUTE(recipe.id)}
-                                className="p-2 bg-background/80 hover:bg-background rounded-full transition-colors"
-                            >
-                                <Edit size={20} className="text-foreground" />
-                            </Link>
-                        )}
-                        <RecipeLikeButton
-                            recipeId={recipe.id}
-                            initialIsLiked={recipe.isLiked}
-                            initialLikeCount={recipe.likeCount}
-                            isOwner={recipe.isOwner}
-                        />
-                    </div>
-                )}
+                <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+                    <ShareButton recipeId={recipe.id} recipeTitle={recipe.title} variant="detail" />
+                    {currentUser && (
+                        <>
+                            {recipe.isOwner && (
+                                <Link
+                                    href={EDIT_RECIPE_ROUTE(recipe.id)}
+                                    className="p-2 bg-background/80 hover:bg-background rounded-full transition-colors"
+                                >
+                                    <Edit size={20} className="text-foreground" />
+                                </Link>
+                            )}
+                            <RecipeLikeButton
+                                recipeId={recipe.id}
+                                initialIsLiked={recipe.isLiked}
+                                initialLikeCount={recipe.likeCount}
+                                isOwner={recipe.isOwner}
+                            />
+                        </>
+                    )}
+                </div>
             </div>
 
             {/* Content */}

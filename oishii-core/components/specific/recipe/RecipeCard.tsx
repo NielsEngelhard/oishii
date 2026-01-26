@@ -4,6 +4,7 @@ import Avatar from "@/components/ui/Avatar";
 import Divider from "@/components/ui/Divider";
 import MetaDataField from "@/components/ui/MetaDataField";
 import Tag from "@/components/ui/Tag";
+import ShareButton from "@/components/specific/share/ShareButton";
 import { IRecipeTeaser } from "@/models/recipe-models";
 import { Clock, Heart, Users } from "lucide-react";
 import Image from "next/image";
@@ -60,7 +61,8 @@ export default function RecipeCard({ recipe, onLikeChange }: Props) {
                         className="object-cover group-hover:scale-110 transition-transform duration-300"
                     />
 
-                    <div className="absolute top-2 right-2 z-20">
+                    <div className="absolute top-2 right-2 z-20 flex items-center gap-2">
+                        <ShareButton recipeId={recipe.id} recipeTitle={recipe.title} variant="card" />
                         <Tag text={getDifficultyLabel(recipe.difficulty)} variant="secondary" />
                     </div>
 

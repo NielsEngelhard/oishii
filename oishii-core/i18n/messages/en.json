@@ -168,5 +168,11 @@
     "tooLong": "Too long",
     "required": "This field is required",
     "invalidEmail": "Invalid email address"
+  },
+  "share": {
+    "shareRecipe": "Share Recipe",
+    "copyLink": "Copy Link",
+    "shareViaWhatsApp": "Share via WhatsApp",
+    "linkCopied": "Link copied to clipboard!"
   }
 }
