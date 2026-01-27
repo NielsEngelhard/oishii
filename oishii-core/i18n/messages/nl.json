@@ -652,5 +652,77 @@
     "showMore": "Meer tonen",
     "showLess": "Minder tonen",
     "noRecipes": "Geen recepten gevonden"
+  },
+  "home": {
+    "hero": {
+      "tagline": "Jouw Persoonlijke Receptenverzameling",
+      "title": "Kook, Deel & Ontdek",
+      "titleHighlight": "Geweldige Recepten",
+      "description": "De moderne recepten-app die je helpt je culinaire creaties te organiseren, nieuwe smaken te ontdekken en je passie voor koken met de wereld te delen.",
+      "getStarted": "Start Gratis",
+      "exploreRecipes": "Ontdek Recepten"
+    },
+    "ai": {
+      "badge": "AI-Aangedreven",
+      "title": "Laat AI het Zware Werk Doen",
+      "description": "Onze slimme AI-functies helpen je moeiteloos recepten te importeren, formatteren en verbeteren.",
+      "features": {
+        "scrape": {
+          "title": "Importeer van Elke URL",
+          "description": "Plak een recept-URL en onze AI haalt automatisch alle ingrediënten, stappen en details voor je op."
+        },
+        "format": {
+          "title": "Slimme Tekstformattering",
+          "description": "Kopieer recepttekst van waar dan ook - onze AI parseert en formatteert het intelligent naar onze structuur."
+        },
+        "enhance": {
+          "title": "Beeldverbetering",
+          "description": "Transformeer je amateuristische foodfoto's naar prachtige, professioneel ogende afbeeldingen met AI-verbetering."
+        }
+      }
+    },
+    "features": {
+      "badge": "Waarom Oishii?",
+      "title": "Functies Die Je Geweldig Vindt",
+      "description": "Alles wat je nodig hebt om je recepten te beheren, nieuwe te ontdekken en te delen met vrienden.",
+      "list": {
+        "multilingual": {
+          "title": "Meertalig Zoeken",
+          "description": "Vind recepten in elke taal. Ons tagsysteem vertaalt automatisch, zodat een Nederlandse gebruiker jouw Engelse recept kan vinden."
+        },
+        "share": {
+          "title": "Eenvoudig Delen",
+          "description": "Deel je recepten met één tik. Genereer mooie links voor WhatsApp, social media, of kopieer gewoon de link."
+        },
+        "organize": {
+          "title": "Slimme Organisatie",
+          "description": "Tag je recepten met 300+ officiële tags in 15 categorieën. Filter op dieet, keuken, bereidingswijze en meer."
+        },
+        "friends": {
+          "title": "Verbind met Vrienden",
+          "description": "Volg je vrienden, zie wat ze koken en laat je inspireren door hun culinaire avonturen."
+        },
+        "servings": {
+          "title": "Flexibele Porties",
+          "description": "Pas automatisch ingrediënthoeveelheden aan wanneer je voor meer of minder personen kookt. Geen hoofdrekenen meer!"
+        },
+        "notes": {
+          "title": "Persoonlijk Spiekbriefje",
+          "description": "Houd je kooknotities, maatomrekeningen en tips altijd bij de hand met je persoonlijke spiekbriefje."
+        }
+      }
+    },
+    "stats": {
+      "recipes": "Recepten Gedeeld",
+      "users": "Tevreden Koks",
+      "tags": "Officiële Tags"
+    }
+  },
+  "footer": {
+    "tagline": "Je persoonlijke receptenverzameling",
+    "explore": "Ontdekken",
+    "about": "Over",
+    "madeWith": "Gemaakt met",
+    "by": "door"
   }
 }

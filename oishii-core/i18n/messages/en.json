@@ -652,5 +652,77 @@
     "showMore": "Show more",
     "showLess": "Show less",
     "noRecipes": "No recipes found"
+  },
+  "home": {
+    "hero": {
+      "tagline": "Your Personal Recipe Collection",
+      "title": "Cook, Share & Discover",
+      "titleHighlight": "Amazing Recipes",
+      "description": "The modern recipe app that helps you organize your culinary creations, discover new flavors, and share your passion for cooking with the world.",
+      "getStarted": "Get Started Free",
+      "exploreRecipes": "Explore Recipes"
+    },
+    "ai": {
+      "badge": "AI-Powered",
+      "title": "Let AI Do the Heavy Lifting",
+      "description": "Our smart AI features help you import, format, and enhance your recipes effortlessly.",
+      "features": {
+        "scrape": {
+          "title": "Import from Any URL",
+          "description": "Paste any recipe URL and our AI will automatically extract all ingredients, steps, and details for you."
+        },
+        "format": {
+          "title": "Smart Text Formatting",
+          "description": "Copy any recipe text from anywhere - our AI will intelligently parse and format it to our clean structure."
+        },
+        "enhance": {
+          "title": "Image Enhancement",
+          "description": "Transform your amateur food photos into stunning, professional-looking images with AI enhancement."
+        }
+      }
+    },
+    "features": {
+      "badge": "Why Oishii?",
+      "title": "Features You'll Love",
+      "description": "Everything you need to manage your recipes, discover new ones, and share with friends.",
+      "list": {
+        "multilingual": {
+          "title": "Multilingual Search",
+          "description": "Find recipes in any language. Our tag system automatically translates, so a Dutch user can find your English recipe."
+        },
+        "share": {
+          "title": "Easy Sharing",
+          "description": "Share your recipes with a single tap. Generate beautiful links for WhatsApp, social media, or just copy the link."
+        },
+        "organize": {
+          "title": "Smart Organization",
+          "description": "Tag your recipes with 300+ official tags across 15 categories. Filter by diet, cuisine, cooking style, and more."
+        },
+        "friends": {
+          "title": "Connect with Friends",
+          "description": "Follow your friends, see what they're cooking, and get inspired by their culinary adventures."
+        },
+        "servings": {
+          "title": "Flexible Servings",
+          "description": "Automatically adjust ingredient amounts when cooking for more or fewer people. No more mental math!"
+        },
+        "notes": {
+          "title": "Personal Cheat Sheet",
+          "description": "Keep your cooking notes, measurement conversions, and tips always at hand with your personal cheat sheet."
+        }
+      }
+    },
+    "stats": {
+      "recipes": "Recipes Shared",
+      "users": "Happy Cooks",
+      "tags": "Official Tags"
+    }
+  },
+  "footer": {
+    "tagline": "Your personal recipe collection",
+    "explore": "Explore",
+    "about": "About",
+    "madeWith": "Made with",
+    "by": "by"
   }
 }
