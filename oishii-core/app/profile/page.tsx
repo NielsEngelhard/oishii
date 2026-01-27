@@ -8,9 +8,10 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import NarrowPageWrapper from "@/components/ui/layout/NarrowPageWrapper";
 import { useAuth } from "@/contexts/AuthContext";
+import { DEFAULT_CHEAT_SHEET } from "@/db/schemas/users";
 import { Locale } from "@/i18n/config";
 import { IUserDetails } from "@/models/user-models";
-import { Check, Globe, Key, LogOut, User } from "lucide-react";
+import { Check, Globe, Key, LogOut, RotateCcw, StickyNote, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -20,12 +21,19 @@ export default function ProfilePage() {
     const router = useRouter();
     const t = useTranslations("profile");
     const tAuth = useTranslations("auth");
+    const tCheatSheet = useTranslations("cheatSheet");
 
     // About Me state
     const [aboutMe, setAboutMe] = useState("");
     const [aboutMeLoading, setAboutMeLoading] = useState(false);
     const [aboutMeSuccess, setAboutMeSuccess] = useState(false);
     const [aboutMeError, setAboutMeError] = useState<string | null>(null);
+
+    // Cheat Sheet state
+    const [cheatSheet, setCheatSheet] = useState("");
+    const [cheatSheetLoading, setCheatSheetLoading] = useState(false);
+    const [cheatSheetSuccess, setCheatSheetSuccess] = useState(false);
+    const [cheatSheetError, setCheatSheetError] = useState<string | null>(null);
 
     // Password state
     const [currentPassword, setCurrentPassword] = useState("");
@@ -58,9 +66,22 @@ export default function ProfilePage() {
         
     }, [user]);
 
+    const fetchCheatSheet = useCallback(async () => {
+        try {
+            const response = await fetch("/api/user/cheat-sheet");
+            if (response.ok) {
+                const data = await response.json();
+                setCheatSheet(data.cheatSheet || DEFAULT_CHEAT_SHEET);
+            }
+        } catch {
+            setCheatSheet(DEFAULT_CHEAT_SHEET);
+        }
+    }, []);
+
     useEffect(() => {
         fetchUser();
-    }, [fetchUser]);
+        fetchCheatSheet();
+    }, [fetchUser, fetchCheatSheet]);
 
     const handleLogout = async () => {
         await fetch("/api/auth/logout", { method: "POST" });
@@ -95,6 +116,35 @@ export default function ProfilePage() {
         } finally {
             setAboutMeLoading(false);
         }
+    };
+
+    const handleUpdateCheatSheet = async () => {
+        setCheatSheetLoading(true);
+        setCheatSheetError(null);
+        setCheatSheetSuccess(false);
+
+        try {
+            const response = await fetch("/api/user/cheat-sheet", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ cheatSheet }),
+            });
+
+            if (response.ok) {
+                setCheatSheetSuccess(true);
+                setTimeout(() => setCheatSheetSuccess(false), 3000);
+            } else {
+                setCheatSheetError(t("updateError"));
+            }
+        } catch {
+            setCheatSheetError(t("updateError"));
+        } finally {
+            setCheatSheetLoading(false);
+        }
+    };
+
+    const handleResetCheatSheet = () => {
+        setCheatSheet(DEFAULT_CHEAT_SHEET);
     };
 
     const handleUpdatePassword = async () => {
@@ -210,6 +260,57 @@ export default function ProfilePage() {
                                     size="sm"
                                     onClick={handleUpdateAboutMe}
                                     disabled={aboutMeLoading}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </Card>
+
+                {/* Cheat Sheet */}
+                <Card className="border-2 border-yellow-300 dark:border-yellow-600 bg-yellow-50 dark:bg-yellow-950/20">
+                    <div className="flex items-center gap-2 mb-2">
+                        <StickyNote size={18} className="text-yellow-600" />
+                        <h2 className="text-lg font-semibold">{tCheatSheet("title")}</h2>
+                    </div>
+                    <p className="text-sm text-muted mb-4">{tCheatSheet("description")}</p>
+
+                    <div className="space-y-4">
+                        <TextArea
+                            value={cheatSheet}
+                            onChange={(e) => setCheatSheet(e.target.value)}
+                            placeholder={tCheatSheet("placeholder")}
+                            maxLength={2000}
+                            rows={6}
+                            className="bg-white dark:bg-background font-mono text-sm"
+                        />
+
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs text-muted">{cheatSheet.length}/2000</span>
+                                <button
+                                    onClick={handleResetCheatSheet}
+                                    className="text-xs text-muted hover:text-foreground flex items-center gap-1 transition-colors"
+                                    title={tCheatSheet("resetToDefault")}
+                                >
+                                    <RotateCcw size={12} />
+                                    {tCheatSheet("resetToDefault")}
+                                </button>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                {cheatSheetSuccess && (
+                                    <span className="text-sm text-green-500 flex items-center gap-1">
+                                        <Check size={14} />
+                                        {t("updateSuccess")}
+                                    </span>
+                                )}
+                                {cheatSheetError && (
+                                    <span className="text-sm text-error">{cheatSheetError}</span>
+                                )}
+                                <Button
+                                    text={cheatSheetLoading ? t("updating") : t("update")}
+                                    size="sm"
+                                    onClick={handleUpdateCheatSheet}
+                                    disabled={cheatSheetLoading}
                                 />
                             </div>
                         </div>

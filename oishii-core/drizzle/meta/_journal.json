@@ -92,6 +92,13 @@
       "when": 1769438781581,
       "tag": "0012_abandoned_norrin_radd",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1769505837056,
+      "tag": "0013_absurd_silvermane",
+      "breakpoints": true
     }
   ]
 }

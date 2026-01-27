@@ -210,5 +210,14 @@
     "dash": "dash",
     "to_taste": "to taste",
     "none": ""
+  },
+  "cheatSheet": {
+    "title": "Cheat Sheet",
+    "description": "Your personal cooking notes and quick reference rules. Access them anytime via the sticky note icon.",
+    "placeholder": "Add your cooking notes, measurements, and tips here...",
+    "editHint": "Edit in your profile settings",
+    "empty": "No notes yet. Add some in your profile!",
+    "close": "Close",
+    "resetToDefault": "Reset to default"
   }
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nunito, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/ui/layout/Header";
+import CheatSheetFAB from "@/components/specific/cheatsheet/CheatSheetFAB";
 import localFont from "next/font/local";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ToastProvider } from "@/contexts/ToastContext";
@@ -56,6 +57,9 @@ export default async function RootLayout({
               <div className="flex justify-center w-full">
                 {children}
               </div>
+
+              {/* Mobile floating button for cheat sheet */}
+              <CheatSheetFAB />
             </ToastProvider>
           </AuthProvider>
         </NextIntlClientProvider>

@@ -210,5 +210,14 @@
     "dash": "scheutje",
     "to_taste": "naar smaak",
     "none": ""
+  },
+  "cheatSheet": {
+    "title": "Spiekbriefje",
+    "description": "Je persoonlijke kooknotities en snelle referentieregels. Bekijk ze altijd via het post-it icoon.",
+    "placeholder": "Voeg hier je kooknotities, maten en tips toe...",
+    "editHint": "Bewerk in je profielinstellingen",
+    "empty": "Nog geen notities. Voeg er een toe in je profiel!",
+    "close": "Sluiten",
+    "resetToDefault": "Herstel standaard"
   }
 }

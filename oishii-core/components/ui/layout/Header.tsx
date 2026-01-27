@@ -1,6 +1,6 @@
 "use client"
 
-import { BookCheck, BookOpen, ChevronDown, Handshake, Home, LogIn, Plus, Search, Users, X } from "lucide-react";
+import { BookCheck, BookOpen, ChevronDown, Handshake, Home, LogIn, Plus, Search, StickyNote, Users, X } from "lucide-react";
 import Button from "../Button";
 import Link from "next/link";
 import { ABOUT_ROUTE, CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FRIENDS_ROUTE, HOME_LANDING_PAGE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
@@ -11,17 +11,16 @@ import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
+import CheatSheetPopup from "@/components/specific/cheatsheet/CheatSheetPopup";
 
 export default function Header() {
     const { user, isLoading } = useAuth();
     const router = useRouter();
     const t = useTranslations("header");
     const tAuth = useTranslations("auth");
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);    
-
-    useEffect(() => {
-        console.log(user);
-    }, [user]);
+    const tCheatSheet = useTranslations("cheatSheet");
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [cheatSheetOpen, setCheatSheetOpen] = useState(false);
 
     // Close menu on route change or escape key
     useEffect(() => {
@@ -94,6 +93,14 @@ export default function Header() {
                             <div className="w-10 h-10 rounded-full bg-secondary animate-pulse" />
                         ) : user ? (
                             <div className="flex items-center gap-1">
+                                {/* Cheat Sheet Button */}
+                                <button
+                                    onClick={() => setCheatSheetOpen(true)}
+                                    className="p-2 rounded-xl hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors group"
+                                    title={tCheatSheet("title")}
+                                >
+                                    <StickyNote className="w-5 h-5 text-yellow-600 group-hover:text-yellow-700 transition-colors" />
+                                </button>
                                 <Link
                                     href={CREATE_RECIPE_ROUTE}
                                     className="p-2 rounded-xl hover:bg-secondary/60 transition-colors"
@@ -278,6 +285,9 @@ export default function Header() {
                     )}
                 </div>
             </div>
+
+            {/* Cheat Sheet Popup */}
+            <CheatSheetPopup isOpen={cheatSheetOpen} onClose={() => setCheatSheetOpen(false)} />
         </>
     )
 }
