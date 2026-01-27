@@ -145,7 +145,7 @@ export default async function RecipeDetailsPage({ params }: Props) {
                     </div>
 
                     {/* Ingredients */}
-                    <IngredientListDisplay ingredients={recipe.ingredients} />
+                    <IngredientListDisplay ingredients={recipe.ingredients} originalServings={recipe.servings} />
 
                     {/* Instructions */}
                     <InstructionListDisplay instructions={recipe.instructions} />

@@ -179,5 +179,36 @@
     "copyLink": "Copy Link",
     "shareViaWhatsApp": "Share via WhatsApp",
     "linkCopied": "Link copied to clipboard!"
+  },
+  "ingredients": {
+    "servings": "Servings",
+    "adjustedFor": "Amounts adjusted for {count} servings (original: {original})",
+    "alternativeUnits": "Alternative units",
+    "metric": "Metric",
+    "usImperial": "US/Imperial",
+    "convert": "Convert",
+    "close": "Close",
+    "resetServings": "Reset to original"
+  },
+  "units": {
+    "ml": "milliliter",
+    "l": "liter",
+    "tsp": "teaspoon",
+    "tbsp": "tablespoon",
+    "cup": "cup",
+    "mg": "milligram",
+    "g": "gram",
+    "kg": "kilogram",
+    "oz": "ounce",
+    "lb": "pound",
+    "cm": "centimeter",
+    "mm": "millimeter",
+    "piece": "piece",
+    "clove": "clove",
+    "slice": "slice",
+    "pinch": "pinch",
+    "dash": "dash",
+    "to_taste": "to taste",
+    "none": ""
   }
 }

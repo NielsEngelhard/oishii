@@ -179,5 +179,36 @@
     "copyLink": "Link kopiëren",
     "shareViaWhatsApp": "Delen via WhatsApp",
     "linkCopied": "Link gekopieerd naar klembord!"
+  },
+  "ingredients": {
+    "servings": "Porties",
+    "adjustedFor": "Hoeveelheden aangepast voor {count} porties (origineel: {original})",
+    "alternativeUnits": "Alternatieve eenheden",
+    "metric": "Metrisch",
+    "usImperial": "Amerikaans",
+    "convert": "Omrekenen",
+    "close": "Sluiten",
+    "resetServings": "Terug naar origineel"
+  },
+  "units": {
+    "ml": "milliliter",
+    "l": "liter",
+    "tsp": "theelepel",
+    "tbsp": "eetlepel",
+    "cup": "cup",
+    "mg": "milligram",
+    "g": "gram",
+    "kg": "kilogram",
+    "oz": "ounce",
+    "lb": "pond",
+    "cm": "centimeter",
+    "mm": "millimeter",
+    "piece": "stuk",
+    "clove": "teentje",
+    "slice": "plakje",
+    "pinch": "snufje",
+    "dash": "scheutje",
+    "to_taste": "naar smaak",
+    "none": ""
   }
 }

@@ -3,24 +3,6 @@ Technical
 
 V1
 -----------------------------------------------------------
-
--------------------------------------------------------------
-I want to change the recipe id. Currently it is a number, but I want it to be a string. It should be the name of the recipe in kebab case. So Lekkere Pasta should become lekkere-pasta. If that already exists it should start nummering it like "lekkere-pasta-2" and then "lekkere-pasta-3". My plan is too:
-- Keep the current number as id just to be sure;
-- Add a new unique field called slug that represents the earlier mentioned logic;
-- Searching a recipe (http endpoint) is now done via this slug and not via the id;
-
-Lets first go into plan mode to discuss the strategy
--------------------------------------------------------------
-I want to add the functionality for sharing a recipe. In the RecipeCard and the RecipeDetails there should be options to share the recipe. When clicking on the "share recipe button" that you will add accordingly, you will have the options too:
-- Copy the link to the recipe;
-- Share the recipe via whatsapp;
-- Maybe other sharing methods will also become available later but for now only these too. Keep in mind that I want to extend it someday.
-
-I am thinking about some sort of popup/modal with the share options. It should be extremely UI friendly, also on mobile.
-
-Lets go into plan mode to discuss it first!
--------------------------------------------------------------
 Currently creating a recipe is possible. This is nice. The option to update a recipe (only available for your own recipes) does not exist yet. This should be implemented too! Keep it the same as the create form, but already prefilled and having thus the option to save the recipe. Also add CreatedAt and UpdatedAt to the UI of the recipe details page.
 
 -------------------------------------------------------------
@@ -41,7 +23,7 @@ In my previous prompt I asked you to extend the working of tags and. This is nic
 - tags like soup,
 These are just examples. I want you to come up with a big list of tags that makes sense and will cover most cases regarding searchability. 
 -------------------------------------------------------------
-I can navigate to other users their profile. This is nice. Now I can see the profile of my friends for example. Now I want to extend this page with a button to see their recipes. This should look a lot like the my recipes page, but then it is for someone elses recipes. Please implement this for me! Lets first go into plan mode!
+
 -------------------------------------------------------------
 - Import with AI implementeren <-- dit zit wel achter premium functionaliteit dus je moet dan wel een premium account hebben
 DIT MOET IK NOG EVEN GOED ONDERZOEKEN OOK QUA RATE LIMITING EN PLAN ETC.
@@ -87,3 +69,46 @@ Can you implement the home page. This is the / route. Currently it is not implem
 - A about page stating that the app is not finished yet and is still in development 
 
 It should match the vibe of the app and look clean. Also it should have subtle animations and design choices, like the subtle animation in the Logo of the header. I really like that! Also it should make use of the i18n labels.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Please audit and update the UI design of this application with the following goals:
+
+Design Direction:
+- Make the design more modern and clean, but NOT minimalist/corporate (avoid Apple-style sterile designs)
+- Preserve the application's character and personality ("soul")
+- Strike a balance between contemporary polish and warmth/approachability
+
+Specific Tasks:
+- Review all UI components (buttons, inputs, cards, navigation, modals, etc.)
+- Examine overall layout, spacing, and typography
+- Analyze the color scheme and visual hierarchy
+- Check for outdated design patterns (heavy borders, old shadows, dated fonts, etc.)
+- Update the CLAUDE.md and README.md so that the design decisions etc. are documented somewhere 
+
+What to Improve:
+- Typography: Consider modern font choices and better hierarchy
+- Spacing: Ensure consistent, generous white space without feeling empty
+- Colors: Refine the palette to feel fresh but not overly flat
+- Components: Update styling to feel current (subtle shadows, refined borders, smooth interactions)
+- Layout: Improve alignment, grouping, and visual flow
+
+What to Preserve:
+- Any unique personality or character in the design
+- Functional elements that work well
+- The overall vibe/tone of the application
+
+Please provide a summary of changes made and the reasoning behind key design decisions.
+
+Lets first go into plan mode to discuss styling decisions.
