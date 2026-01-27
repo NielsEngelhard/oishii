@@ -120,7 +120,24 @@
     "magic": "Magie",
     "aiDescription": "Plak een recept-URL en onze AI haalt alle details voor je op.",
     "urlPlaceholder": "https://voorbeeld.nl/recept...",
-    "importRecipe": "Recept importeren"
+    "importRecipe": "Recept importeren",
+    "title": "AI Import",
+    "description": "Kies hoe je je recept wilt importeren met AI",
+    "moreOptions": "Meer AI Import Opties",
+    "urlImport": {
+      "title": "Importeren via URL",
+      "description": "Plak een recept-URL en onze AI haalt automatisch alle ingrediënten, stappen en details op."
+    },
+    "textImport": {
+      "title": "Importeren via tekst",
+      "description": "Kopieer en plak recepttekst en onze AI formatteert het voor je."
+    },
+    "comingSoon": "Binnenkort beschikbaar",
+    "back": "Terug naar opties",
+    "textPlaceholder": "Plak hier je recepttekst...",
+    "importButton": "Recept Importeren",
+    "helperUrl": "Onze AI haalt ingrediënten, stappen, kooktijden en meer uit de URL.",
+    "helperText": "Onze AI parseert de tekst en haalt ingrediënten, stappen en andere receptdetails eruit."
   },
   "profile": {
     "member": "Lid",

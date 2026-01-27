@@ -8,6 +8,7 @@ export const PROFILE_ROUTE: string = "/profile";
 export const RECIPE_DETAILS_ROUTE = (slug: string): string => `/recipe/${slug}`;
 export const CREATE_RECIPE_ROUTE: string = "/recipe/create";
 export const EDIT_RECIPE_ROUTE = (slug: string): string => `/recipe/${slug}/edit`;
+export const AI_IMPORT_ROUTE: string = "/recipe/import";
 
 export const MY_RECIPES_ROUTE: string = "/recipes/my";
 

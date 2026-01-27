@@ -120,7 +120,24 @@
     "magic": "Magic",
     "aiDescription": "Paste any recipe URL and our AI will extract all the details for you.",
     "urlPlaceholder": "https://example.com/recipe...",
-    "importRecipe": "Import Recipe"
+    "importRecipe": "Import Recipe",
+    "title": "AI Import",
+    "description": "Choose how you want to import your recipe using AI",
+    "moreOptions": "More AI Import Options",
+    "urlImport": {
+      "title": "Import from URL",
+      "description": "Paste a recipe URL and our AI will extract all ingredients, steps, and details automatically."
+    },
+    "textImport": {
+      "title": "Import from Text",
+      "description": "Copy and paste any recipe text and our AI will parse and format it for you."
+    },
+    "comingSoon": "Coming soon",
+    "back": "Back to options",
+    "textPlaceholder": "Paste your recipe text here...",
+    "importButton": "Import Recipe",
+    "helperUrl": "Our AI will extract ingredients, steps, cooking times, and more from the URL.",
+    "helperText": "Our AI will parse the text and extract ingredients, steps, and other recipe details."
   },
   "profile": {
     "member": "Member",
