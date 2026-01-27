@@ -15,3 +15,6 @@ export const USER_PROFILE_ROUTE = (userId: string): string => `/user/${userId}`;
 export const USER_RECIPES_ROUTE = (userId: string): string => `/user/${userId}/recipes`;
 export const FRIENDS_ROUTE: string = "/friends";
 export const EXPLORE_ROUTE: string = "/explore";
+
+// Development only
+export const SEED_ROUTE: string = "/seed";

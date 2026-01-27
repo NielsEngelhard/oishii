@@ -219,5 +219,15 @@
     "empty": "Nog geen notities. Voeg er een toe in je profiel!",
     "close": "Sluiten",
     "resetToDefault": "Herstel standaard"
+  },
+  "explore": {
+    "title": "Ontdekken",
+    "description": "Ontdek nieuwe recepten van de community",
+    "randomPicks": "Willekeurige Recepten",
+    "mostPopular": "Meest Populair",
+    "refresh": "Vernieuwen",
+    "showMore": "Meer tonen",
+    "showLess": "Minder tonen",
+    "noRecipes": "Geen recepten gevonden"
   }
 }

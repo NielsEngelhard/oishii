@@ -219,5 +219,15 @@
     "empty": "No notes yet. Add some in your profile!",
     "close": "Close",
     "resetToDefault": "Reset to default"
+  },
+  "explore": {
+    "title": "Explore",
+    "description": "Discover new recipes from the community",
+    "randomPicks": "Random Picks",
+    "mostPopular": "Most Popular",
+    "refresh": "Refresh",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "noRecipes": "No recipes found"
   }
 }

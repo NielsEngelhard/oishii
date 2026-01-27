@@ -1,9 +1,9 @@
 "use client"
 
-import { BookCheck, BookOpen, ChevronDown, Handshake, Home, LogIn, Plus, Search, StickyNote, Users, X } from "lucide-react";
+import { BookCheck, BookOpen, ChevronDown, Handshake, Home, LogIn, Plus, Search, Sprout, StickyNote, Users, X } from "lucide-react";
 import Button from "../Button";
 import Link from "next/link";
-import { ABOUT_ROUTE, CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FRIENDS_ROUTE, HOME_LANDING_PAGE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
+import { ABOUT_ROUTE, CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FRIENDS_ROUTE, HOME_LANDING_PAGE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SEED_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
 import Logo from "./logo";
 import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
@@ -95,6 +95,16 @@ export default function Header() {
                             <div className="w-10 h-10 rounded-full bg-secondary animate-pulse" />
                         ) : user ? (
                             <div className="flex items-center gap-1">
+                                {/* Seed Button (Dev Only) */}
+                                {process.env.NODE_ENV === "development" && (
+                                    <Link
+                                        href={SEED_ROUTE}
+                                        className="p-2 rounded-xl hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors group"
+                                        title="Seed Data"
+                                    >
+                                        <Sprout className="w-5 h-5 text-green-600 group-hover:text-green-700 transition-colors" />
+                                    </Link>
+                                )}
                                 {/* Cheat Sheet Button */}
                                 <button
                                     onClick={() => setCheatSheetOpen(true)}
