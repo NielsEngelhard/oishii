@@ -21,25 +21,20 @@ interface AuthFormProps {
   isLogin: boolean;
   onToggleMode: () => void;
   redirectTo: string | null;
+  onLanguageChange: (locale: Locale) => void;
+  selectedLanguage: Locale;
 }
 
-function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
+function AuthForm({ isLogin, onToggleMode, redirectTo, onLanguageChange, selectedLanguage }: AuthFormProps) {
   const t = useTranslations("auth");
   const tCommon = useTranslations("common");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
-  const [selectedLanguage, setSelectedLanguage] = useState<Locale>(defaultLocale);
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(isLogin ? loginSchema : signUpSchema),
     mode: "onChange",
   });
-
-  const handleLanguageChange = (locale: Locale) => {
-    setSelectedLanguage(locale);
-    setLanguageCookie(locale);
-    window.location.reload();
-  };
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
@@ -61,7 +56,14 @@ function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
         return;
       }
 
-      window.location.href = redirectTo || '/';
+      // Navigate to appropriate page after auth
+      if (redirectTo) {
+        window.location.href = redirectTo;
+      } else if (isLogin) {
+        window.location.href = '/recipes/my';
+      } else {
+        window.location.href = '/explore';
+      }
     } catch {
       setApiError(tCommon('networkError'));
     } finally {
@@ -115,7 +117,7 @@ function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
         {!isLogin && (
           <LanguageSelect
             value={selectedLanguage}
-            onChange={handleLanguageChange}
+            onChange={onLanguageChange}
           />
         )}
 
@@ -151,10 +153,17 @@ function AuthForm({ isLogin, onToggleMode, redirectTo }: AuthFormProps) {
 
 function LoginContent() {
   const t = useTranslations("auth");
-  const [isLogin, setIsLogin] = useState(true);
   const searchParams = useSearchParams();
+  const isSignUp = searchParams.has("sign-up");
+  const [isLogin, setIsLogin] = useState(!isSignUp);
+  const [selectedLanguage, setSelectedLanguage] = useState<Locale>(defaultLocale);
   const expired = searchParams.get("expired") === "true";
   const redirectTo = searchParams.get("redirect");
+
+  const handleLanguageChange = (locale: Locale) => {
+    setSelectedLanguage(locale);
+    setLanguageCookie(locale);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
@@ -177,6 +186,8 @@ function LoginContent() {
             isLogin={isLogin}
             onToggleMode={() => setIsLogin(!isLogin)}
             redirectTo={redirectTo}
+            selectedLanguage={selectedLanguage}
+            onLanguageChange={handleLanguageChange}
           />
         </div>
 
