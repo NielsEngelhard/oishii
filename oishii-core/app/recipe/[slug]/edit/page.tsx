@@ -10,6 +10,7 @@ import SelectButtonInput from "@/components/form/SelectButtonInput";
 import IngredientInputList from "@/components/specific/ingredient/IngredientInputList";
 import InstructionInputList from "@/components/specific/instruction/InstructionList";
 import NoteInputList from "@/components/specific/note/NoteInputList";
+import TagInput from "@/components/specific/tag/TagInput";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import PageHeader from "@/components/ui/layout/PageHeader";
@@ -18,7 +19,7 @@ import { locales } from "@/i18n/config";
 import { IRecipeDetails } from "@/models/recipe-models";
 import { createRecipeSchema, CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BookText, Clock, CookingPot, Gauge, List, Lightbulb, Loader2, Users } from "lucide-react";
+import { BookText, Clock, CookingPot, Gauge, List, Lightbulb, Loader2, Tags, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -30,6 +31,7 @@ export default function EditRecipePage() {
     const slug = params.slug as string;
     const t = useTranslations("recipe");
     const tCommon = useTranslations("common");
+    const tTags = useTranslations("tags");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [apiError, setApiError] = useState<string | null>(null);
@@ -42,6 +44,7 @@ export default function EditRecipePage() {
             ingredients: [{ name: "", amount: "", unit: "g", isSpice: false }],
             instructions: [{ text: "", index: 1 }],
             notes: [],
+            tags: [],
             difficulty: "medium",
             language: "en",
         }
@@ -84,6 +87,7 @@ export default function EditRecipePage() {
                 imageUrl: recipe.imageUrl || undefined,
                 language: recipe.language as typeof locales[number],
                 notes: recipe.notes || [],
+                tags: recipe.tags?.map(t => t.key) || [],
             });
         } catch {
             setLoadError(t("failedToFetch"));
@@ -233,6 +237,18 @@ export default function EditRecipePage() {
                             error={(errors as FieldErrors<CreateRecipeSchemaData>).language?.message}
                         />
                     </InputGroup>
+                </Card>
+
+                <Card>
+                    <h2 className="mb-3 flex items-center gap-2">
+                        <Tags size={18} />
+                        {tTags("title")}
+                    </h2>
+
+                    <TagInput
+                        selectedTags={watch("tags") || []}
+                        onChange={(tags) => setValue("tags", tags)}
+                    />
                 </Card>
 
                 <Card>

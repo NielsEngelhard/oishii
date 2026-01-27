@@ -1,7 +1,7 @@
-import { recipesTable, usersTable, recipeLikesTable } from "@/db/schema";
+import { recipesTable, usersTable, recipeLikesTable, recipeTagsTable } from "@/db/schema";
 import { db } from "@/lib/db/db";
-import { IRecipeTeaser } from "@/models/recipe-models";
-import { eq, desc, sql } from "drizzle-orm";
+import { IRecipeTeaser, IRecipeTag } from "@/models/recipe-models";
+import { eq, desc, sql, inArray } from "drizzle-orm";
 
 interface GetExploreRecipesParams {
     currentUserId?: number;
@@ -40,21 +40,25 @@ function buildRecipeSelect(currentUserId?: number) {
     return { likeCountSubquery, currentUserLikesSubquery };
 }
 
-function mapToRecipeTeaser(recipe: {
-    id: string;
-    slug: string;
-    title: string;
-    description: string | null;
-    cookTime: number;
-    servings: number;
-    difficulty: string;
-    imageUrl: string | null;
-    createdAt: Date;
-    authorId: number;
-    authorName: string;
-    likeCount: number;
-    isLiked: boolean;
-}, currentUserId?: number): IRecipeTeaser {
+function mapToRecipeTeaser(
+    recipe: {
+        id: string;
+        slug: string;
+        title: string;
+        description: string | null;
+        cookTime: number;
+        servings: number;
+        difficulty: string;
+        imageUrl: string | null;
+        createdAt: Date;
+        authorId: number;
+        authorName: string;
+        likeCount: number;
+        isLiked: boolean;
+    },
+    currentUserId?: number,
+    tags?: IRecipeTag[]
+): IRecipeTeaser {
     return {
         id: recipe.id,
         slug: recipe.slug,
@@ -72,7 +76,33 @@ function mapToRecipeTeaser(recipe: {
         likeCount: recipe.likeCount,
         isLiked: recipe.isLiked,
         isOwner: currentUserId ? recipe.authorId === currentUserId : false,
+        tags: tags || [],
     };
+}
+
+async function fetchTagsForRecipes(recipeIds: string[]): Promise<Map<string, IRecipeTag[]>> {
+    const tagsMap = new Map<string, IRecipeTag[]>();
+
+    if (recipeIds.length === 0) {
+        return tagsMap;
+    }
+
+    const tags = await db
+        .select({
+            recipeId: recipeTagsTable.recipeId,
+            tagKey: recipeTagsTable.tagKey,
+            isOfficial: recipeTagsTable.isOfficial,
+        })
+        .from(recipeTagsTable)
+        .where(inArray(recipeTagsTable.recipeId, recipeIds));
+
+    for (const tag of tags) {
+        const existing = tagsMap.get(tag.recipeId) || [];
+        existing.push({ key: tag.tagKey, isOfficial: tag.isOfficial ?? false });
+        tagsMap.set(tag.recipeId, existing);
+    }
+
+    return tagsMap;
 }
 
 export async function getRandomRecipes(
@@ -111,7 +141,10 @@ export async function getRandomRecipes(
         .orderBy(sql`RANDOM()`)
         .limit(limit);
 
-    return recipes.map(r => mapToRecipeTeaser(r, currentUserId));
+    // Fetch tags for all recipes
+    const tagsMap = await fetchTagsForRecipes(recipes.map(r => r.id));
+
+    return recipes.map(r => mapToRecipeTeaser(r, currentUserId, tagsMap.get(r.id)));
 }
 
 export async function getPopularRecipes(
@@ -150,7 +183,10 @@ export async function getPopularRecipes(
         .orderBy(desc(sql`COALESCE(${likeCountSubquery.count}, 0)`), desc(recipesTable.createdAt))
         .limit(limit);
 
-    return recipes.map(r => mapToRecipeTeaser(r, currentUserId));
+    // Fetch tags for all recipes
+    const tagsMap = await fetchTagsForRecipes(recipes.map(r => r.id));
+
+    return recipes.map(r => mapToRecipeTeaser(r, currentUserId, tagsMap.get(r.id)));
 }
 
 export default async function getExploreRecipes({

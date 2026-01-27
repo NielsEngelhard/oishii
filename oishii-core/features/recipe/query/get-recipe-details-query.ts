@@ -1,6 +1,6 @@
-import { recipesTable, usersTable, recipeLikesTable } from "@/db/schema";
+import { recipesTable, usersTable, recipeLikesTable, recipeTagsTable } from "@/db/schema";
 import { db } from "@/lib/db/db";
-import { IRecipeDetails } from "@/models/recipe-models";
+import { IRecipeDetails, IRecipeTag } from "@/models/recipe-models";
 import { eq, sql } from "drizzle-orm";
 
 interface GetRecipeDetailsParams {
@@ -78,6 +78,20 @@ export default async function getRecipeDetails(
         return null;
     }
 
+    // Fetch tags for this recipe
+    const tagsResult = await db
+        .select({
+            tagKey: recipeTagsTable.tagKey,
+            isOfficial: recipeTagsTable.isOfficial,
+        })
+        .from(recipeTagsTable)
+        .where(eq(recipeTagsTable.recipeId, recipe.id));
+
+    const tags: IRecipeTag[] = tagsResult.map(t => ({
+        key: t.tagKey,
+        isOfficial: t.isOfficial ?? false,
+    }));
+
     return {
         id: recipe.id,
         slug: recipe.slug,
@@ -101,5 +115,6 @@ export default async function getRecipeDetails(
         likeCount: recipe.likeCount,
         isLiked: recipe.isLiked,
         isOwner: currentUserId ? recipe.authorId === currentUserId : false,
+        tags,
     };
 }

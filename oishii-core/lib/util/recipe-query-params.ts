@@ -32,7 +32,9 @@ export function buildRecipeQueryParams({
     if (filters.totalTime) {
         params.set("totalTime", filters.totalTime);
     }
-    // Note: cuisine filter is not yet implemented in the backend
+    if (filters.tags && filters.tags.length > 0) {
+        params.set("tags", filters.tags.join(","));
+    }
 
     return params;
 }

@@ -1,14 +1,15 @@
-import { recipesTable, usersTable, recipeLikesTable } from "@/db/schema";
+import { recipesTable, usersTable, recipeLikesTable, recipeTagsTable } from "@/db/schema";
 import { RecipeDifficulty } from "@/db/schemas/enum/recipe-difficulty";
 import { db } from "@/lib/db/db";
-import { IPaginatedResponse, IRecipeTeaser } from "@/models/recipe-models";
-import { eq, desc, sql, and, ilike, lte, gt, SQL, or } from "drizzle-orm";
+import { IPaginatedResponse, IRecipeTeaser, IRecipeTag } from "@/models/recipe-models";
+import { eq, desc, sql, and, ilike, lte, gt, SQL, or, inArray } from "drizzle-orm";
 
 export interface RecipeFilters {
     search?: string;
     difficulty?: RecipeDifficulty;
     maxTotalTime?: number;
     minTotalTime?: number;
+    tags?: string[];
 }
 
 interface GetUserRecipesParams {
@@ -96,6 +97,16 @@ export default async function getUserRecipes({
         conditions.push(gt(totalTimeExpr, filters.minTotalTime));
     }
 
+    // Tag filter: Find recipes that have ANY of the specified tags
+    if (filters?.tags && filters.tags.length > 0) {
+        const recipesWithTags = db
+            .selectDistinct({ recipeId: recipeTagsTable.recipeId })
+            .from(recipeTagsTable)
+            .where(inArray(recipeTagsTable.tagKey, filters.tags));
+
+        conditions.push(inArray(recipesTable.id, recipesWithTags));
+    }
+
     const whereClause = and(...conditions);
 
     // Get total count with filters
@@ -144,6 +155,27 @@ export default async function getUserRecipes({
         .limit(pageSize)
         .offset(offset);
 
+    // Fetch tags for all recipes in one query
+    const recipeIds = recipes.map(r => r.id);
+    const tagsMap = new Map<string, IRecipeTag[]>();
+
+    if (recipeIds.length > 0) {
+        const tags = await db
+            .select({
+                recipeId: recipeTagsTable.recipeId,
+                tagKey: recipeTagsTable.tagKey,
+                isOfficial: recipeTagsTable.isOfficial,
+            })
+            .from(recipeTagsTable)
+            .where(inArray(recipeTagsTable.recipeId, recipeIds));
+
+        for (const tag of tags) {
+            const existing = tagsMap.get(tag.recipeId) || [];
+            existing.push({ key: tag.tagKey, isOfficial: tag.isOfficial ?? false });
+            tagsMap.set(tag.recipeId, existing);
+        }
+    }
+
     const items: IRecipeTeaser[] = recipes.map((recipe) => ({
         id: recipe.id,
         slug: recipe.slug,
@@ -161,6 +193,7 @@ export default async function getUserRecipes({
         likeCount: recipe.likeCount,
         isLiked: recipe.isLiked,
         isOwner: currentUserId ? recipe.authorId === currentUserId : false,
+        tags: tagsMap.get(recipe.id) || [],
     }));
 
     return {

@@ -13,6 +13,7 @@ import IngredientInputList from "@/components/specific/ingredient/IngredientInpu
 import InstructionInputList from "@/components/specific/instruction/InstructionList";
 import NoteInputList from "@/components/specific/note/NoteInputList";
 import AiImportCard from "@/components/specific/recipe/AiImportCard";
+import TagInput from "@/components/specific/tag/TagInput";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import PageHeader from "@/components/ui/layout/PageHeader";
@@ -20,7 +21,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { locales } from "@/i18n/config";
 import { createRecipeSchema, CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BookText, Clock, CookingPot, Gauge, List, Lightbulb, Users } from "lucide-react";
+import { BookText, Clock, CookingPot, Gauge, List, Lightbulb, Tags, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -31,6 +32,7 @@ export default function CreateRecipePage() {
     const { user } = useAuth();
     const t = useTranslations("recipe");
     const tCommon = useTranslations("common");
+    const tTags = useTranslations("tags");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [apiError, setApiError] = useState<string | null>(null);
 
@@ -41,6 +43,7 @@ export default function CreateRecipePage() {
             ingredients: [{ name: "", amount: "", unit: "g", isSpice: false }],
             instructions: [{ text: "", index: 1 }],
             notes: [],
+            tags: [],
             difficulty: "medium",
             language: "en",
         }
@@ -171,6 +174,18 @@ export default function CreateRecipePage() {
                             error={(errors as FieldErrors<CreateRecipeSchemaData>).language?.message}
                         />
                     </InputGroup>
+                </Card>
+
+                <Card>
+                    <h2 className="mb-3 flex items-center gap-2">
+                        <Tags size={18} />
+                        {tTags("title")}
+                    </h2>
+
+                    <TagInput
+                        selectedTags={watch("tags") || []}
+                        onChange={(tags) => setValue("tags", tags)}
+                    />
                 </Card>
 
                 <Card>

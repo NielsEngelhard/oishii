@@ -1,22 +1,4 @@
-Technical
-- Seed endpoint (voor lokaal development)
-
 V1
-
-
-
-I want you to implement the explore recipe page. This page can be kept really simple for now as a version 1. It should:
-- Show 2 rows/lists. 1 row with 10 random recipes and 1 row with the most popular recipes;
-- There is a button the refresh the random recipes;
-- The design should be extremely UX friendly.
-
-Keep it simple and clean for now!
-
-
-
------------------------------------------------------------
-Currently creating a recipe is possible. This is nice. The option to update a recipe (only available for your own recipes) does not exist yet. This should be implemented too! Keep it the same as the create form, but already prefilled and having thus the option to save the recipe. Also add CreatedAt and UpdatedAt to the UI of the recipe details page.
-
 -------------------------------------------------------------
 The tags should play a big role regarding a recipe. I want the tags to be the main thing people can search/filter on. This should also be multi lingual. I want to support a wide range of official tags, like vegan and bulk and idk pasta, rice, etc. The offical tags all have an emoji in their name. The idea I figured out:
 - Tags should be multilingual. So that people can more easily search/filter on them;
@@ -41,10 +23,9 @@ These are just examples. I want you to come up with a big list of tags that make
 DIT MOET IK NOG EVEN GOED ONDERZOEKEN OOK QUA RATE LIMITING EN PLAN ETC.
 -------------------------------------------------------------
 
-- Converten tussen units bijv amerikaans en europees wtf is een tablespoon
-- Aantal personen aanpassen in de recipe details en dat alles mee aanpast qua waardes
-
 - main image more visible
+
+- add as mobile app more easily explanation
 
 V1.5
 DE AI UPDATE

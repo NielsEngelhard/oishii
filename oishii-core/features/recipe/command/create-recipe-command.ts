@@ -1,5 +1,6 @@
-import { recipesTable } from "@/db/schema";
+import { recipesTable, recipeTagsTable } from "@/db/schema";
 import { db } from "@/lib/db/db";
+import { isOfficialTag } from "@/lib/constants/official-tags";
 import { generateUniqueSlug } from "@/lib/util/slug-util";
 import { generateUuid } from "@/lib/util/uuid-util";
 import { CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
@@ -34,6 +35,17 @@ export default async function createRecipe({ data, userId }: CreateRecipeParams)
         language: data.language,
         notes: data.notes,
     });
+
+    // Insert tags if provided
+    if (data.tags && data.tags.length > 0) {
+        const tagRecords = data.tags.map(tagKey => ({
+            recipeId,
+            tagKey,
+            isOfficial: isOfficialTag(tagKey),
+        }));
+
+        await db.insert(recipeTagsTable).values(tagRecords);
+    }
 
     return { recipeId, slug };
 }

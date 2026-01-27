@@ -4,14 +4,15 @@ import SelectInput from "@/components/form/SelectInput";
 import Card from "@/components/ui/Card";
 import IconButton from "@/components/ui/IconButton";
 import SearchBar from "@/components/ui/SearchBar";
-import { ChefHat, Clock, Heart, ListFilter, Utensils } from "lucide-react";
+import { OFFICIAL_TAGS, getOfficialTagEmoji } from "@/lib/constants/official-tags";
+import { ChefHat, Clock, Heart, ListFilter, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import clsx from "clsx";
 
 export interface RecipeFilterValues {
     search: string;
-    cuisine: string;
+    tags: string[];
     difficulty: string;
     totalTime: string;
 }
@@ -39,6 +40,7 @@ export default function RecipesFilter({
 }: Props) {
     const t = useTranslations("recipe");
     const tCommon = useTranslations("common");
+    const tTags = useTranslations("tags");
     const [showFilters, setShowFilters] = useState(false);
 
     function toggleFilters() {
@@ -52,16 +54,22 @@ export default function RecipesFilter({
         });
     };
 
-    const cuisineOptions = [
-        { label: t("allCuisines"), value: "" },
-        { label: "French", value: "french" },
-        { label: "Japanese", value: "japanese" },
-        { label: "Italian", value: "italian" },
-        { label: "Dutch", value: "dutch" },
-        { label: "Mexican", value: "mexican" },
-        { label: "Chinese", value: "chinese" },
-        { label: "Indian", value: "indian" },
-    ];
+    const toggleTag = (tagKey: string) => {
+        const newTags = filters.tags.includes(tagKey)
+            ? filters.tags.filter(t => t !== tagKey)
+            : [...filters.tags, tagKey];
+        onFilterChange({
+            ...filters,
+            tags: newTags,
+        });
+    };
+
+    const clearTags = () => {
+        onFilterChange({
+            ...filters,
+            tags: [],
+        });
+    };
 
     const difficultyOptions = [
         { label: t("allDifficulties"), value: "" },
@@ -91,30 +99,64 @@ export default function RecipesFilter({
 
             {showFilters && (
                 <Card>
-                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                        <SelectInput
-                            label={t("cuisine")}
-                            Icon={Utensils}
-                            options={cuisineOptions}
-                            value={filters.cuisine}
-                            onChange={(value) => handleSelectChange("cuisine", value)}
-                        />
+                    <div className="space-y-4">
+                        {/* Tags Filter */}
+                        <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                                <label className="text-sm font-medium text-muted">{tTags("filterByTags")}</label>
+                                {filters.tags.length > 0 && (
+                                    <button
+                                        onClick={clearTags}
+                                        className="text-xs text-muted hover:text-foreground transition-colors"
+                                    >
+                                        {tTags("allTags")}
+                                    </button>
+                                )}
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                                {OFFICIAL_TAGS.map(tag => {
+                                    const isSelected = filters.tags.includes(tag.key);
+                                    const emoji = getOfficialTagEmoji(tag.key);
+                                    return (
+                                        <button
+                                            key={tag.key}
+                                            type="button"
+                                            onClick={() => toggleTag(tag.key)}
+                                            className={clsx(
+                                                "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
+                                                "border hover:scale-105 active:scale-95",
+                                                isSelected
+                                                    ? "bg-primary/20 border-primary/40 text-primary"
+                                                    : "bg-secondary/50 border-border text-muted hover:bg-secondary hover:text-foreground"
+                                            )}
+                                        >
+                                            <span>{emoji}</span>
+                                            <span>{tTags(tag.key as any)}</span>
+                                            {isSelected && <X className="w-3.5 h-3.5 ml-0.5" />}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
 
-                        <SelectInput
-                            label={t("difficulty")}
-                            Icon={ChefHat}
-                            options={difficultyOptions}
-                            value={filters.difficulty}
-                            onChange={(value) => handleSelectChange("difficulty", value)}
-                        />
+                        {/* Other Filters */}
+                        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <SelectInput
+                                label={t("difficulty")}
+                                Icon={ChefHat}
+                                options={difficultyOptions}
+                                value={filters.difficulty}
+                                onChange={(value) => handleSelectChange("difficulty", value)}
+                            />
 
-                        <SelectInput
-                            label={t("totalTime")}
-                            Icon={Clock}
-                            options={totalTimeOptions}
-                            value={filters.totalTime}
-                            onChange={(value) => handleSelectChange("totalTime", value)}
-                        />
+                            <SelectInput
+                                label={t("totalTime")}
+                                Icon={Clock}
+                                options={totalTimeOptions}
+                                value={filters.totalTime}
+                                onChange={(value) => handleSelectChange("totalTime", value)}
+                            />
+                        </div>
                     </div>
                 </Card>
             )}

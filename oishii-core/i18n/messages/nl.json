@@ -220,6 +220,22 @@
     "close": "Sluiten",
     "resetToDefault": "Herstel standaard"
   },
+  "tags": {
+    "title": "Tags",
+    "official": "Officiële Tags",
+    "custom": "Eigen Tags",
+    "addCustom": "Eigen tag toevoegen",
+    "customPlaceholder": "bijv. Familirecept",
+    "disclaimer": "Tags helpen anderen je recept te vinden in verschillende talen. Officiële tags worden automatisch vertaald.",
+    "filterByTags": "Filter op tags",
+    "allTags": "Alle tags",
+    "vegan": "Veganistisch",
+    "vegetarian": "Vegetarisch",
+    "gluten_free": "Glutenvrij",
+    "dairy_free": "Zuivelvrij",
+    "low_carb": "Koolhydraatarm",
+    "moreCount": "+{count}"
+  },
   "explore": {
     "title": "Ontdekken",
     "description": "Ontdek nieuwe recepten van de community",

@@ -3,6 +3,11 @@ import { ingredientSchemaData } from "@/schemas/ingredient-schemas";
 import { InstructionSchemaData } from "@/schemas/instruction-schemas";
 import { NoteSchemaData } from "@/schemas/note-schemas";
 
+export interface IRecipeTag {
+    key: string;
+    isOfficial: boolean;
+}
+
 export interface IRecipeTeaser {
     id: string;
     slug: string;
@@ -20,6 +25,7 @@ export interface IRecipeTeaser {
     likeCount: number;
     isLiked: boolean;
     isOwner: boolean;
+    tags?: IRecipeTag[];
 }
 
 export interface IPaginatedResponse<T> {
@@ -57,4 +63,5 @@ export interface IRecipeDetails {
     likeCount: number;
     isLiked: boolean;
     isOwner: boolean;
+    tags: IRecipeTag[];
 }

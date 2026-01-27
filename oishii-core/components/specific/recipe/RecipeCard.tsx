@@ -4,11 +4,13 @@ import Avatar from "@/components/ui/Avatar";
 import Tag from "@/components/ui/Tag";
 import ShareButton from "@/components/specific/share/ShareButton";
 import { IRecipeTeaser } from "@/models/recipe-models";
+import { getOfficialTagEmoji } from "@/lib/constants/official-tags";
 import { Clock, Heart, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import clsx from "clsx";
+import { useTranslations } from "next-intl";
 
 interface Props {
     recipe: IRecipeTeaser;
@@ -20,9 +22,27 @@ function getDifficultyLabel(difficulty: string): string {
 }
 
 export default function RecipeCard({ recipe, onLikeChange }: Props) {
+    const tTags = useTranslations("tags");
     const [isLiked, setIsLiked] = useState(recipe.isLiked);
     const [likeCount, setLikeCount] = useState(recipe.likeCount);
     const [isLiking, setIsLiking] = useState(false);
+
+    // Get first 2 tags for display
+    const displayTags = recipe.tags?.slice(0, 2) || [];
+    const remainingTagCount = (recipe.tags?.length || 0) - 2;
+
+    const getTagLabel = (tag: { key: string; isOfficial: boolean }) => {
+        if (tag.isOfficial) {
+            const emoji = getOfficialTagEmoji(tag.key);
+            try {
+                const label = tTags(tag.key as any);
+                return emoji ? `${emoji} ${label}` : label;
+            } catch {
+                return tag.key;
+            }
+        }
+        return tag.key;
+    };
 
     const handleLikeClick = async (e: React.MouseEvent) => {
         e.preventDefault();
@@ -98,6 +118,30 @@ export default function RecipeCard({ recipe, onLikeChange }: Props) {
                     <h3 className="text-lg font-bold line-clamp-2 group-hover:text-primary transition-colors duration-200">
                         {recipe.title}
                     </h3>
+
+                    {/* Tags */}
+                    {displayTags.length > 0 && (
+                        <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                            {displayTags.map((tag) => (
+                                <span
+                                    key={tag.key}
+                                    className={clsx(
+                                        "inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full",
+                                        tag.isOfficial
+                                            ? "bg-primary/10 text-primary"
+                                            : "bg-accent/50 text-foreground"
+                                    )}
+                                >
+                                    {getTagLabel(tag)}
+                                </span>
+                            ))}
+                            {remainingTagCount > 0 && (
+                                <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-secondary text-muted">
+                                    {tTags("moreCount", { count: remainingTagCount })}
+                                </span>
+                            )}
+                        </div>
+                    )}
 
                     {/* Meta row with colored icons */}
                     <div className="flex items-center gap-4 mt-2 text-muted">

@@ -35,7 +35,7 @@ export default function UserRecipesPage() {
     const [includeLiked, setIncludeLiked] = useState(false);
     const [filters, setFilters] = useState<RecipeFilterValues>({
         search: "",
-        cuisine: "",
+        tags: [],
         difficulty: "",
         totalTime: "",
     });
@@ -108,7 +108,7 @@ export default function UserRecipesPage() {
                     page: 1,
                     pageSize: 1,
                     includeLiked: false,
-                    filters: { search: "", cuisine: "", difficulty: "", totalTime: "" },
+                    filters: { search: "", tags: [], difficulty: "", totalTime: "" },
                 });
                 const response = await fetch(url);
                 if (response.ok) {
@@ -126,7 +126,7 @@ export default function UserRecipesPage() {
     // Fetch recipes when page or filters change (except search which is debounced)
     useEffect(() => {
         fetchRecipes(page, filters, includeLiked);
-    }, [page, filters.difficulty, filters.totalTime, filters.cuisine, includeLiked, fetchRecipes]);
+    }, [page, filters.difficulty, filters.totalTime, filters.tags.join(","), includeLiked, fetchRecipes]);
 
     // Handle search with debouncing
     const handleSearchChange = useCallback((search: string) => {

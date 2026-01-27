@@ -1,5 +1,6 @@
-import { recipesTable } from "@/db/schema";
+import { recipesTable, recipeTagsTable } from "@/db/schema";
 import { db } from "@/lib/db/db";
+import { isOfficialTag } from "@/lib/constants/official-tags";
 import { CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { eq, and } from "drizzle-orm";
 
@@ -34,5 +35,24 @@ export default async function updateRecipe({ slug, data, userId }: UpdateRecipeP
         )
         .returning({ id: recipesTable.id });
 
-    return result.length > 0;
+    if (result.length === 0) {
+        return false;
+    }
+
+    const recipeId = result[0].id;
+
+    // Update tags - delete all existing and insert new ones
+    await db.delete(recipeTagsTable).where(eq(recipeTagsTable.recipeId, recipeId));
+
+    if (data.tags && data.tags.length > 0) {
+        const tagRecords = data.tags.map(tagKey => ({
+            recipeId,
+            tagKey,
+            isOfficial: isOfficialTag(tagKey),
+        }));
+
+        await db.insert(recipeTagsTable).values(tagRecords);
+    }
+
+    return true;
 }

@@ -48,6 +48,11 @@ export async function GET(req: Request, { params }: RouteParams) {
         }
     }
 
+    const tags = searchParams.get("tags");
+    if (tags && tags.trim()) {
+        filters.tags = tags.split(",").filter(t => t.trim());
+    }
+
     // Parse includeLiked parameter (default: false for viewing other users)
     const includeLikedParam = searchParams.get("includeLiked");
     const includeLiked = includeLikedParam === "true";
