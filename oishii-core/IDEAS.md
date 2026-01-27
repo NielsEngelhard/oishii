@@ -1,24 +1,5 @@
 V1
 -------------------------------------------------------------
-The tags should play a big role regarding a recipe. I want the tags to be the main thing people can search/filter on. This should also be multi lingual. I want to support a wide range of official tags, like vegan and bulk and idk pasta, rice, etc. The offical tags all have an emoji in their name. The idea I figured out:
-- Tags should be multilingual. So that people can more easily search/filter on them;
-- Instead of the current Cuisine filter in the my recipes page, this should be filter on tags/items. I dont know a good name for it yet, but the main goal is that tags are the main item to filter on to make it work multi lingual;
-- When you want to add a tag that is not an official tag, this is possible, but that won't be translated and won't support an emoji;
-- For now I want you to have 5 official tags as some sort of proof of concept. In a later update I will extend this with more tags (hundreds probably.)
-- 
-- A disclaimer (small) in the create recipe form that explains why tags are important for e.g. searchability multi language etc.
-
-Lets first go into plan mode to discuss how to implement this, because it will be a big update I think.
-
--------------------------------------------------------------
-In my previous prompt I asked you to extend the working of tags and. This is nice in how it works! Now I want you to create all official tags for me that are supported in version one of the app. I defined these categories:
-- tags based on main ingredient, like pasta, rice, potato etc;
-- tags like vegan, chicken, beef
-- tags like soup,
-These are just examples. I want you to come up with a big list of tags that makes sense and will cover most cases regarding searchability. 
--------------------------------------------------------------
-
--------------------------------------------------------------
 - Import with AI implementeren <-- dit zit wel achter premium functionaliteit dus je moet dan wel een premium account hebben
 DIT MOET IK NOG EVEN GOED ONDERZOEKEN OOK QUA RATE LIMITING EN PLAN ETC.
 -------------------------------------------------------------
