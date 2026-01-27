@@ -24,12 +24,12 @@ export default function IngredientListDisplay({ ingredients, originalServings }:
     return (
         <div className="flex flex-col">
             {/* Header with servings adjuster */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                <div className="flex gap-2 items-center">
-                    <div className="bg-accent w-10 h-10 flex items-center justify-center text-lg font-medium rounded-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div className="flex gap-3 items-center">
+                    <div className="bg-gradient-to-br from-primary/20 to-secondary/20 w-11 h-11 flex items-center justify-center text-lg font-bold rounded-xl text-primary">
                         {ingredients.length}
                     </div>
-                    <h2>{tRecipe("ingredients")}</h2>
+                    <h2 className="section-title">{tRecipe("ingredients")}</h2>
                 </div>
 
                 {/* Servings adjuster */}

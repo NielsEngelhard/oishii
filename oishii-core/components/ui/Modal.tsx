@@ -39,12 +39,12 @@ export default function Modal({ isOpen, onClose, title, children }: Props) {
       onClick={onClose}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50 animate-in fade-in duration-200" />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200" />
 
       {/* Modal */}
       <div
         className={clsx(
-          "relative bg-background rounded-2xl shadow-xl",
+          "relative bg-background rounded-2xl shadow-warm-xl border border-border/40",
           "w-full max-w-sm",
           "animate-in zoom-in-95 fade-in duration-200"
         )}

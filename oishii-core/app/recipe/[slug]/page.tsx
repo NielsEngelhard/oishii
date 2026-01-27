@@ -53,7 +53,7 @@ export default async function RecipeDetailsPage({ params }: Props) {
                     fill
                     className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 via-20% to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 via-30% to-primary/10" />
 
                 {/* Action buttons in hero */}
                 <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
@@ -92,7 +92,7 @@ export default async function RecipeDetailsPage({ params }: Props) {
                     </div>
 
                     {/* General numbers */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 bg-background-secondary rounded-xl py-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 bg-gradient-to-r from-primary/10 via-secondary/5 to-accent/10 rounded-2xl py-5">
                         <Statistic
                             Icon={Clock}
                             label="Total Time"

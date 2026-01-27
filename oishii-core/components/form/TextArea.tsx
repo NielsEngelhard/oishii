@@ -13,7 +13,7 @@ interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
 const TextArea = forwardRef<HTMLTextAreaElement, Props>(
     ({ label, placeholder, className = "", Icon, error, onChange, ...props }, ref) => {
         const baseClasses = clsx(
-            "w-full flex rounded-md border bg-background px-3 py-2.5 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-y min-h-[100px]",
+            "w-full flex rounded-xl border-2 border-border/60 bg-white px-3 py-2.5 text-base placeholder:text-muted/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 disabled:cursor-not-allowed disabled:opacity-40 md:text-sm resize-y min-h-[100px] transition-all duration-200",
             Icon && "pl-10"
         );
 
@@ -29,7 +29,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>(
                         onChange={onChange}
                         className={clsx(
                             baseClasses,
-                            error ? "border-error focus-visible:ring-error" : "border-border",
+                            error ? "border-error focus:ring-error/10" : "",
                             className
                         )}
                         {...props}

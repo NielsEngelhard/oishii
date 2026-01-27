@@ -13,8 +13,8 @@ export default function Toast({ message, type, onClose }: Props) {
   return (
     <div
       className={clsx(
-        "flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg",
-        "bg-background border border-border",
+        "flex items-center gap-3 px-4 py-3 rounded-xl shadow-warm-lg",
+        "bg-card border border-border/40",
         "animate-in slide-in-from-bottom-4 fade-in duration-200"
       )}
     >

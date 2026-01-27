@@ -2,6 +2,18 @@ Technical
 - Seed endpoint (voor lokaal development)
 
 V1
+
+
+
+I want you to implement the explore recipe page. This page can be kept really simple for now as a version 1. It should:
+- Show 2 rows/lists. 1 row with 10 random recipes and 1 row with the most popular recipes;
+- There is a button the refresh the random recipes;
+- The design should be extremely UX friendly.
+
+Keep it simple and clean for now!
+
+
+
 -----------------------------------------------------------
 Currently creating a recipe is possible. This is nice. The option to update a recipe (only available for your own recipes) does not exist yet. This should be implemented too! Keep it the same as the create form, but already prefilled and having thus the option to save the recipe. Also add CreatedAt and UpdatedAt to the UI of the recipe details page.
 

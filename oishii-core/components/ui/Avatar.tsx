@@ -4,9 +4,10 @@ import Image from "next/image";
 interface Props {
     src?: string;
     size?: "sm" | "md" | "lg" | "xl";
+    className?: string;
 }
 
-export default function Avatar({ src = "/placeholder/user-placeholder.png", size = "md" }: Props) {
+export default function Avatar({ src = "/placeholder/user-placeholder.png", size = "md", className = "" }: Props) {
   const sizeVariants = {
     sm: "h-8 w-8",
     md: "h-12 w-12",
@@ -15,7 +16,7 @@ export default function Avatar({ src = "/placeholder/user-placeholder.png", size
   };
 
     return (
-        <div className={clsx("relative rounded-full overflow-hidden", sizeVariants[size])}>
+        <div className={clsx("relative rounded-full overflow-hidden", sizeVariants[size], className)}>
             <Image
                 src={src}
                 alt="user"

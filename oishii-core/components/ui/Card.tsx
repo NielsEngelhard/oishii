@@ -7,7 +7,7 @@ interface Props {
 
 export default function Card({ children, className = "" }: Props) {
     return (
-        <div className={clsx("bg-card border border-border shadow-sm rounded-xl p-2 md:p-4 w-full", className)}>
+        <div className={clsx("bg-card border border-border/40 shadow-warm rounded-2xl p-3 md:p-5 w-full", className)}>
             {children}
         </div>
     )

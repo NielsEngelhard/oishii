@@ -16,7 +16,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
         const [showPassword, setShowPassword] = useState(false);
 
         const baseClasses = clsx(
-             "w-full flex w-full rounded-md border bg-background px-3 py-2.5 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+             "w-full flex w-full rounded-xl border-2 border-border/60 bg-white px-3 py-2.5 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 disabled:cursor-not-allowed disabled:opacity-40 md:text-sm transition-all duration-200",
              Icon && "pl-10"
         );
         
@@ -36,7 +36,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
                         onChange={onChange}
                         className={clsx(
                             baseClasses,
-                            error ? "border-error focus-visible:ring-error" : "border-border",
+                            error ? "border-error focus:ring-error/10" : "",
                             className
                         )}
                         {...props}

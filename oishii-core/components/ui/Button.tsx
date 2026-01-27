@@ -21,7 +21,7 @@ export default function Button({
 }: ButtonProps) {
   // shared base styles
   const baseStyles =
-    "rounded-xl transition-all duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:cursor-pointer";
+    "rounded-xl transition-all duration-200 ease-out flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed hover:cursor-pointer";
 
   // size styles
   const sizeStyles = {
@@ -32,10 +32,10 @@ export default function Button({
 
   // variant styles
   const variantStyles = {
-    primary: "bg-primary text-background hover:bg-primary/80",
-    secondary: "bg-secondary text-text hover:bg-secondary/80",
-    transparent: "bg-transparent text-text hover:bg-secondary/10",
-    skeleton: "text-text bg-background border border-border hover:bg-secondary/10"
+    primary: "gradient-primary text-white shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-0.5",
+    secondary: "bg-secondary text-foreground hover:bg-secondary/80 hover:-translate-y-0.5",
+    transparent: "bg-transparent text-foreground hover:bg-secondary/10",
+    skeleton: "text-foreground bg-background border border-border hover:bg-secondary/10"
   };
 
   return (

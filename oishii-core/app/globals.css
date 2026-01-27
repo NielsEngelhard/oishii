@@ -62,12 +62,86 @@ body {
 }
 
 h1 {
-  font-weight: bold;
-  font-size: 24px;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 h2 {
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 600;
+  font-size: 22px;
   font-family: Noto Serif JP, serif;
+  color: var(--foreground);
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Gradient backgrounds */
+.gradient-warm {
+  background: linear-gradient(135deg, #FAF8F5 0%, #F8F4ED 50%, #FDF6F0 100%);
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, #DD643C 0%, #E8845F 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(180deg,
+    rgba(221, 100, 60, 0.08) 0%,
+    transparent 60%);
+}
+
+/* Warm shadows with primary tint */
+.shadow-warm {
+  box-shadow: 0 2px 8px -2px rgba(221, 100, 60, 0.12),
+              0 4px 16px -4px rgba(0, 0, 0, 0.08);
+}
+
+.shadow-warm-lg {
+  box-shadow: 0 8px 24px -8px rgba(221, 100, 60, 0.15),
+              0 16px 40px -16px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-warm-xl {
+  box-shadow: 0 12px 32px -8px rgba(221, 100, 60, 0.2),
+              0 24px 48px -16px rgba(0, 0, 0, 0.12);
+}
+
+/* Section title with accent underline */
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 3rem;
+  height: 0.25rem;
+  background: linear-gradient(90deg, #DD643C, #F59E0B);
+  border-radius: 9999px;
+}
+
+/* Accent line utility */
+.accent-line {
+  position: relative;
+}
+
+.accent-line::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #DD643C, #F59E0B);
+  border-radius: 2px;
 }

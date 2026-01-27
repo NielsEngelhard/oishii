@@ -157,13 +157,18 @@ function LoginContent() {
   const redirectTo = searchParams.get("redirect");
 
   return (
-    <div className="min-h-screen gradient-warm flex items-center justify-center p-4">
-      <div>
-        <Link href="/" className="flex items-center justify-center gap-2 mb-8">
+    <div className="min-h-screen gradient-warm flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Decorative background circles */}
+      <div className="absolute top-20 -left-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 -right-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/4 w-48 h-48 bg-accent/10 rounded-full blur-3xl" />
+
+      <div className="relative z-10">
+        <Link href="/" className="flex items-center justify-center gap-2 mb-8 transition-transform hover:scale-105">
           <Logo />
         </Link>
 
-        <div className="bg-card border border-border rounded-2xl shadow-sm p-8">
+        <div className="bg-card border border-border/40 rounded-2xl shadow-warm-xl p-8 backdrop-blur-sm">
           {expired && (
             <div className="mb-6 p-3 bg-secondary rounded-lg text-center">
               <p className="text-sm text-muted">

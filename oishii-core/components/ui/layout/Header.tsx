@@ -69,8 +69,10 @@ export default function Header() {
 
     return (
         <>
-            <header className="w-full h-16 border-b border-border justify-center flex sticky top-0 z-50 bg-background">
-                <div className="w-full h-full flex justify-between items-center container px-4">
+            <header className="w-full h-16 border-b-2 border-primary/20 justify-center flex sticky top-0 z-50 bg-background relative overflow-hidden">
+                {/* Subtle gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 pointer-events-none" />
+                <div className="w-full h-full flex justify-between items-center container px-4 relative z-10">
                     {/* Logo */}
                     <button className="cursor-pointer transition-transform duration-300 hover:scale-110" onClick={onLogoClick}>
                         <Logo />
@@ -112,7 +114,7 @@ export default function Header() {
                                     href={PROFILE_ROUTE}
                                     className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-secondary/20 transition-colors"
                                 >
-                                    <div className="relative w-9 h-9 rounded-full overflow-hidden bg-secondary flex items-center justify-center">
+                                    <div className="relative w-9 h-9 rounded-full overflow-hidden bg-secondary flex items-center justify-center ring-2 ring-primary/30 ring-offset-2 ring-offset-background">
                                         {user.avatar ? (
                                             <Image
                                                 src={user.avatar}
