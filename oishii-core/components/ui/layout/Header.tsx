@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import CheatSheetPopup from "@/components/specific/cheatsheet/CheatSheetPopup";
+import VersionBadge from "./VersionBadge";
 
 export default function Header() {
     const { user, isLoading } = useAuth();
@@ -90,7 +91,7 @@ export default function Header() {
                     </ul>
 
                     {/* Desktop Actions/Profile */}
-                    <div className="hidden md:flex items-center">
+                    <div className="hidden md:flex items-center gap-4">
                         {isLoading ? (
                             <div className="w-10 h-10 rounded-full bg-secondary animate-pulse" />
                         ) : user ? (
@@ -154,6 +155,7 @@ export default function Header() {
                                 </Link>
                             </div>
                         )}
+                        <VersionBadge />
                     </div>
 
                     {/* Mobile: Profile/Auth + Hamburger */}

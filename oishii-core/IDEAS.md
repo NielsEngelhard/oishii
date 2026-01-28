@@ -1,23 +1,19 @@
 V1
--------------------------------------------------------------
-- Import with AI implementeren <-- dit zit wel achter premium functionaliteit dus je moet dan wel een premium account hebben
-DIT MOET IK NOG EVEN GOED ONDERZOEKEN OOK QUA RATE LIMITING EN PLAN ETC.
--------------------------------------------------------------
-
-- main image more visible
-
+- Account types met rate limit voor AI import
+- AI import op basis van URL
+- AI import op basis van wat text die je copy pasted
+- AI import functionaliteit is rate limited achter de account types FREE heeft er maar 1 per dag
+- Account type staat op je profiel
+- main image more visible op recipe details page
 - add as mobile app more easily explanation
-
-V1.5
-DE AI UPDATE
-- Miss zelf je eigen chatgpt model kunnen linken. Dan heb ik minder load. Als free user kan je dat. Premium user mag mijn AI gebruiken.
-- AI vertaal knop voor recepten
 - Je eigen plaatje/foto kunnen optimaliseren d.m.v. AI zodat het minder grauw is lmz <-- dit zit wel achter premium functionaliteit
-- Knop IMPORT RECIPE met options voor AI of scrape oid idk
-- Plak gwn een text en dan zet AI het automatisch om naar dit formaat in Create User
+
+
+RELEASE O CLOCK
 
 
 V2
+- AI vertaal knop voor recepten
 - Andere mensen kunnen fotos toevoegen van de keer dat ze het hebben gekookt en de meest recente zijn dan ook te zien bij de details
 - Sociaal aspect. Je kan een kookgroep aanmaken met je vrienden en daarin zie je iedere keer dat iemand iets kookt. Je volgt elkaar dan een soortvan. Je kan dan een post maken met een title, description en foto en een optioneel een "review" over hoe het was enzo. Zo kan je elkaar ook nieuwe recepten aanbevelen.
 - RANKEN: Op je persoonlijke pagina kun je al jouw recepten ranken. Misschien moet je alles cool kunnen drag-drop ranken. Een tier list bijhouden met je recepten. Zo'n coole S A B etc. zodat je makkelijk op je profiel kan zien hoe en wat. RANKEN kan wel leuk worden!
@@ -43,46 +39,3 @@ Can you implement the home page. This is the / route. Currently it is not implem
 - A about page stating that the app is not finished yet and is still in development 
 
 It should match the vibe of the app and look clean. Also it should have subtle animations and design choices, like the subtle animation in the Logo of the header. I really like that! Also it should make use of the i18n labels.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Please audit and update the UI design of this application with the following goals:
-
-Design Direction:
-- Make the design more modern and clean, but NOT minimalist/corporate (avoid Apple-style sterile designs)
-- Preserve the application's character and personality ("soul")
-- Strike a balance between contemporary polish and warmth/approachability
-
-Specific Tasks:
-- Review all UI components (buttons, inputs, cards, navigation, modals, etc.)
-- Examine overall layout, spacing, and typography
-- Analyze the color scheme and visual hierarchy
-- Check for outdated design patterns (heavy borders, old shadows, dated fonts, etc.)
-- Update the CLAUDE.md and README.md so that the design decisions etc. are documented somewhere 
-
-What to Improve:
-- Typography: Consider modern font choices and better hierarchy
-- Spacing: Ensure consistent, generous white space without feeling empty
-- Colors: Refine the palette to feel fresh but not overly flat
-- Components: Update styling to feel current (subtle shadows, refined borders, smooth interactions)
-- Layout: Improve alignment, grouping, and visual flow
-
-What to Preserve:
-- Any unique personality or character in the design
-- Functional elements that work well
-- The overall vibe/tone of the application
-
-Please provide a summary of changes made and the reasoning behind key design decisions.
-
-Lets first go into plan mode to discuss styling decisions.
