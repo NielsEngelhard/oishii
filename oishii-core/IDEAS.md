@@ -9,6 +9,31 @@ V1
 - Je eigen plaatje/foto kunnen optimaliseren d.m.v. AI zodat het minder grauw is lmz <-- dit zit wel achter premium functionaliteit
 
 
+
+
+
+
+
+
+
+- RecipeCard moeten allemaal dezelfde hoogte zijn in de grid
+- AI import op create pagina is lelijk
+- AI import moet 1 pagina zijn lmz
+- Seed block (notificaition block?) lelijk
+- ff kijken hoe het gaat met veel tags in bijv de recipecard
+- Tips & Notes moet veel kleiner
+
+- tags refactoren bij create pagina want te lang en met zoekbalk
+- my profile deels lelijk
+
+
+
+
+
+
+
+
+
 RELEASE O CLOCK
 
 

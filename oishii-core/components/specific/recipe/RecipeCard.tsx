@@ -69,9 +69,7 @@ export default function RecipeCard({ recipe, onLikeChange }: Props) {
 
     return (
         <Link href={`/recipe/${recipe.slug}`}>
-            <div className="group relative flex flex-col rounded-2xl overflow-hidden shadow-warm hover:shadow-warm-xl transition-all duration-300 cursor-pointer hover:-translate-y-1">
-                {/* Category accent bar */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-accent z-10" />
+            <div className="group relative flex flex-col rounded-2xl overflow-hidden border shadow-md border-border shadow-warm hover:shadow-warm-xl transition-all duration-300 cursor-pointer hover:-translate-y-1">
 
                 {/* Image */}
                 <div className="relative w-full h-52 overflow-hidden">

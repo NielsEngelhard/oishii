@@ -32,7 +32,7 @@ export default function Button({
 
   // variant styles
   const variantStyles = {
-    primary: "gradient-primary text-white shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-0.5",
+    primary: "bg-primary text-white shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-0.5",
     secondary: "bg-secondary text-foreground hover:bg-secondary/80 hover:-translate-y-0.5",
     transparent: "bg-transparent text-foreground hover:bg-secondary/10",
     skeleton: "text-foreground bg-background border border-border hover:bg-secondary/10"
