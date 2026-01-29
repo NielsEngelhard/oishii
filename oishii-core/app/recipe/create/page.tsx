@@ -6,7 +6,6 @@ import Input from "@/components/form/Input";
 import InputGroup from "@/components/form/InputGroup";
 import NumberInput from "@/components/form/NumberInput";
 import SelectButtonInput from "@/components/form/SelectButtonInput";
-import SelectInput from "@/components/form/SelectInput";
 import LanguageSelectInput from "@/components/form/LanguageSelectInput";
 import TextArea from "@/components/form/TextArea";
 import IngredientInputList from "@/components/specific/ingredient/IngredientInputList";
@@ -25,8 +24,9 @@ import { BookText, Clock, CookingPot, Gauge, List, Lightbulb, Tags, Users, Spark
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
+import type { ScrapedRecipeData } from "@/lib/ai/schemas/scraped-recipe";
 
 export default function CreateRecipePage() {
     const router = useRouter();
@@ -57,6 +57,60 @@ export default function CreateRecipePage() {
             setValue("language", user.language as typeof locales[number]);
         }
     }, [user?.language, setValue]);
+
+    // Handle prefilling form with scraped recipe data
+    const handleRecipeScraped = useCallback((recipe: ScrapedRecipeData) => {
+        // Basic fields
+        if (recipe.title) setValue("title", recipe.title);
+        if (recipe.description) setValue("description", recipe.description);
+        if (recipe.prepTime) setValue("prepTime", recipe.prepTime);
+        if (recipe.cookTime) setValue("cookTime", recipe.cookTime);
+        if (recipe.servings) setValue("servings", recipe.servings);
+        if (recipe.difficulty) setValue("difficulty", recipe.difficulty);
+        if (recipe.imageUrl) setValue("imageUrl", recipe.imageUrl);
+        if (recipe.tags) setValue("tags", recipe.tags);
+
+        // Ingredients array
+        if (recipe.ingredients && recipe.ingredients.length > 0) {
+            setValue("ingredients", recipe.ingredients.map(ing => ({
+                name: ing.name,
+                amount: ing.amount || "",
+                unit: ing.unit,
+                isSpice: ing.isSpice || false,
+            })));
+        }
+
+        // Instructions array
+        if (recipe.instructions && recipe.instructions.length > 0) {
+            setValue("instructions", recipe.instructions.map(inst => ({
+                index: inst.index,
+                text: inst.text,
+            })));
+        }
+
+        // Notes array
+        if (recipe.notes && recipe.notes.length > 0) {
+            setValue("notes", recipe.notes.map(note => ({
+                title: note.title,
+                text: note.text,
+            })));
+        }
+    }, [setValue]);
+
+    // Check for prefill data from sessionStorage (from UrlImportView redirect)
+    useEffect(() => {
+        const storedRecipe = sessionStorage.getItem("importedRecipe");
+        if (storedRecipe) {
+            try {
+                const recipe = JSON.parse(storedRecipe) as ScrapedRecipeData;
+                handleRecipeScraped(recipe);
+                // Clear after use
+                sessionStorage.removeItem("importedRecipe");
+            } catch (e) {
+                console.error("Failed to parse imported recipe:", e);
+            }
+        }
+    }, [handleRecipeScraped]);
 
     const onSubmit = async (data: CreateRecipeSchemaData) => {
         setIsSubmitting(true);
@@ -94,7 +148,7 @@ export default function CreateRecipePage() {
 
             </PageHeader>
 
-            <AiImportCard />
+            <AiImportCard onRecipeScraped={handleRecipeScraped} />
 
             <Link href={AI_IMPORT_ROUTE} className="self-start">
                 <Button

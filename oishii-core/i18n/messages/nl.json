@@ -137,7 +137,12 @@
     "textPlaceholder": "Plak hier je recepttekst...",
     "importButton": "Recept Importeren",
     "helperUrl": "Onze AI haalt ingrediënten, stappen, kooktijden en meer uit de URL.",
-    "helperText": "Onze AI parseert de tekst en haalt ingrediënten, stappen en andere receptdetails eruit."
+    "helperText": "Onze AI parseert de tekst en haalt ingrediënten, stappen en andere receptdetails eruit.",
+    "scraping": "Je recept wordt bereid...",
+    "scrapingDescription": "Onze AI haalt ingrediënten, stappen en meer op",
+    "scrapeSuccess": "Recept succesvol geïmporteerd!",
+    "scrapeError": "Kon geen recept uit de URL halen",
+    "invalidUrl": "Voer een geldige URL in"
   },
   "profile": {
     "member": "Lid",

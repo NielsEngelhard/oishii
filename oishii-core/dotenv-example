@@ -1,5 +1,7 @@
 DATABASE_URL="postgres://postgres:kaas@localhost:5432/oishii_db"
 
+OPENAI_API_KEY=secret
+
 AWS_REGION=eu-west-1
 AWS_ACCESS_KEY_ID=your-access-key
 AWS_SECRET_ACCESS_KEY=your-secret-key
@@ -7,3 +9,4 @@ AWS_S3_BUCKET_NAME=your-bucket-name
 
 # Set to "true" to mock image uploads (returns placeholder URL instead of uploading to S3)
 MOCK_IMAGE_UPLOADS=false
+

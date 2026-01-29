@@ -137,7 +137,12 @@
     "textPlaceholder": "Paste your recipe text here...",
     "importButton": "Import Recipe",
     "helperUrl": "Our AI will extract ingredients, steps, cooking times, and more from the URL.",
-    "helperText": "Our AI will parse the text and extract ingredients, steps, and other recipe details."
+    "helperText": "Our AI will parse the text and extract ingredients, steps, and other recipe details.",
+    "scraping": "Cooking up your recipe...",
+    "scrapingDescription": "Our AI is extracting ingredients, steps, and more",
+    "scrapeSuccess": "Recipe imported successfully!",
+    "scrapeError": "Could not extract recipe from URL",
+    "invalidUrl": "Please enter a valid URL"
   },
   "profile": {
     "member": "Member",
