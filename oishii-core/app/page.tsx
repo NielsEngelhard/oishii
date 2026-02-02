@@ -19,6 +19,9 @@ import {
     Sparkles,
     ArrowRight,
     Rocket,
+    Check,
+    Crown,
+    Zap,
 } from "lucide-react";
 import clsx from "clsx";
 
@@ -379,11 +382,178 @@ function FeaturesSection() {
     );
 }
 
+function PricingSection() {
+    const t = useTranslations("home.pricing");
+    const { ref, isInView } = useInView();
+
+    const plans = [
+        {
+            name: t("plans.free.name"),
+            price: "0",
+            description: t("plans.free.description"),
+            features: [
+                t("plans.free.features.aiActions"),
+                t("plans.free.features.recipes"),
+                t("plans.free.features.friends"),
+            ],
+            cta: t("plans.free.cta"),
+            ctaHref: SIGNUP_ROUTE,
+            popular: false,
+            Icon: Zap,
+            gradient: "from-gray-500 to-gray-600",
+        },
+        {
+            name: t("plans.basic.name"),
+            price: "2",
+            description: t("plans.basic.description"),
+            features: [
+                t("plans.basic.features.aiActions"),
+                t("plans.basic.features.recipes"),
+                t("plans.basic.features.friends"),
+                t("plans.basic.features.priority"),
+            ],
+            cta: t("plans.basic.cta"),
+            ctaHref: null,
+            popular: false,
+            Icon: Sparkles,
+            gradient: "from-blue-500 to-cyan-500",
+        },
+        {
+            name: t("plans.premium.name"),
+            price: "5.49",
+            description: t("plans.premium.description"),
+            features: [
+                t("plans.premium.features.aiActions"),
+                t("plans.premium.features.recipes"),
+                t("plans.premium.features.friends"),
+                t("plans.premium.features.priority"),
+                t("plans.premium.features.earlyAccess"),
+            ],
+            cta: t("plans.premium.cta"),
+            ctaHref: null,
+            popular: true,
+            Icon: Crown,
+            gradient: "from-amber-500 to-orange-500",
+        },
+    ];
+
+    return (
+        <section ref={ref} className="py-24 bg-gradient-to-b from-background-secondary to-background">
+            <div className="container mx-auto px-4">
+                {/* Section header */}
+                <div className="text-center mb-16">
+                    <div
+                        className={clsx(
+                            "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-600 mb-4 transition-all duration-700",
+                            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                        )}
+                    >
+                        <Crown size={18} />
+                        <span className="text-sm font-medium">{t("badge")}</span>
+                    </div>
+                    <h2
+                        className={clsx(
+                            "text-3xl md:text-5xl font-bold mb-4 transition-all duration-700 delay-100",
+                            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                        )}
+                    >
+                        {t("title")}
+                    </h2>
+                    <p
+                        className={clsx(
+                            "text-lg text-muted max-w-2xl mx-auto transition-all duration-700 delay-200",
+                            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                        )}
+                    >
+                        {t("description")}
+                    </p>
+                </div>
+
+                {/* Pricing cards */}
+                <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    {plans.map((plan, i) => (
+                        <div
+                            key={i}
+                            className={clsx(
+                                "relative bg-card rounded-2xl p-8 shadow-warm border transition-all duration-700 hover:shadow-warm-lg",
+                                plan.popular ? "border-primary shadow-warm-lg scale-105" : "border-border",
+                                isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                            )}
+                            style={{ transitionDelay: `${(i + 1) * 150}ms` }}
+                        >
+                            {/* Popular badge */}
+                            {plan.popular && (
+                                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                                    <span className="px-3 py-1 text-xs font-semibold bg-primary text-white rounded-full">
+                                        {t("popular")}
+                                    </span>
+                                </div>
+                            )}
+
+                            {/* Icon */}
+                            <div
+                                className={clsx(
+                                    "w-12 h-12 rounded-xl bg-gradient-to-br flex items-center justify-center mb-6",
+                                    plan.gradient
+                                )}
+                            >
+                                <plan.Icon className="w-6 h-6 text-white" />
+                            </div>
+
+                            {/* Plan name */}
+                            <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+                            <p className="text-muted text-sm mb-4">{plan.description}</p>
+
+                            {/* Price */}
+                            <div className="flex items-baseline gap-1 mb-6">
+                                <span className="text-2xl font-bold">€</span>
+                                <span className="text-4xl font-bold">{plan.price}</span>
+                                <span className="text-muted">{t("perMonth")}</span>
+                            </div>
+
+                            {/* Features */}
+                            <ul className="space-y-3 mb-8">
+                                {plan.features.map((feature, j) => (
+                                    <li key={j} className="flex items-center gap-2 text-sm">
+                                        <Check className="w-4 h-4 text-green-500 shrink-0" />
+                                        <span>{feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            {/* CTA */}
+                            {plan.ctaHref ? (
+                                <Link href={plan.ctaHref} className="block">
+                                    <Button
+                                        text={plan.cta}
+                                        variant={plan.popular ? "primary" : "secondary"}
+                                        size="lg"
+                                        className="w-full"
+                                    />
+                                </Link>
+                            ) : (
+                                <Button
+                                    text={plan.cta}
+                                    variant="secondary"
+                                    size="lg"
+                                    className="w-full"
+                                    onClick={() => window.location.href = "mailto:contact@oishii.app"}
+                                />
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
 export default function HomePage() {
     return (
         <div className="w-full">
             <HeroSection />
             <AISection />
+            <PricingSection />
             <FeaturesSection />
 
             {/* Custom styles for animations */}

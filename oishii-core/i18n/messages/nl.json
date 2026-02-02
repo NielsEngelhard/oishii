@@ -745,6 +745,48 @@
       "recipes": "Recepten Gedeeld",
       "users": "Tevreden Koks",
       "tags": "Officiële Tags"
+    },
+    "pricing": {
+      "badge": "Prijzen",
+      "title": "Eenvoudige, Transparante Prijzen",
+      "description": "Begin gratis en upgrade wanneer je meer nodig hebt. Geen verborgen kosten.",
+      "popular": "Duurst",
+      "perMonth": "/maand",
+      "plans": {
+        "free": {
+          "name": "Gratis",
+          "description": "Perfect om te beginnen",
+          "cta": "Start Gratis",
+          "features": {
+            "aiActions": "2 AI imports per dag",
+            "recipes": "Tot 100 recepten",
+            "friends": "Verbind met vrienden"
+          }
+        },
+        "basic": {
+          "name": "Basis",
+          "description": "Voor regelmatige thuiskoks",
+          "cta": "Neem Contact Op",
+          "features": {
+            "aiActions": "10 AI imports per dag",
+            "recipes": "Tot 500 recepten",
+            "friends": "Verbind met vrienden",
+            "priority": "Prioriteit ondersteuning"
+          }
+        },
+        "premium": {
+          "name": "Premium",
+          "description": "Voor serieuze food enthousiasten",
+          "cta": "Neem Contact Op",
+          "features": {
+            "aiActions": "1000 AI imports per maand",
+            "recipes": "Onbeperkt recepten",
+            "friends": "Verbind met vrienden",
+            "priority": "Prioriteit ondersteuning",
+            "earlyAccess": "Vroege toegang tot nieuwe functies"
+          }
+        }
+      }
     }
   },
   "footer": {
@@ -753,5 +795,33 @@
     "about": "Over",
     "madeWith": "Gemaakt met",
     "by": "door"
+  },
+  "plans": {
+    "free": "Gratis",
+    "basic": "Basis",
+    "premium": "Premium",
+    "admin": "Admin"
+  },
+  "limits": {
+    "aiLimitReached": "AI import limiet bereikt",
+    "recipeLimitReached": "Recepten limiet bereikt",
+    "upgradeForMore": "Upgrade je abonnement voor meer AI imports",
+    "upgradeForMoreRecipes": "Upgrade je abonnement om meer recepten te maken"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "searchUsers": "Zoek gebruikers...",
+    "search": "Zoeken",
+    "noUsersFound": "Geen gebruikers gevonden",
+    "editUser": "Gebruiker Bewerken",
+    "name": "Naam",
+    "email": "E-mail",
+    "plan": "Abonnement",
+    "newPassword": "Nieuw Wachtwoord",
+    "leaveBlankToKeep": "Laat leeg om huidige te behouden",
+    "userUpdated": "Gebruiker bijgewerkt!",
+    "cancel": "Annuleren",
+    "saving": "Opslaan...",
+    "save": "Opslaan"
   }
 }

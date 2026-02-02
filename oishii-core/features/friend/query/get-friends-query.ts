@@ -42,13 +42,14 @@ export default async function getFriends({
             name: usersTable.name,
             aboutMe: usersTable.aboutMe,
             language: usersTable.language,
+            plan: usersTable.plan,
             totalRecipes: sql<number>`count(${recipesTable.id})::int`,
         })
         .from(friendshipsTable)
         .innerJoin(usersTable, eq(friendshipsTable.friendId, usersTable.id))
         .leftJoin(recipesTable, eq(usersTable.id, recipesTable.userId))
         .where(searchCondition)
-        .groupBy(usersTable.id, usersTable.name, usersTable.aboutMe, usersTable.language)
+        .groupBy(usersTable.id, usersTable.name, usersTable.aboutMe, usersTable.language, usersTable.plan)
         .limit(pageSize)
         .offset(offset);
 

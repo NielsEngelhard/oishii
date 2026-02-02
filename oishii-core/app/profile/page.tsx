@@ -7,6 +7,7 @@ import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import NarrowPageWrapper from "@/components/ui/layout/NarrowPageWrapper";
+import PlanBadge from "@/components/ui/PlanBadge";
 import { useAuth } from "@/contexts/AuthContext";
 import { DEFAULT_CHEAT_SHEET } from "@/db/schemas/users";
 import { Locale } from "@/i18n/config";
@@ -221,7 +222,10 @@ export default function ProfilePage() {
                         />
 
                         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                            <h1 className="text-2xl font-bold">{user.username}</h1>
+                            <div className="flex items-center gap-2">
+                                <h1 className="text-2xl font-bold">{user.username}</h1>
+                                <PlanBadge plan={user.plan} size="md" />
+                            </div>
                             <p className="text-muted">{t("member")}</p>
                         </div>
                     </div>

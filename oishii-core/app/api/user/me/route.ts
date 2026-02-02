@@ -12,20 +12,22 @@ export async function GET() {
     return NextResponse.json({ user: null }, { status: 401 });
   }
 
-  const [{id, username, language, avatar}] = await db.select({
+  const [{id, username, language, avatar, plan}] = await db.select({
       id: usersTable.id,
       username: usersTable.name,
       language: usersTable.language,
       avatar: usersTable.avatarUrl,
+      plan: usersTable.plan,
     })
     .from(usersTable)
     .where(eq(usersTable.id, user.id))
-    .limit(1); 
+    .limit(1);
 
   return NextResponse.json({
     id: id + "",
     username,
     language,
     avatar,
+    plan,
   } as CurrentUserData);
 }

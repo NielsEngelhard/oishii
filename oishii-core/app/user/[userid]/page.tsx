@@ -7,6 +7,7 @@ import Card from "@/components/ui/Card";
 import Divider from "@/components/ui/Divider";
 import LanguageFlag from "@/components/ui/LanguageFlag";
 import NarrowPageWrapper from "@/components/ui/layout/NarrowPageWrapper";
+import PlanBadge from "@/components/ui/PlanBadge";
 import { Locale } from "@/i18n/config";
 import { IUserDetails } from "@/models/user-models";
 import { Calendar, ChefHat, Globe, Loader2, UserMinus, UserPlus, Users } from "lucide-react";
@@ -134,7 +135,10 @@ export default function UserProfilePage() {
                     />
 
                     <div className="flex flex-col items-center sm:items-start text-center sm:text-left flex-1 gap-2">
-                        <h1 className="text-2xl font-bold">{user.name}</h1>
+                        <div className="flex items-center gap-2">
+                            <h1 className="text-2xl font-bold">{user.name}</h1>
+                            <PlanBadge plan={user.plan} size="md" />
+                        </div>
                         {user.aboutMe && (
                             <p className="text-muted">{user.aboutMe}</p>
                         )}

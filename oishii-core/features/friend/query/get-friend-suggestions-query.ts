@@ -27,6 +27,7 @@ export default async function getFriendSuggestions({
             name: usersTable.name,
             aboutMe: usersTable.aboutMe,
             language: usersTable.language,
+            plan: usersTable.plan,
             totalRecipes: sql<number>`count(${recipesTable.id})::int`,
         })
         .from(usersTable)
@@ -36,7 +37,7 @@ export default async function getFriendSuggestions({
                 ? notInArray(usersTable.id, excludeIds)
                 : ne(usersTable.id, userId)
         )
-        .groupBy(usersTable.id, usersTable.name, usersTable.aboutMe, usersTable.language, usersTable.createdAt)
+        .groupBy(usersTable.id, usersTable.name, usersTable.aboutMe, usersTable.language, usersTable.plan, usersTable.createdAt)
         .orderBy(asc(usersTable.createdAt))
         .limit(limit);
 

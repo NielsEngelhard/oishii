@@ -676,7 +676,7 @@
     "title": "Explore",
     "description": "Discover new recipes from the community",
     "randomPicks": "Random Picks",
-    "mostPopular": "Most Popular",
+    "mostPopular": "Recommended, because most expensive",
     "refresh": "Refresh",
     "showMore": "Show more",
     "showLess": "Show less",
@@ -745,6 +745,48 @@
       "recipes": "Recipes Shared",
       "users": "Happy Cooks",
       "tags": "Official Tags"
+    },
+    "pricing": {
+      "badge": "Pricing",
+      "title": "Simple, Transparent Pricing",
+      "description": "Start for free and upgrade when you need more. No hidden fees.",
+      "popular": "",
+      "perMonth": "/month",
+      "plans": {
+        "free": {
+          "name": "Free",
+          "description": "Perfect for getting started",
+          "cta": "Get Started",
+          "features": {
+            "aiActions": "2 AI imports per day",
+            "recipes": "Up to 100 recipes",
+            "friends": "Connect with friends"
+          }
+        },
+        "basic": {
+          "name": "Basic",
+          "description": "For regular home cooks",
+          "cta": "Contact Us",
+          "features": {
+            "aiActions": "10 AI imports per day",
+            "recipes": "Up to 500 recipes",
+            "friends": "Connect with friends",
+            "priority": "Priority support"
+          }
+        },
+        "premium": {
+          "name": "Premium",
+          "description": "For serious food enthusiasts",
+          "cta": "Contact Us",
+          "features": {
+            "aiActions": "1000 AI imports per month",
+            "recipes": "Unlimited recipes",
+            "friends": "Connect with friends",
+            "priority": "Priority support",
+            "earlyAccess": "Early access to new features"
+          }
+        }
+      }
     }
   },
   "footer": {
@@ -753,5 +795,33 @@
     "about": "About",
     "madeWith": "Made with",
     "by": "by"
+  },
+  "plans": {
+    "free": "Free",
+    "basic": "Basic",
+    "premium": "Premium",
+    "admin": "Admin"
+  },
+  "limits": {
+    "aiLimitReached": "AI import limit reached",
+    "recipeLimitReached": "Recipe limit reached",
+    "upgradeForMore": "Upgrade your plan for more AI imports",
+    "upgradeForMoreRecipes": "Upgrade your plan to create more recipes"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "searchUsers": "Search users...",
+    "search": "Search",
+    "noUsersFound": "No users found",
+    "editUser": "Edit User",
+    "name": "Name",
+    "email": "Email",
+    "plan": "Plan",
+    "newPassword": "New Password",
+    "leaveBlankToKeep": "Leave blank to keep current",
+    "userUpdated": "User updated!",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "save": "Save"
   }
 }

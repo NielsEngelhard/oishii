@@ -17,5 +17,8 @@ export const USER_RECIPES_ROUTE = (userId: string): string => `/user/${userId}/r
 export const FRIENDS_ROUTE: string = "/friends";
 export const EXPLORE_ROUTE: string = "/explore";
 
+// Admin
+export const ADMIN_ROUTE: string = "/admin";
+
 // Development only
 export const SEED_ROUTE: string = "/seed";

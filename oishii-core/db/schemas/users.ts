@@ -1,5 +1,6 @@
 import { InferSelectModel } from "drizzle-orm";
 import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { userPlanEnum } from "./enum/user-plan";
 
 // Default cheat sheet content
 export const DEFAULT_CHEAT_SHEET = `Pasta: 80-100g pp
@@ -12,6 +13,7 @@ export const usersTable = pgTable("users", {
   email: text("email").unique().notNull(),
   password: text("password").notNull(),
   language: text("language").default("en").notNull(),
+  plan: userPlanEnum("plan").default("free").notNull(),
   aboutMe: text("about_me"),
   avatarUrl: text("avatar_url"),
   cheatSheet: text("cheat_sheet").default(DEFAULT_CHEAT_SHEET),

@@ -19,7 +19,8 @@ export default async function getUserDetails({
             name: usersTable.name,
             aboutMe: usersTable.aboutMe,
             createdAt: usersTable.createdAt,
-            language: usersTable.language
+            language: usersTable.language,
+            plan: usersTable.plan
         })
         .from(usersTable)
         .where(eq(usersTable.id, userId))
@@ -73,6 +74,7 @@ export default async function getUserDetails({
         createdAt: user.createdAt,
         isFriend,
         isCurrentUser: currentUserId === userId,
-        language: user.language
+        language: user.language,
+        plan: user.plan
     };
 }

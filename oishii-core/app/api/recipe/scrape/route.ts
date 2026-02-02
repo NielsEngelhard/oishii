@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { scrapeRecipe } from "@/lib/ai/recipe-scraper";
+import { getCurrentUser } from "@/lib/security/auth/get-current-user";
+import { checkAiLimit, recordAiUsage } from "@/lib/plans/check-plan-limits";
 import { z } from "zod";
 
 const requestSchema = z.object({
@@ -8,6 +10,30 @@ const requestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Check authentication
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
+    // Check AI usage limit
+    const limitCheck = await checkAiLimit(user.id);
+    if (!limitCheck.allowed) {
+      return NextResponse.json(
+        {
+          error: "AI import limit reached",
+          limitReached: true,
+          remaining: limitCheck.remaining,
+          resetAt: limitCheck.resetAt.toISOString(),
+          plan: limitCheck.plan,
+        },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
 
     // Validate request body
@@ -30,6 +56,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Record successful AI usage
+    await recordAiUsage(user.id, "url_scrape");
 
     return NextResponse.json({
       success: true,
