@@ -3,87 +3,269 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { Link2, FileText, ArrowLeft } from "lucide-react";
+import { Link2, FileText, Camera, ArrowLeft, Sparkles, Info, AlertCircle } from "lucide-react";
 import PageHeader from "@/components/ui/layout/PageHeader";
-import ImportMethodCard from "@/components/specific/import/ImportMethodCard";
-import UrlImportView from "@/components/specific/import/UrlImportView";
-import TextImportView from "@/components/specific/import/TextImportView";
+import SectionToggle from "@/components/ui/SectionToggle";
+import Button from "@/components/ui/Button";
+import Input from "@/components/form/Input";
+import TextArea from "@/components/form/TextArea";
+import CookingLoader from "@/components/ui/CookingLoader";
 import { CREATE_RECIPE_ROUTE } from "@/app/routes";
 
-type ImportMethod = "selection" | "url" | "text";
+type ImportMethod = "url" | "text" | "photo";
 
-// Extendable array of import methods
-const IMPORT_METHODS = [
-    {
-        id: "url" as const,
-        icon: Link2,
-        gradient: "from-blue-500 to-cyan-500",
-    },
-    {
-        id: "text" as const,
-        icon: FileText,
-        gradient: "from-purple-500 to-pink-500",
-    },
+const IMPORT_SECTIONS = [
+    { key: "url", label: "URL", Icon: Link2 },
+    { key: "text", label: "Text", Icon: FileText },
+    { key: "photo", label: "Photo", Icon: Camera },
 ];
 
 export default function AiImportPage() {
     const t = useTranslations("aiImport");
     const router = useRouter();
-    const [activeMethod, setActiveMethod] = useState<ImportMethod>("selection");
+    const [activeMethod, setActiveMethod] = useState<ImportMethod>("url");
+
+    // URL import state
+    const [url, setUrl] = useState("");
+    const [urlLoading, setUrlLoading] = useState(false);
+    const [urlError, setUrlError] = useState<string | null>(null);
+
+    // Text import state
+    const [text, setText] = useState("");
+    const [textLoading, setTextLoading] = useState(false);
+    const [textError, setTextError] = useState<string | null>(null);
+
+    const handleUrlImport = async () => {
+        if (!url.trim()) return;
+
+        setUrlLoading(true);
+        setUrlError(null);
+
+        try {
+            const response = await fetch("/api/recipe/scrape", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ url: url.trim() }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setUrlError(data.error || t("scrapeError"));
+                setUrlLoading(false);
+                return;
+            }
+
+            // Store the scraped recipe in sessionStorage for the create page to pick up
+            sessionStorage.setItem("importedRecipe", JSON.stringify(data.recipe));
+
+            // Redirect to create page
+            router.push(CREATE_RECIPE_ROUTE);
+        } catch {
+            setUrlError(t("scrapeError"));
+            setUrlLoading(false);
+        }
+    };
+
+    const handleTextImport = async () => {
+        if (!text.trim()) return;
+
+        setTextLoading(true);
+        setTextError(null);
+
+        try {
+            const response = await fetch("/api/recipe/parse-text", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: text.trim() }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setTextError(data.error || t("scrapeError"));
+                setTextLoading(false);
+                return;
+            }
+
+            // Store the parsed recipe in sessionStorage for the create page to pick up
+            sessionStorage.setItem("importedRecipe", JSON.stringify(data.recipe));
+
+            // Redirect to create page
+            router.push(CREATE_RECIPE_ROUTE);
+        } catch {
+            setTextError(t("scrapeError"));
+            setTextLoading(false);
+        }
+    };
 
     const handleBack = () => {
-        if (activeMethod === "selection") {
-            router.push(CREATE_RECIPE_ROUTE);
-        } else {
-            setActiveMethod("selection");
+        router.push(CREATE_RECIPE_ROUTE);
+    };
+
+    const renderUrlSection = () => {
+        if (urlLoading) {
+            return <CookingLoader size="lg" />;
         }
+
+        return (
+            <div className="space-y-4">
+                {/* Error message */}
+                {urlError && (
+                    <div className="flex items-center gap-2 p-3 bg-error/10 border border-error/20 rounded-lg">
+                        <AlertCircle className="h-4 w-4 text-error shrink-0" />
+                        <p className="text-sm text-error">{urlError}</p>
+                    </div>
+                )}
+
+                {/* URL Input */}
+                <div className="relative">
+                    <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted pointer-events-none" />
+                    <Input
+                        type="url"
+                        placeholder={t("urlPlaceholder")}
+                        value={url}
+                        onChange={(e) => {
+                            setUrl(e.target.value);
+                            if (urlError) setUrlError(null);
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" && url.trim()) {
+                                handleUrlImport();
+                            }
+                        }}
+                        className="pl-11"
+                    />
+                </div>
+
+                <Button
+                    text={t("importButton")}
+                    Icon={Sparkles}
+                    variant="primary"
+                    size="lg"
+                    onClick={handleUrlImport}
+                    disabled={!url.trim()}
+                    className="w-full"
+                />
+
+                {/* Helper text */}
+                <div className="flex items-start gap-3 p-4 bg-secondary/30 rounded-xl">
+                    <Info size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-muted">
+                        {t("helperUrl")}
+                    </p>
+                </div>
+            </div>
+        );
+    };
+
+    const renderTextSection = () => {
+        if (textLoading) {
+            return <CookingLoader size="lg" />;
+        }
+
+        return (
+            <div className="space-y-4">
+                {/* Error message */}
+                {textError && (
+                    <div className="flex items-center gap-2 p-3 bg-error/10 border border-error/20 rounded-lg">
+                        <AlertCircle className="h-4 w-4 text-error shrink-0" />
+                        <p className="text-sm text-error">{textError}</p>
+                    </div>
+                )}
+
+                {/* Text Input */}
+                <TextArea
+                    placeholder={t("textPlaceholder")}
+                    value={text}
+                    onChange={(e) => {
+                        setText(e.target.value);
+                        if (textError) setTextError(null);
+                    }}
+                    className="min-h-[200px]"
+                />
+
+                <Button
+                    text={t("importButton")}
+                    Icon={Sparkles}
+                    variant="primary"
+                    size="lg"
+                    onClick={handleTextImport}
+                    disabled={!text.trim()}
+                    className="w-full"
+                />
+
+                {/* Helper text */}
+                <div className="flex items-start gap-3 p-4 bg-secondary/30 rounded-xl">
+                    <Info size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-muted">
+                        {t("helperText")}
+                    </p>
+                </div>
+            </div>
+        );
+    };
+
+    const renderPhotoSection = () => {
+        return (
+            <div className="space-y-4">
+                {/* Coming soon card */}
+                <div className="flex flex-col items-center justify-center p-8 bg-secondary/30 rounded-xl text-center">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-lg mb-4">
+                        <Camera className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2">{t("photoImport.title")}</h3>
+                    <p className="text-muted text-sm mb-4">
+                        {t("photoImport.description")}
+                    </p>
+                    <span className="px-3 py-1.5 text-sm font-medium bg-primary/15 text-primary rounded-full">
+                        {t("photoImport.comingSoon")}
+                    </span>
+                </div>
+            </div>
+        );
     };
 
     const renderContent = () => {
         switch (activeMethod) {
             case "url":
-                return <UrlImportView onBack={() => setActiveMethod("selection")} />;
+                return renderUrlSection();
             case "text":
-                return <TextImportView onBack={() => setActiveMethod("selection")} />;
+                return renderTextSection();
+            case "photo":
+                return renderPhotoSection();
             default:
-                return (
-                    <div className="space-y-4">
-                        {IMPORT_METHODS.map((method) => (
-                            <ImportMethodCard
-                                key={method.id}
-                                icon={method.icon}
-                                title={t(`${method.id}Import.title`)}
-                                description={t(`${method.id}Import.description`)}
-                                gradient={method.gradient}
-                                onClick={() => setActiveMethod(method.id)}
-                            />
-                        ))}
-                    </div>
-                );
+                return null;
         }
     };
 
     return (
         <div className="flex flex-col mx-auto px-4 py-4 space-y-6 max-w-sm w-full">
-            {/* Back to create recipe */}
-            {activeMethod === "selection" && (
-                <button
-                    onClick={handleBack}
-                    className="flex items-center gap-2 text-muted hover:text-foreground transition-colors self-start"
-                >
-                    <ArrowLeft size={18} />
-                    <span>{t("back")}</span>
-                </button>
-            )}
+            {/* Back button */}
+            <button
+                onClick={handleBack}
+                className="flex items-center gap-2 text-muted hover:text-foreground transition-colors self-start"
+            >
+                <ArrowLeft size={18} />
+                <span>{t("back")}</span>
+            </button>
 
-            {/* Header - only show on selection view */}
-            {activeMethod === "selection" && (
-                <PageHeader
-                    title={t("title")}
-                    description={t("description")}
-                />
-            )}
+            {/* Header */}
+            <PageHeader
+                title={t("title")}
+                description={t("description")}
+            />
 
+            {/* Section Toggle */}
+            <div className="w-full bg-red-500 ">
+                <SectionToggle
+                    sections={IMPORT_SECTIONS}
+                    activeSectionKey={activeMethod}
+                    onSectionChange={(key) => setActiveMethod(key as ImportMethod)}
+                />                
+            </div>
+
+            {/* Content */}
             {renderContent()}
         </div>
     );
