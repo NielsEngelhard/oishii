@@ -117,8 +117,10 @@
   },
   "aiImport": {
     "importWithAi": "Import with AI",
-    "magic": "Magic",
+    "magic": "Lazy & Smart",
     "aiDescription": "Paste any recipe URL and our AI will extract all the details for you.",
+    "teaserDescription": "Import recipes from URLs, text, or photos. Let AI extract ingredients, steps, and more.",
+    "startImport": "Start AI Import",
     "urlPlaceholder": "https://example.com/recipe...",
     "importRecipe": "Import Recipe",
     "title": "AI Import",
@@ -132,8 +134,13 @@
       "title": "Import from Text",
       "description": "Copy and paste any recipe text and our AI will parse and format it for you."
     },
+    "photoImport": {
+      "title": "Import from Photo",
+      "description": "Take a photo of a recipe and our AI will extract all the details.",
+      "comingSoon": "Coming soon!"
+    },
     "comingSoon": "Coming soon",
-    "back": "Back to options",
+    "back": "Back to create recipe",
     "textPlaceholder": "Paste your recipe text here...",
     "importButton": "Import Recipe",
     "helperUrl": "Our AI will extract ingredients, steps, cooking times, and more from the URL.",

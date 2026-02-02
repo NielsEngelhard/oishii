@@ -117,8 +117,10 @@
   },
   "aiImport": {
     "importWithAi": "Importeren met AI",
-    "magic": "Magie",
+    "magic": "Lui en slim",
     "aiDescription": "Plak een recept-URL en onze AI haalt alle details voor je op.",
+    "teaserDescription": "Importeer recepten via URLs, tekst of foto's. Laat AI ingrediënten, stappen en meer ophalen.",
+    "startImport": "Start AI Import",
     "urlPlaceholder": "https://voorbeeld.nl/recept...",
     "importRecipe": "Recept importeren",
     "title": "AI Import",
@@ -132,8 +134,13 @@
       "title": "Importeren via tekst",
       "description": "Kopieer en plak recepttekst en onze AI formatteert het voor je."
     },
+    "photoImport": {
+      "title": "Importeren via foto",
+      "description": "Maak een foto van een recept en onze AI haalt alle details op.",
+      "comingSoon": "Binnenkort beschikbaar!"
+    },
     "comingSoon": "Binnenkort beschikbaar",
-    "back": "Terug naar opties",
+    "back": "Terug naar recept aanmaken",
     "textPlaceholder": "Plak hier je recepttekst...",
     "importButton": "Recept Importeren",
     "helperUrl": "Onze AI haalt ingrediënten, stappen, kooktijden en meer uit de URL.",

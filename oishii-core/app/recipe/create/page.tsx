@@ -1,6 +1,6 @@
 "use client"
 
-import { RECIPE_DETAILS_ROUTE, AI_IMPORT_ROUTE } from "@/app/routes";
+import { RECIPE_DETAILS_ROUTE } from "@/app/routes";
 import FileInput from "@/components/form/FileInput";
 import Input from "@/components/form/Input";
 import InputGroup from "@/components/form/InputGroup";
@@ -20,8 +20,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { locales } from "@/i18n/config";
 import { createRecipeSchema, CreateRecipeSchemaData } from "@/schemas/recipe-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BookText, Clock, CookingPot, Gauge, List, Lightbulb, Tags, Users, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { BookText, Clock, CookingPot, Gauge, List, Lightbulb, Tags, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -34,7 +33,6 @@ export default function CreateRecipePage() {
     const t = useTranslations("recipe");
     const tCommon = useTranslations("common");
     const tTags = useTranslations("tags");
-    const tAiImport = useTranslations("aiImport");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [apiError, setApiError] = useState<string | null>(null);
 
@@ -148,16 +146,7 @@ export default function CreateRecipePage() {
 
             </PageHeader>
 
-            <AiImportCard onRecipeScraped={handleRecipeScraped} />
-
-            <Link href={AI_IMPORT_ROUTE} className="self-start">
-                <Button
-                    text={tAiImport("moreOptions")}
-                    Icon={Sparkles}
-                    variant="secondary"
-                    size="md"
-                />
-            </Link>
+            <AiImportCard />
 
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
                 <Card>

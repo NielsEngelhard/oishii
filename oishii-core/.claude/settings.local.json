@@ -19,7 +19,10 @@
       "Bash(powershell -Command \"Remove-Item -LiteralPath ''C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\app\\\\recipe\\\\[recipeId]'' -Recurse -Force\")",
       "Bash(dir /s /b app*.tsx app*.ts)",
       "Bash(dir /s /b components*.tsx)",
-      "Bash(pnpm add ai @ai-sdk/openai)"
+      "Bash(pnpm add ai @ai-sdk/openai)",
+      "Bash(del /f \"C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\components\\\\specific\\\\import\\\\ImportMethodCard.tsx\")",
+      "Bash(del /f \"C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\components\\\\specific\\\\import\\\\UrlImportView.tsx\")",
+      "Bash(del /f \"C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\components\\\\specific\\\\import\\\\TextImportView.tsx\")"
     ]
   }
 }

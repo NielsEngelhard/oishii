@@ -2,7 +2,14 @@ V1
 - Account types met rate limit voor AI import
 - AI import op basis van URL
 - AI import op basis van wat text die je copy pasted
+
+
+
 - AI import functionaliteit is rate limited achter de account types FREE heeft er maar 1 per dag
+
+
+
+
 - Account type staat op je profiel
 - main image more visible op recipe details page
 - add as mobile app more easily explanation
@@ -18,7 +25,6 @@ V1
 
 - RecipeCard moeten allemaal dezelfde hoogte zijn in de grid
 - AI import op create pagina is lelijk
-- AI import moet 1 pagina zijn lmz
 - Seed block (notificaition block?) lelijk
 - ff kijken hoe het gaat met veel tags in bijv de recipecard
 - Tips & Notes moet veel kleiner
