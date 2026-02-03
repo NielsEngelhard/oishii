@@ -23,17 +23,14 @@ export default function InstallPrompt() {
             return;
         }
 
-        // Check if already shown this session
-        if (sessionStorage.getItem("pwa-prompt-shown")) {
+        // Check if already dismissed this session
+        if (sessionStorage.getItem("pwa-prompt-dismissed")) {
             return;
         }
 
-        // Mark as shown for this session
-        sessionStorage.setItem("pwa-prompt-shown", "true");
-
         // Detect platform
         const userAgent = navigator.userAgent.toLowerCase();
-        const isIOS = /iphone|ipad|ipod/.test(userAgent) && !window.matchMedia("(display-mode: standalone)").matches;
+        const isIOS = /iphone|ipad|ipod/.test(userAgent);
         const isAndroid = /android/.test(userAgent);
 
         if (isIOS) {
@@ -52,7 +49,21 @@ export default function InstallPrompt() {
     useEffect(() => {
         const handler = (e: Event) => {
             e.preventDefault();
+            // Store the event for later use, but don't show prompt automatically
             setDeferredPrompt(e as BeforeInstallPromptEvent);
+
+            // Only show if not already shown this session and on mobile
+            if (sessionStorage.getItem("pwa-prompt-dismissed")) {
+                return;
+            }
+
+            // Check if mobile (beforeinstallprompt also fires on desktop Chrome)
+            const userAgent = navigator.userAgent.toLowerCase();
+            const isMobile = /android|iphone|ipad|ipod/.test(userAgent);
+            if (!isMobile) {
+                return;
+            }
+
             setPlatform("android");
             setShowPrompt(true);
         };
@@ -74,6 +85,7 @@ export default function InstallPrompt() {
     }, [deferredPrompt]);
 
     const handleDismiss = useCallback(() => {
+        sessionStorage.setItem("pwa-prompt-dismissed", "true");
         setShowPrompt(false);
     }, []);
 
