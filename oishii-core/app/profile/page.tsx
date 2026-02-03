@@ -271,9 +271,9 @@ export default function ProfilePage() {
                 </Card>
 
                 {/* Cheat Sheet */}
-                <Card className="border-2 border-yellow-300 dark:border-yellow-600 bg-yellow-50 dark:bg-yellow-950/20">
+                <Card className="border-2">
                     <div className="flex items-center gap-2 mb-2">
-                        <StickyNote size={18} className="text-yellow-600" />
+                        <StickyNote size={18} className="" />
                         <h2 className="text-lg font-semibold">{tCheatSheet("title")}</h2>
                     </div>
                     <p className="text-sm text-muted mb-4">{tCheatSheet("description")}</p>

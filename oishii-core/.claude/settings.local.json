@@ -22,7 +22,10 @@
       "Bash(pnpm add ai @ai-sdk/openai)",
       "Bash(del /f \"C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\components\\\\specific\\\\import\\\\ImportMethodCard.tsx\")",
       "Bash(del /f \"C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\components\\\\specific\\\\import\\\\UrlImportView.tsx\")",
-      "Bash(del /f \"C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\components\\\\specific\\\\import\\\\TextImportView.tsx\")"
+      "Bash(del /f \"C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\components\\\\specific\\\\import\\\\TextImportView.tsx\")",
+      "Bash(findstr /i \"TagInput\")",
+      "Bash(findstr \"tag\\\\|Tag\")",
+      "Bash(findstr /C:\"TagInput\")"
     ]
   }
 }

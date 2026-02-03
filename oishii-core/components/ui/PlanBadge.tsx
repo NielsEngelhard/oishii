@@ -14,27 +14,23 @@ interface PlanBadgeProps {
 const PLAN_CONFIG = {
     free: {
         Icon: User,
-        bgColor: "bg-gray-100 dark:bg-gray-800",
-        textColor: "text-gray-600 dark:text-gray-400",
-        iconColor: "text-gray-500",
+        bgColor: "bg-green-200",
+        textColor: "text-green-600",
     },
     basic: {
         Icon: Sparkles,
-        bgColor: "bg-blue-100 dark:bg-blue-900/30",
-        textColor: "text-blue-600 dark:text-blue-400",
-        iconColor: "text-blue-500",
+        bgColor: "bg-blue-200",
+        textColor: "text-blue-600",
     },
     premium: {
         Icon: Crown,
-        bgColor: "bg-amber-100 dark:bg-amber-900/30",
-        textColor: "text-amber-600 dark:text-amber-400",
-        iconColor: "text-amber-500",
+        bgColor: "bg-primary/200",
+        textColor: "text-primary",
     },
     admin: {
         Icon: Shield,
-        bgColor: "bg-red-500",
-        textColor: "text-white",
-        iconColor: "text-white",
+        bgColor: "bg-secondary/20",
+        textColor: "text-secondary",
     },
 };
 
@@ -67,7 +63,7 @@ export default function PlanBadge({ plan, size = "sm", showLabel = true }: PlanB
                 config.textColor
             )}
         >
-            <Icon size={sizes.icon} className={config.iconColor} />
+            <Icon size={sizes.icon} className={config.textColor} />
             {showLabel && (
                 <span className={sizes.text}>{t(plan)}</span>
             )}

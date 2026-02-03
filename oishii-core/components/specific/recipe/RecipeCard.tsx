@@ -68,8 +68,8 @@ export default function RecipeCard({ recipe, onLikeChange }: Props) {
     };
 
     return (
-        <Link href={`/recipe/${recipe.slug}`}>
-            <div className="group relative flex flex-col rounded-2xl overflow-hidden border shadow-md border-border shadow-warm hover:shadow-warm-xl transition-all duration-300 cursor-pointer hover:-translate-y-1">
+        <Link href={`/recipe/${recipe.slug}`} className="h-full">
+            <div className="group relative flex flex-col h-full rounded-2xl overflow-hidden border shadow-md border-border shadow-warm hover:shadow-warm-xl transition-all duration-300 cursor-pointer hover:-translate-y-1">
 
                 {/* Image */}
                 <div className="relative w-full h-52 overflow-hidden">
@@ -111,7 +111,7 @@ export default function RecipeCard({ recipe, onLikeChange }: Props) {
                 </div>
 
                 {/* Body */}
-                <div className="p-4 bg-card">
+                <div className="flex flex-col flex-grow p-4 bg-card">
                     {/* Recipe title */}
                     <h3 className="text-lg font-bold line-clamp-2 group-hover:text-primary transition-colors duration-200">
                         {recipe.title}
@@ -154,7 +154,7 @@ export default function RecipeCard({ recipe, onLikeChange }: Props) {
                     </div>
 
                     {/* Author with avatar - more prominent */}
-                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/50">
+                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/50">
                         <div className="flex items-center gap-2">
                             <Avatar size="sm" className="ring-1 ring-primary/20" />
                             <span className="font-medium text-sm">{recipe.author.name}</span>

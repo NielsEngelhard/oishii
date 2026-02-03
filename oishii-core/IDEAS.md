@@ -1,49 +1,15 @@
 V1
-- Account types met rate limit voor AI import
-- AI import op basis van URL
-- AI import op basis van wat text die je copy pasted
-
-
-
-- AI import functionaliteit is rate limited achter de account types FREE heeft er maar 1 per dag
-
-
-
-
-- Account type staat op je profiel
 - main image more visible op recipe details page
 - add as mobile app more easily explanation
-- Je eigen plaatje/foto kunnen optimaliseren d.m.v. AI zodat het minder grauw is lmz <-- dit zit wel achter premium functionaliteit
-
-
-
-
-
-
-
-
-
-- RecipeCard moeten allemaal dezelfde hoogte zijn in de grid
-- AI import op create pagina is lelijk
-- Seed block (notificaition block?) lelijk
-- ff kijken hoe het gaat met veel tags in bijv de recipecard
 - Tips & Notes moet veel kleiner
-
-- tags refactoren bij create pagina want te lang en met zoekbalk
-- my profile deels lelijk
-
-
-
-
-
-
-
 
 
 RELEASE O CLOCK
 
 
 V2
+- Je eigen plaatje/foto kunnen optimaliseren d.m.v. AI zodat het minder grauw is lmz <-- dit zit wel achter premium functionaliteit
+- AI scrape op basis van foto
 - AI vertaal knop voor recepten
 - Andere mensen kunnen fotos toevoegen van de keer dat ze het hebben gekookt en de meest recente zijn dan ook te zien bij de details
 - Sociaal aspect. Je kan een kookgroep aanmaken met je vrienden en daarin zie je iedere keer dat iemand iets kookt. Je volgt elkaar dan een soortvan. Je kan dan een post maken met een title, description en foto en een optioneel een "review" over hoe het was enzo. Zo kan je elkaar ook nieuwe recepten aanbevelen.

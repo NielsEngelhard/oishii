@@ -2,6 +2,7 @@
 
 import Button from "@/components/ui/Button";
 import PageHeader from "@/components/ui/layout/PageHeader";
+import Notification from "@/components/ui/Notification";
 import { Sprout, User, Loader2, Check, AlertCircle } from "lucide-react";
 import { useState } from "react";
 
@@ -56,17 +57,10 @@ export default function SeedPage() {
                 description="Development tool for seeding test data"
             />
 
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-4">
-                <div className="flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
-                    <div className="text-sm text-yellow-800 dark:text-yellow-200">
-                        <p className="font-medium">Development Only</p>
-                        <p className="mt-1 opacity-80">
-                            This page is only visible in development mode. Each click creates a new user with 10 random recipes.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <Notification
+                title="Development Only"
+                description="This page is only visible in development mode. Each click creates a new user with 10 random recipes."
+            />
 
             <div className="bg-card rounded-2xl p-6 shadow-warm space-y-6">
                 <div className="text-center space-y-4">
@@ -77,7 +71,7 @@ export default function SeedPage() {
                         <h2 className="text-lg font-semibold">Create Test User</h2>
                         <p className="text-sm text-muted mt-1">
                             Creates a random user with 10 random recipes.<br />
-                            Password is always: <code className="bg-secondary px-1.5 py-0.5 rounded text-xs">kaaskaas</code>
+                            Password is always: <code className="px-1.5 py-0.5 rounded text-xs">kaaskaas</code>
                         </p>
                     </div>
                 </div>
@@ -101,8 +95,8 @@ export default function SeedPage() {
                                 key={index}
                                 className={`flex items-center gap-3 p-3 rounded-xl text-sm ${
                                     result.success
-                                        ? "bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200"
-                                        : "bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200"
+                                        ? " text-green-500"
+                                        : " text-red-500 "
                                 }`}
                             >
                                 {result.success ? (
