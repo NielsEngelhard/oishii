@@ -10,7 +10,11 @@ const officialTagKeys = OFFICIAL_TAGS.map(t => t.key);
 // Get all valid units for the AI prompt
 const validUnits = ingredientUnits.join(", ");
 
-const SCRAPER_SYSTEM_PROMPT = `You are a recipe extraction AI. Your job is to extract structured recipe data from HTML content.
+const getScraperSystemPrompt = (language: string) => `You are a recipe extraction AI. Your job is to extract structured recipe data from HTML content.
+
+## Language Requirement:
+- The recipe title, description, ingredient names, and instruction text MUST be written in ${language === 'nl' ? 'Dutch' : 'English'}
+- Translate if necessary, but keep measurements and technical terms accurate
 
 ## Important Guidelines:
 
@@ -91,8 +95,10 @@ async function fetchHtmlContent(url: string): Promise<string> {
 
 /**
  * Scrapes a recipe from a URL using AI
+ * @param url - The URL to scrape
+ * @param language - The user's preferred language (e.g., 'en', 'nl')
  */
-export async function scrapeRecipe(url: string): Promise<ScrapeRecipeResponse> {
+export async function scrapeRecipe(url: string, language: string = 'en'): Promise<ScrapeRecipeResponse> {
   try {
     // Validate URL
     const urlObj = new URL(url);
@@ -113,7 +119,7 @@ export async function scrapeRecipe(url: string): Promise<ScrapeRecipeResponse> {
       output: Output.object({
         schema: scrapedRecipeSchema,
       }),
-      system: SCRAPER_SYSTEM_PROMPT,
+      system: getScraperSystemPrompt(language),
       prompt: `Extract the recipe from this webpage content. If no recipe is found, extract as much relevant information as possible.\n\nURL: ${url}\n\nContent:\n${content}`,
     });
 

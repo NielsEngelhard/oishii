@@ -22,3 +22,9 @@ export const ADMIN_ROUTE: string = "/admin";
 
 // Development only
 export const SEED_ROUTE: string = "/seed";
+
+// PWA
+export const INSTALL_ROUTE: string = "/install";
+
+// Feedback
+export const FEEDBACK_ROUTE: string = "/feedback";

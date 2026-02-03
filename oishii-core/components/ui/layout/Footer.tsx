@@ -2,10 +2,11 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { ABOUT_ROUTE, EXPLORE_ROUTE } from "@/app/routes";
+import { ABOUT_ROUTE, EXPLORE_ROUTE, FEEDBACK_ROUTE } from "@/app/routes";
 
 export default function Footer() {
     const t = useTranslations("footer");
+    const tFeedback = useTranslations("feedback");
     const currentYear = new Date().getFullYear();
 
     return (
@@ -38,6 +39,12 @@ export default function Footer() {
                             className="text-muted hover:text-foreground transition-colors"
                         >
                             {t("about")}
+                        </Link>
+                        <Link
+                            href={FEEDBACK_ROUTE}
+                            className="text-muted hover:text-foreground transition-colors"
+                        >
+                            {tFeedback("navLabel")}
                         </Link>
                     </nav>
 

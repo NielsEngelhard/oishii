@@ -195,7 +195,10 @@
   },
   "languages": {
     "en": "English",
-    "nl": "Nederlands"
+    "nl": "Nederlands",
+    "de": "Deutsch",
+    "es": "Español",
+    "fr": "Français"
   },
   "validation": {
     "tooShort": "Too short",
@@ -694,7 +697,13 @@
       "titleHighlight": "Amazing Recipes",
       "description": "The modern recipe app that helps you organize your culinary creations, discover new flavors, and share your passion for cooking with the world.",
       "getStarted": "Get Started Free",
-      "exploreRecipes": "Explore Recipes"
+      "exploreRecipes": "Explore Recipes",
+      "uspOrganize": "Your Recipe Box",
+      "uspOrganizeDesc": "All your favorites in one place — from grandma's classics to last week's Pinterest find",
+      "uspShare": "Share the Love",
+      "uspShareDesc": "Send recipes to friends, peek at what they're cooking, get inspired together",
+      "uspAI": "Save Any Recipe",
+      "uspAIDesc": "Found something delicious online? Just paste the link and we'll handle the rest"
     },
     "ai": {
       "badge": "AI-Powered",
@@ -811,7 +820,47 @@
     "iosInstructions": "Add to your home screen for the best experience",
     "androidInstructions": "Install the app for quick access",
     "installButton": "Install",
-    "iosTapShare": "Tap Share → Add to Home Screen"
+    "iosTapShare": "Tap Share → Add to Home Screen",
+    "installApp": "Install App",
+    "pageTitle": "Install Oishii App",
+    "pageDescription": "Get the full app experience on your device",
+    "benefitsTitle": "Why install the app?",
+    "benefit1": "Quick access from your home screen",
+    "benefit2": "Works offline for saved recipes",
+    "benefit3": "Faster and smoother experience",
+    "benefit4": "No app store needed",
+    "alreadyInstalled": "Already using the app!",
+    "alreadyInstalledDescription": "You're already using Oishii as an app. Enjoy the full experience!"
+  },
+  "feedback": {
+    "title": "Feedback",
+    "subtitle": "Help us improve Oishii",
+    "description": "Got an idea for a new feature? Found a bug? We'd love to hear from you! Your feedback helps make Oishii better for everyone.",
+    "placeholder": "Tell us what's on your mind...\n\nFor example:\n- \"I'd love a shopping list feature\"\n- \"The search doesn't find my Dutch recipes\"\n- \"It would be great to have meal planning\"",
+    "submitButton": "Send Feedback",
+    "sending": "Sending...",
+    "successTitle": "Thank you!",
+    "successMessage": "Your feedback has been received. We appreciate you taking the time to help us improve!",
+    "sendAnother": "Send more feedback",
+    "characterCount": "{count} / {max} characters",
+    "tooShort": "Please write at least 10 characters",
+    "navLabel": "Feedback"
+  },
+  "about": {
+    "title": "About Oishii",
+    "subtitle": "A passion project that grew into something more",
+    "storyTitle": "The Story",
+    "storyPart1": "Oishii started as a simple hobby project. I wanted an easy way to manage my own recipes and found that existing apps were either too complicated, too expensive, or simply didn't fit my needs.",
+    "storyPart2": "So I decided to build my own. What began as a weekend project quickly turned into something I'm genuinely proud of — a fully functioning web app that I use every day.",
+    "storyPart3": "Now I want to share it with you. Because sharing recipes should be easy and accessible for everyone, whether you're a professional chef or just someone who loves cooking for family and friends.",
+    "missionTitle": "Why I Built This",
+    "missionPoint1": "To make sharing recipes with friends and family effortless",
+    "missionPoint2": "To keep all my favorite recipes in one organized place",
+    "missionPoint3": "To discover new recipes from people around the world",
+    "missionPoint4": "To have fun building something useful",
+    "builtWith": "Built with love and lots of coffee",
+    "thanksTitle": "Thank You",
+    "thanksText": "Thanks for checking out Oishii. I hope it brings as much joy to your kitchen as it has to mine. Happy cooking!"
   },
   "footer": {
     "tagline": "Your personal recipe collection",

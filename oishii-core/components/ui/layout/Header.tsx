@@ -1,9 +1,9 @@
 "use client"
 
-import { BookCheck, BookOpen, ChevronDown, Handshake, Home, LogIn, Plus, Search, Sprout, StickyNote, Users, X } from "lucide-react";
+import { BookCheck, BookOpen, ChevronDown, Download, Handshake, Home, LogIn, MessageSquarePlus, Plus, Search, Sprout, StickyNote, Users, X } from "lucide-react";
 import Button from "../Button";
 import Link from "next/link";
-import { ABOUT_ROUTE, CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FRIENDS_ROUTE, HOME_LANDING_PAGE_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SEED_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
+import { ABOUT_ROUTE, CREATE_RECIPE_ROUTE, EXPLORE_ROUTE, FEEDBACK_ROUTE, FRIENDS_ROUTE, HOME_LANDING_PAGE_ROUTE, INSTALL_ROUTE, LOGIN_ROUTE, MY_RECIPES_ROUTE, PROFILE_ROUTE, SEED_ROUTE, SIGNUP_ROUTE } from "@/app/routes";
 import Logo from "./logo";
 import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
@@ -13,6 +13,7 @@ import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import CheatSheetPopup from "@/components/specific/cheatsheet/CheatSheetPopup";
 import VersionBadge from "./VersionBadge";
+import LanguageDropdown from "../LanguageDropdown";
 
 export default function Header() {
     const { user, isLoading } = useAuth();
@@ -20,8 +21,16 @@ export default function Header() {
     const t = useTranslations("header");
     const tAuth = useTranslations("auth");
     const tCheatSheet = useTranslations("cheatSheet");
+    const tPwa = useTranslations("pwa");
+    const tFeedback = useTranslations("feedback");
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [cheatSheetOpen, setCheatSheetOpen] = useState(false);
+    const [isStandalone, setIsStandalone] = useState(true); // Default to true to prevent flash
+
+    // Check if running as PWA (standalone mode)
+    useEffect(() => {
+        setIsStandalone(window.matchMedia("(display-mode: standalone)").matches);
+    }, []);
 
     // Close menu on route change or escape key
     useEffect(() => {
@@ -70,7 +79,7 @@ export default function Header() {
 
     return (
         <>
-            <header className="w-full h-16 border-b-2 border-primary/20 justify-center flex sticky top-0 z-50 bg-background relative overflow-hidden">
+            <header className="w-full h-16 border-b-2 border-primary/20 justify-center flex sticky top-0 z-50 bg-background relative">
                 {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 pointer-events-none" />
                 <div className="w-full h-full flex justify-between items-center container px-4 relative z-10">
@@ -121,6 +130,14 @@ export default function Header() {
                                 >
                                     <Plus className="w-5 h-5 text-muted hover:text-primary transition-colors" />
                                 </Link>
+                                {/* Feedback Button */}
+                                <Link
+                                    href={FEEDBACK_ROUTE}
+                                    className="p-2 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group"
+                                    title={tFeedback("navLabel")}
+                                >
+                                    <MessageSquarePlus className="w-5 h-5 text-blue-600 group-hover:text-blue-700 transition-colors" />
+                                </Link>
                                 <Link
                                     href={PROFILE_ROUTE}
                                     className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-secondary/20 transition-colors"
@@ -147,6 +164,7 @@ export default function Header() {
                             </div>
                         ) : (
                             <div className="flex gap-2 items-center">
+                                <LanguageDropdown />
                                 <Link href={LOGIN_ROUTE}>
                                     <Button variant="skeleton" text={tAuth("signIn")} Icon={LogIn} />
                                 </Link>
@@ -284,11 +302,47 @@ export default function Header() {
                                 <span className="font-medium">{t("createRecipe")}</span>
                             </Link>
                         )}
+
+                        {/* Feedback Link */}
+                        <Link
+                            href={FEEDBACK_ROUTE}
+                            onClick={closeMenu}
+                            className={clsx(
+                                "flex items-center gap-3 px-4 py-3 hover:bg-blue-50 transition-all duration-200",
+                                "transform",
+                                mobileMenuOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                            )}
+                            style={{ transitionDelay: mobileMenuOpen ? `${(navLinks.length + (user ? 2 : 1)) * 50}ms` : "0ms" }}
+                        >
+                            <MessageSquarePlus className="w-5 h-5 text-blue-600" />
+                            <span className="font-medium text-blue-700">{tFeedback("navLabel")}</span>
+                        </Link>
+
+                        {/* Install App Link (only on mobile, not in standalone/PWA mode) */}
+                        {!isStandalone && (
+                            <Link
+                                href={INSTALL_ROUTE}
+                                onClick={closeMenu}
+                                className={clsx(
+                                    "flex items-center gap-3 px-4 py-3 hover:bg-primary/10 transition-all duration-200 text-primary",
+                                    "transform",
+                                    mobileMenuOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                                )}
+                                style={{ transitionDelay: mobileMenuOpen ? `${(navLinks.length + (user ? 3 : 2)) * 50}ms` : "0ms" }}
+                            >
+                                <Download className="w-5 h-5" />
+                                <span className="font-medium">{tPwa("installApp")}</span>
+                            </Link>
+                        )}
                     </nav>
 
                     {/* Auth Buttons (when not logged in) */}
                     {!isLoading && !user && (
-                        <div className="p-4 border-t border-border space-y-2">
+                        <div className="p-4 border-t border-border space-y-4">
+                            {/* Language Selector */}
+                            <div className="flex justify-center">
+                                <LanguageDropdown />
+                            </div>
                             <Link href={LOGIN_ROUTE} onClick={closeMenu} className="block">
                                 <Button variant="skeleton" text={tAuth("signIn")} Icon={LogIn} className="w-full justify-center" />
                             </Link>

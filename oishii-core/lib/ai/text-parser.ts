@@ -10,7 +10,11 @@ const officialTagKeys = OFFICIAL_TAGS.map(t => t.key);
 // Get all valid units for the AI prompt
 const validUnits = ingredientUnits.join(", ");
 
-const TEXT_PARSER_SYSTEM_PROMPT = `You are a recipe extraction AI. Your job is to extract structured recipe data from raw text that a user has copy-pasted.
+const getTextParserSystemPrompt = (language: string) => `You are a recipe extraction AI. Your job is to extract structured recipe data from raw text that a user has copy-pasted.
+
+## Language Requirement:
+- The recipe title, description, ingredient names, and instruction text MUST be written in ${language === 'nl' ? 'Dutch' : 'English'}
+- Translate if necessary, but keep measurements and technical terms accurate
 
 ## Important Guidelines:
 
@@ -69,8 +73,10 @@ export type ParseRecipeResponse = ParseRecipeResult | ParseRecipeError;
 
 /**
  * Parses raw recipe text using AI to extract structured recipe data
+ * @param text - The raw text to parse
+ * @param language - The user's preferred language (e.g., 'en', 'nl')
  */
-export async function parseRecipeText(text: string): Promise<ParseRecipeResponse> {
+export async function parseRecipeText(text: string, language: string = 'en'): Promise<ParseRecipeResponse> {
   try {
     // Validate input
     const trimmedText = text.trim();
@@ -89,7 +95,7 @@ export async function parseRecipeText(text: string): Promise<ParseRecipeResponse
       output: Output.object({
         schema: scrapedRecipeSchema,
       }),
-      system: TEXT_PARSER_SYSTEM_PROMPT,
+      system: getTextParserSystemPrompt(language),
       prompt: `Extract the recipe from this text. If the text doesn't appear to be a recipe, try to extract as much relevant cooking information as possible.\n\nText:\n${trimmedText}`,
     });
 

@@ -1,11 +1,17 @@
 import { Locale } from "@/i18n/config";
 import GB from "country-flag-icons/react/3x2/GB";
 import NL from "country-flag-icons/react/3x2/NL";
+import DE from "country-flag-icons/react/3x2/DE";
+import ES from "country-flag-icons/react/3x2/ES";
+import FR from "country-flag-icons/react/3x2/FR";
 
 // Map locale codes to country flag components
 const flagComponents: Record<Locale, React.ComponentType<{ className?: string }>> = {
     en: GB,
     nl: NL,
+    de: DE,
+    es: ES,
+    fr: FR,
 };
 
 interface Props {

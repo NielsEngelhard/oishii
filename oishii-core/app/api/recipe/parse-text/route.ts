@@ -47,8 +47,8 @@ export async function POST(request: NextRequest) {
 
     const { text } = parseResult.data;
 
-    // Parse the recipe text
-    const result = await parseRecipeText(text);
+    // Parse the recipe text using the user's preferred language
+    const result = await parseRecipeText(text, user.language || 'en');
 
     if (!result.success) {
       return NextResponse.json(

@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
+    BookOpen,
     ChefHat,
     Link2,
     FileText,
@@ -51,28 +52,6 @@ function useInView(threshold = 0.1) {
     return { ref, isInView };
 }
 
-function FloatingElements() {
-    return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {/* Floating food emojis */}
-            {["🍕", "🍜", "🥗", "🍰", "🍳", "🥑"].map((emoji, i) => (
-                <div
-                    key={i}
-                    className="absolute text-4xl opacity-20 animate-float"
-                    style={{
-                        left: `${10 + i * 15}%`,
-                        top: `${20 + (i % 3) * 25}%`,
-                        animationDelay: `${i * 0.5}s`,
-                        animationDuration: `${4 + i * 0.5}s`,
-                    }}
-                >
-                    {emoji}
-                </div>
-            ))}
-        </div>
-    );
-}
-
 function HeroSection() {
     const t = useTranslations("home.hero");
     const [mounted, setMounted] = useState(false);
@@ -81,11 +60,16 @@ function HeroSection() {
         setMounted(true);
     }, []);
 
+    const uspCards = [
+        { Icon: BookOpen, gradient: "from-amber-500 to-orange-500", titleKey: "uspOrganize" as const, descKey: "uspOrganizeDesc" as const },
+        { Icon: Users, gradient: "from-rose-400 to-pink-500", titleKey: "uspShare" as const, descKey: "uspShareDesc" as const },
+        { Icon: Sparkles, gradient: "from-emerald-500 to-teal-500", titleKey: "uspAI" as const, descKey: "uspAIDesc" as const },
+    ];
+
     return (
         <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
             {/* Background gradient */}
             <div className="absolute inset-0 gradient-hero" />
-            <FloatingElements />
 
             <div className="relative z-10 container mx-auto px-4 py-16 text-center">
                 {/* Tagline badge */}
@@ -149,54 +133,32 @@ function HeroSection() {
                     </Link>
                 </div>
 
-                {/* Hero image/illustration placeholder */}
-                <div
-                    className={clsx(
-                        "mt-16 relative transition-all duration-1000 delay-500",
-                        mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    )}
-                >
-                    <div className="relative mx-auto max-w-4xl">
-                        {/* Decorative gradient blur */}
-                        <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 rounded-3xl blur-3xl" />
-
-                        {/* Mock app preview */}
-                        <div className="relative bg-card rounded-2xl shadow-warm-xl border border-border overflow-hidden">
-                            <div className="h-8 bg-secondary/20 flex items-center px-4 gap-2">
-                                <div className="w-3 h-3 rounded-full bg-red-400" />
-                                <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                                <div className="w-3 h-3 rounded-full bg-green-400" />
+                {/* USP Cards */}
+                <div className="grid md:grid-cols-3 gap-5 mt-16 max-w-4xl mx-auto">
+                    {uspCards.map((usp, i) => (
+                        <div
+                            key={i}
+                            className={clsx(
+                                "group bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-lg",
+                                "hover:shadow-xl hover:-translate-y-1",
+                                "transition-all duration-300 cursor-default text-center",
+                                mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                            )}
+                            style={{ transitionDelay: `${500 + i * 100}ms` }}
+                        >
+                            <div
+                                className={clsx(
+                                    "w-14 h-14 rounded-full bg-gradient-to-br flex items-center justify-center mb-4 mx-auto",
+                                    "group-hover:scale-110 transition-transform duration-300 shadow-md",
+                                    usp.gradient
+                                )}
+                            >
+                                <usp.Icon className="w-7 h-7 text-white" />
                             </div>
-                            <div className="p-8 flex gap-6">
-                                {/* Recipe cards preview */}
-                                {[1, 2, 3].map((i) => (
-                                    <div
-                                        key={i}
-                                        className={clsx(
-                                            "flex-1 bg-background rounded-xl p-4 shadow-warm transition-all duration-500",
-                                            i === 2 ? "scale-105 shadow-warm-lg" : "opacity-80"
-                                        )}
-                                        style={{ animationDelay: `${i * 200}ms` }}
-                                    >
-                                        <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg mb-3 flex items-center justify-center">
-                                            <span className="text-3xl">
-                                                {["🍕", "🍜", "🥗"][i - 1]}
-                                            </span>
-                                        </div>
-                                        <div className="h-3 bg-secondary/30 rounded-full w-3/4 mb-2" />
-                                        <div className="h-2 bg-secondary/20 rounded-full w-1/2" />
-                                    </div>
-                                ))}
-                            </div>
+                            <h3 className="text-lg font-bold mb-2 text-slate-800">{t(usp.titleKey)}</h3>
+                            <p className="text-slate-600 text-sm leading-relaxed">{t(usp.descKey)}</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-                <div className="w-6 h-10 border-2 border-muted/30 rounded-full flex justify-center pt-2">
-                    <div className="w-1.5 h-3 bg-muted/50 rounded-full animate-scroll" />
+                    ))}
                 </div>
             </div>
         </section>
@@ -706,15 +668,6 @@ export default function HomePage() {
 
             {/* Custom styles for animations */}
             <style jsx global>{`
-                @keyframes float {
-                    0%, 100% {
-                        transform: translateY(0) rotate(0deg);
-                    }
-                    50% {
-                        transform: translateY(-20px) rotate(5deg);
-                    }
-                }
-
                 @keyframes scroll {
                     0%, 100% {
                         transform: translateY(0);
@@ -724,10 +677,6 @@ export default function HomePage() {
                         transform: translateY(6px);
                         opacity: 0.5;
                     }
-                }
-
-                .animate-float {
-                    animation: float 4s ease-in-out infinite;
                 }
 
                 .animate-scroll {

@@ -47,8 +47,8 @@ export async function POST(request: NextRequest) {
 
     const { url } = parseResult.data;
 
-    // Scrape the recipe
-    const result = await scrapeRecipe(url);
+    // Scrape the recipe using the user's preferred language
+    const result = await scrapeRecipe(url, user.language || 'en');
 
     if (!result.success) {
       return NextResponse.json(

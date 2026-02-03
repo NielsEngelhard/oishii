@@ -195,7 +195,10 @@
   },
   "languages": {
     "en": "English",
-    "nl": "Nederlands"
+    "nl": "Nederlands",
+    "de": "Deutsch",
+    "es": "Español",
+    "fr": "Français"
   },
   "validation": {
     "tooShort": "Te kort",
@@ -694,7 +697,13 @@
       "titleHighlight": "Geweldige Recepten",
       "description": "De moderne recepten-app die je helpt je culinaire creaties te organiseren, nieuwe smaken te ontdekken en je passie voor koken met de wereld te delen.",
       "getStarted": "Start Gratis",
-      "exploreRecipes": "Ontdek Recepten"
+      "exploreRecipes": "Ontdek Recepten",
+      "uspOrganize": "Jouw Receptenbox",
+      "uspOrganizeDesc": "Al je favorieten op één plek — van oma's klassiekers tot die Pinterest-vondst van vorige week",
+      "uspShare": "Deel de Liefde",
+      "uspShareDesc": "Stuur recepten naar vrienden, kijk wat zij koken, inspireer elkaar",
+      "uspAI": "Bewaar Elk Recept",
+      "uspAIDesc": "Iets lekkers gevonden online? Plak de link en wij regelen de rest"
     },
     "ai": {
       "badge": "AI-Aangedreven",
@@ -811,7 +820,47 @@
     "iosInstructions": "Voeg toe aan je startscherm voor de beste ervaring",
     "androidInstructions": "Installeer de app voor snelle toegang",
     "installButton": "Installeren",
-    "iosTapShare": "Tik op Deel → Zet op beginscherm"
+    "iosTapShare": "Tik op Deel → Zet op beginscherm",
+    "installApp": "Installeer App",
+    "pageTitle": "Installeer Oishii App",
+    "pageDescription": "Krijg de volledige app-ervaring op je apparaat",
+    "benefitsTitle": "Waarom de app installeren?",
+    "benefit1": "Snelle toegang vanaf je startscherm",
+    "benefit2": "Werkt offline voor opgeslagen recepten",
+    "benefit3": "Snellere en soepelere ervaring",
+    "benefit4": "Geen app store nodig",
+    "alreadyInstalled": "Je gebruikt de app al!",
+    "alreadyInstalledDescription": "Je gebruikt Oishii al als app. Geniet van de volledige ervaring!"
+  },
+  "feedback": {
+    "title": "Feedback",
+    "subtitle": "Help ons Oishii te verbeteren",
+    "description": "Heb je een idee voor een nieuwe functie? Een bug gevonden? We horen graag van je! Jouw feedback helpt Oishii beter te maken voor iedereen.",
+    "placeholder": "Vertel ons wat je denkt...\n\nBijvoorbeeld:\n- \"Ik zou graag een boodschappenlijst willen\"\n- \"De zoekfunctie vindt mijn Nederlandse recepten niet\"\n- \"Het zou fijn zijn om maaltijden te kunnen plannen\"",
+    "submitButton": "Verstuur Feedback",
+    "sending": "Verzenden...",
+    "successTitle": "Bedankt!",
+    "successMessage": "Je feedback is ontvangen. We waarderen het dat je de tijd hebt genomen om ons te helpen verbeteren!",
+    "sendAnother": "Meer feedback sturen",
+    "characterCount": "{count} / {max} karakters",
+    "tooShort": "Schrijf minimaal 10 karakters",
+    "navLabel": "Feedback"
+  },
+  "about": {
+    "title": "Over Oishii",
+    "subtitle": "Een passieproject dat uitgroeide tot iets moois",
+    "storyTitle": "Het Verhaal",
+    "storyPart1": "Oishii begon als een simpel hobbyproject. Ik wilde een makkelijke manier om mijn eigen recepten te beheren en vond dat bestaande apps of te ingewikkeld, te duur, of gewoon niet bij mijn wensen pasten.",
+    "storyPart2": "Dus besloot ik er zelf een te bouwen. Wat begon als een weekendproject groeide al snel uit tot iets waar ik oprecht trots op ben — een volledig werkende web-app die ik dagelijks gebruik.",
+    "storyPart3": "Nu wil ik het met jou delen. Want het delen van recepten moet makkelijk en toegankelijk zijn voor iedereen, of je nu een professionele chef bent of gewoon iemand die graag kookt voor familie en vrienden.",
+    "missionTitle": "Waarom Ik Dit Bouwde",
+    "missionPoint1": "Om het delen van recepten met vrienden en familie moeiteloos te maken",
+    "missionPoint2": "Om al mijn favoriete recepten op één georganiseerde plek te bewaren",
+    "missionPoint3": "Om nieuwe recepten te ontdekken van mensen over de hele wereld",
+    "missionPoint4": "Om plezier te hebben met het bouwen van iets nuttigs",
+    "builtWith": "Gebouwd met liefde en veel koffie",
+    "thanksTitle": "Bedankt",
+    "thanksText": "Bedankt dat je Oishii bekijkt. Ik hoop dat het net zoveel vreugde in jouw keuken brengt als in de mijne. Smakelijk koken!"
   },
   "footer": {
     "tagline": "Je persoonlijke receptenverzameling",
