@@ -21,15 +21,16 @@ export default async function NoteListDisplay({ notes }: Props) {
                 {t("tipsAndNotes")}
             </h2>
 
-            <div className="flex flex-col gap-3">
+            {/* Horizontal scrollable notes */}
+            <div className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
                 {notes.map((note, index) => (
                     <div
                         key={index}
-                        className="flex flex-col gap-2 p-4 bg-background-secondary rounded-xl"
+                        className="flex flex-col gap-2 p-3 bg-background-secondary rounded-xl w-64 shrink-0 snap-start"
                     >
                         {/* Note image */}
                         {note.imageUrl && (
-                            <div className="relative w-full aspect-video rounded-lg overflow-hidden">
+                            <div className="relative w-full h-32 rounded-lg overflow-hidden">
                                 <Image
                                     src={note.imageUrl}
                                     alt={note.title || `Note ${index + 1}`}
@@ -41,11 +42,11 @@ export default async function NoteListDisplay({ notes }: Props) {
 
                         {/* Note title */}
                         {note.title && (
-                            <h3 className="font-semibold text-foreground">{note.title}</h3>
+                            <h3 className="font-semibold text-foreground text-sm">{note.title}</h3>
                         )}
 
                         {/* Note text */}
-                        <p className="text-muted whitespace-pre-wrap">{note.text}</p>
+                        <p className="text-muted text-sm line-clamp-3">{note.text}</p>
                     </div>
                 ))}
             </div>

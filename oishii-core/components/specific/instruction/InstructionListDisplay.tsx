@@ -1,6 +1,6 @@
 import { InstructionSchemaData } from "@/schemas/instruction-schemas";
+import ExpandableImage from "@/components/ui/ExpandableImage";
 import { Lightbulb } from "lucide-react";
-import Image from "next/image";
 
 interface Props {
     instructions: InstructionSchemaData[];
@@ -16,24 +16,23 @@ export default function InstructionListDisplay({ instructions }: Props) {
 
             <div className="flex flex-col gap-4">
                 {instructions.map(instruction => (
-                    <div key={instruction.index} className="flex flex-col bg-background-secondary rounded-xl overflow-hidden shadow-warm">
-                        {/* Step Image */}
-                        {instruction.imageUrl && (
-                            <div className="relative aspect-video w-full">
-                                <Image
-                                    src={instruction.imageUrl}
-                                    alt={`Step ${instruction.index}`}
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                        )}
-
+                    <div key={instruction.index} className="bg-background-secondary rounded-xl overflow-hidden shadow-warm">
                         {/* Step Content */}
                         <div className="p-3 sm:p-4 flex flex-col gap-3">
                             <div className="flex gap-3 sm:gap-4 text-lg">
                                 <span className="w-8 h-8 items-center justify-center flex gradient-primary rounded-full text-white font-bold text-sm flex-shrink-0 shadow-md shadow-primary/20">{instruction.index}</span>
-                                <span className="leading-relaxed">{instruction.text}</span>
+                                <div className="flex flex-col gap-2 flex-1">
+                                    <span className="leading-relaxed">{instruction.text}</span>
+
+                                    {/* Step Image - smaller thumbnail with click to expand */}
+                                    {instruction.imageUrl && (
+                                        <ExpandableImage
+                                            src={instruction.imageUrl}
+                                            alt={`Step ${instruction.index}`}
+                                            thumbnailClassName="w-32 h-24 sm:w-40 sm:h-28"
+                                        />
+                                    )}
+                                </div>
                             </div>
 
                             {/* Step Note/Tip */}

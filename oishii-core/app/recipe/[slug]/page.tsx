@@ -45,15 +45,29 @@ export default async function RecipeDetailsPage({ params }: Props) {
 
     return (
         <div className="relative w-full">
-            {/* Hero Image */}
-            <div className="relative w-full h-64 sm:h-80 md:h-96">
+            {/* Hero Image with blurred background and prominent card */}
+            <div className="relative w-full h-72 sm:h-80 md:h-96">
+                {/* Blurred background image */}
                 <Image
                     src={recipe.imageUrl || "/placeholder/recipe-placeholder.png"}
-                    alt={recipe.title}
+                    alt=""
                     fill
-                    className="object-cover"
+                    className="object-cover blur-sm scale-105"
+                    aria-hidden="true"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 via-30% to-primary/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 via-40% to-primary/20" />
+
+                {/* Prominent image card */}
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden shadow-2xl ring-4 ring-background/50">
+                        <Image
+                            src={recipe.imageUrl || "/placeholder/recipe-placeholder.png"}
+                            alt={recipe.title}
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
+                </div>
 
                 {/* Action buttons in hero */}
                 <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
