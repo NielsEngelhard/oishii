@@ -6,6 +6,7 @@ import TextArea from "@/components/form/TextArea";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import LanguageFlag from "@/components/ui/LanguageFlag";
 import NarrowPageWrapper from "@/components/ui/layout/NarrowPageWrapper";
 import PlanBadge from "@/components/ui/PlanBadge";
 import { useAuth } from "@/contexts/AuthContext";
@@ -225,6 +226,7 @@ export default function ProfilePage() {
                             <div className="flex items-center gap-2">
                                 <h1 className="text-2xl font-bold">{user.username}</h1>
                                 <PlanBadge plan={user.plan} size="md" />
+                                <LanguageFlag locale={user.language as Locale} size="md" />
                             </div>
                             <p className="text-muted">{t("member")}</p>
                         </div>

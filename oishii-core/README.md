@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Oishii
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Drizzle](https://img.shields.io/badge/Drizzle-ORM-C5F74F?style=flat-square&logo=drizzle&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
 
-First, run the development server:
+Your personal recipe collection app. Organize, discover, and share recipes with AI-powered imports.
+
+---
+
+## Features
+
+- **AI Recipe Import** — Paste any URL or text, AI extracts the recipe
+- **Multilingual** — Tags auto-translate across languages (EN, NL)
+- **Smart Organization** — 370+ official tags across 15 categories
+- **Social** — Follow friends and discover what they're cooking
+- **PWA Ready** — Install on mobile for an app-like experience
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Install dependencies
+pnpm install
+
+# Set up environment
+cp .env.example .env
+
+# Run database migrations
+pnpm db:migrate
+
+# Start development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm lint` | Run ESLint |
+| `pnpm db:generate` | Generate Drizzle migrations |
+| `pnpm db:migrate` | Push database schema |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 16 (App Router) |
+| UI | React 19, Tailwind CSS 4 |
+| Database | PostgreSQL + Drizzle ORM |
+| Auth | Custom JWT implementation |
+| i18n | next-intl |
+| AI | OpenAI API |
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/                 # Next.js pages and API routes
+components/          # React components
+  ├── form/          # Form inputs
+  ├── specific/      # Feature components
+  └── ui/            # Generic UI components
+db/                  # Database schema
+features/            # Business logic (commands/queries)
+i18n/                # Internationalization
+lib/                 # Utilities and services
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<p align="center">
+  <sub>Made with love for home cooks everywhere</sub>
+</p>

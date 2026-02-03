@@ -23,14 +23,13 @@ export default function InstallPrompt() {
             return;
         }
 
-        // Check if dismissed recently (within 7 days)
-        const dismissedAt = localStorage.getItem("pwa-prompt-dismissed");
-        if (dismissedAt) {
-            const daysSinceDismissed = (Date.now() - parseInt(dismissedAt)) / (1000 * 60 * 60 * 24);
-            if (daysSinceDismissed < 7) {
-                return;
-            }
+        // Check if already shown this session
+        if (sessionStorage.getItem("pwa-prompt-shown")) {
+            return;
         }
+
+        // Mark as shown for this session
+        sessionStorage.setItem("pwa-prompt-shown", "true");
 
         // Detect platform
         const userAgent = navigator.userAgent.toLowerCase();
@@ -75,7 +74,6 @@ export default function InstallPrompt() {
     }, [deferredPrompt]);
 
     const handleDismiss = useCallback(() => {
-        localStorage.setItem("pwa-prompt-dismissed", Date.now().toString());
         setShowPrompt(false);
     }, []);
 

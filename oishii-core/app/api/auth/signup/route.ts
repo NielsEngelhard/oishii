@@ -7,7 +7,6 @@ import { NextResponse } from "next/server";
 const authService = new SessionAuthService();
 
 export async function POST(req: Request) {
-  debugger;
   try {
     const body = await req.json();
 
