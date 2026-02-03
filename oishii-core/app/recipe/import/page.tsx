@@ -257,13 +257,11 @@ export default function AiImportPage() {
             />
 
             {/* Section Toggle */}
-            <div className="w-full bg-red-500 ">
-                <SectionToggle
-                    sections={IMPORT_SECTIONS}
-                    activeSectionKey={activeMethod}
-                    onSectionChange={(key) => setActiveMethod(key as ImportMethod)}
-                />                
-            </div>
+            <SectionToggle
+                sections={IMPORT_SECTIONS}
+                activeSectionKey={activeMethod}
+                onSectionChange={(key) => setActiveMethod(key as ImportMethod)}
+            />
 
             {/* Content */}
             {renderContent()}

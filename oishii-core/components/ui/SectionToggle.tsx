@@ -30,7 +30,10 @@ export default function SectionToggle({ sections, activeSectionKey, onSectionCha
             />
 
             {/* Buttons */}
-            <div className={clsx("relative grid", `grid-cols-${sections.length}`)}>
+            <div
+                className="relative grid"
+                style={{ gridTemplateColumns: `repeat(${sections.length}, 1fr)` }}
+            >
                 {sections.map(section => {
                     const isActive = activeSectionKey === section.key;
                     return (

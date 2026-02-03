@@ -38,9 +38,11 @@ export default function MyRecipesPage() {
     const initialTotalFetched = useRef(false);
 
     const fetchRecipes = useCallback(async (pageNum: number, currentFilters: RecipeFilterValues, includeL: boolean) => {
+        if (!user?.id) return;
+
         setIsLoading(true);
         try {
-            const url = buildUserRecipesUrl(user!.id, {
+            const url = buildUserRecipesUrl(user.id, {
                 page: pageNum,
                 pageSize: PAGE_SIZE,
                 includeLiked: includeL,
@@ -65,7 +67,7 @@ export default function MyRecipesPage() {
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    }, [user]);
 
     // Fetch total items count once on mount (without filters)
     useEffect(() => {

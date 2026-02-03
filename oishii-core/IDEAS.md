@@ -1,7 +1,5 @@
 V1
-- main image more visible op recipe details page
 - add as mobile app more easily explanation
-- Tips & Notes moet veel kleiner
 
 
 RELEASE O CLOCK
