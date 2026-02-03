@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/ui/layout/Header";
 import Footer from "@/components/ui/layout/Footer";
 import CheatSheetFAB from "@/components/specific/cheatsheet/CheatSheetFAB";
+import InstallPrompt from "@/components/ui/InstallPrompt";
 import localFont from "next/font/local";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ToastProvider } from "@/contexts/ToastContext";
@@ -35,6 +36,18 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Oishii - Your Personal Recipe Collection",
   description: "The modern recipe app that helps you organize your culinary creations, discover new flavors, and share your passion for cooking with the world.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Oishii",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 export default async function RootLayout({
@@ -63,6 +76,9 @@ export default async function RootLayout({
 
               {/* Mobile floating button for cheat sheet */}
               <CheatSheetFAB />
+
+              {/* PWA install prompt */}
+              <InstallPrompt />
             </ToastProvider>
           </AuthProvider>
         </NextIntlClientProvider>

@@ -22,6 +22,8 @@ import {
     Check,
     Crown,
     Zap,
+    Smartphone,
+    Download,
 } from "lucide-react";
 import clsx from "clsx";
 
@@ -548,6 +550,151 @@ function PricingSection() {
     );
 }
 
+function MobileAppSection() {
+    const t = useTranslations("home.mobileApp");
+    const { ref, isInView } = useInView();
+
+    return (
+        <section ref={ref} className="py-24 bg-gradient-to-b from-background to-background-secondary overflow-hidden">
+            <div className="container mx-auto px-4">
+                <div className="max-w-5xl mx-auto">
+                    <div className="flex flex-col lg:flex-row items-center gap-12">
+                        {/* Phone mockup */}
+                        <div
+                            className={clsx(
+                                "relative flex-shrink-0 transition-all duration-1000",
+                                isInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
+                            )}
+                        >
+                            {/* Phone frame */}
+                            <div className="relative w-64 h-[500px] bg-gray-900 rounded-[3rem] p-3 shadow-2xl">
+                                {/* Screen */}
+                                <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 rounded-[2.25rem] overflow-hidden flex flex-col items-center justify-center">
+                                    {/* App preview content */}
+                                    <div className="text-6xl mb-4">🍳</div>
+                                    <div className="text-xl font-bold text-foreground">Oishii</div>
+                                    <div className="text-sm text-muted mt-1">{t("appPreview")}</div>
+
+                                    {/* Mock recipe cards */}
+                                    <div className="mt-6 space-y-2 px-4 w-full">
+                                        {[1, 2, 3].map((i) => (
+                                            <div
+                                                key={i}
+                                                className="bg-card/80 rounded-xl p-3 flex items-center gap-3"
+                                            >
+                                                <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+                                                    <span className="text-lg">{["🍕", "🍜", "🥗"][i - 1]}</span>
+                                                </div>
+                                                <div className="flex-1">
+                                                    <div className="h-2 bg-secondary/40 rounded w-3/4 mb-1" />
+                                                    <div className="h-1.5 bg-secondary/20 rounded w-1/2" />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Notch */}
+                                <div className="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-6 bg-gray-900 rounded-full" />
+                            </div>
+
+                            {/* Decorative blur */}
+                            <div className="absolute -inset-8 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-full blur-3xl -z-10" />
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-1 text-center lg:text-left">
+                            {/* Badge */}
+                            <div
+                                className={clsx(
+                                    "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 text-green-600 mb-6 transition-all duration-700",
+                                    isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                                )}
+                            >
+                                <Smartphone size={18} />
+                                <span className="text-sm font-medium">{t("badge")}</span>
+                            </div>
+
+                            {/* Title */}
+                            <h2
+                                className={clsx(
+                                    "text-3xl md:text-5xl font-bold mb-4 transition-all duration-700 delay-100",
+                                    isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                                )}
+                            >
+                                {t("title")}
+                            </h2>
+
+                            {/* Description */}
+                            <p
+                                className={clsx(
+                                    "text-lg text-muted mb-8 transition-all duration-700 delay-200",
+                                    isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                                )}
+                            >
+                                {t("description")}
+                            </p>
+
+                            {/* App store badges */}
+                            <div
+                                className={clsx(
+                                    "flex flex-wrap justify-center lg:justify-start gap-4 mb-8 transition-all duration-700 delay-300",
+                                    isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                                )}
+                            >
+                                {/* App Store badge */}
+                                <div className="relative group">
+                                    <div className="flex items-center gap-2 px-4 py-3 bg-gray-900 text-white rounded-xl opacity-50 cursor-not-allowed">
+                                        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                        </svg>
+                                        <div className="text-left">
+                                            <div className="text-[10px] opacity-80">{t("downloadOn")}</div>
+                                            <div className="text-sm font-semibold">{t("appStore")}</div>
+                                        </div>
+                                    </div>
+                                    <div className="absolute inset-0 flex items-center justify-center bg-gray-900/80 rounded-xl">
+                                        <span className="text-xs font-medium text-white">{t("comingSoon")}</span>
+                                    </div>
+                                </div>
+
+                                {/* Play Store badge */}
+                                <div className="relative group">
+                                    <div className="flex items-center gap-2 px-4 py-3 bg-gray-900 text-white rounded-xl opacity-50 cursor-not-allowed">
+                                        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.24-.84-.76-.84-1.35zm13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27zm3.35-4.31c.34.27.64.71.64 1.19s-.3.92-.64 1.19l-2.23 1.3-2.5-2.49 2.5-2.49 2.23 1.3zM6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z" />
+                                        </svg>
+                                        <div className="text-left">
+                                            <div className="text-[10px] opacity-80">{t("getItOn")}</div>
+                                            <div className="text-sm font-semibold">{t("playStore")}</div>
+                                        </div>
+                                    </div>
+                                    <div className="absolute inset-0 flex items-center justify-center bg-gray-900/80 rounded-xl">
+                                        <span className="text-xs font-medium text-white">{t("comingSoon")}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* PWA install hint */}
+                            <div
+                                className={clsx(
+                                    "flex items-center gap-3 p-4 bg-primary/10 border border-primary/20 rounded-xl transition-all duration-700 delay-400",
+                                    isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                                )}
+                            >
+                                <Download className="w-5 h-5 text-primary flex-shrink-0" />
+                                <p className="text-sm text-foreground">
+                                    {t("pwaHint")}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
 export default function HomePage() {
     return (
         <div className="w-full">
@@ -555,6 +702,7 @@ export default function HomePage() {
             <AISection />
             <PricingSection />
             <FeaturesSection />
+            <MobileAppSection />
 
             {/* Custom styles for animations */}
             <style jsx global>{`

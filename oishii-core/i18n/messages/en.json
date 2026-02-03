@@ -681,7 +681,7 @@
     "title": "Explore",
     "description": "Discover new recipes from the community",
     "randomPicks": "Random Picks",
-    "mostPopular": "Recommended, because most expensive",
+    "mostPopular": "Popular",
     "refresh": "Refresh",
     "showMore": "Show more",
     "showLess": "Show less",
@@ -792,7 +792,26 @@
           }
         }
       }
+    },
+    "mobileApp": {
+      "badge": "Coming Soon",
+      "title": "Native Mobile Apps",
+      "description": "We're building native iOS and Android apps for the best mobile experience. In the meantime, install our web app on your device!",
+      "appPreview": "Your recipes, anywhere",
+      "downloadOn": "Download on the",
+      "appStore": "App Store",
+      "getItOn": "Get it on",
+      "playStore": "Google Play",
+      "comingSoon": "Coming Soon",
+      "pwaHint": "Can't wait? Install Oishii as a web app right now! Look for the install banner at the bottom of the screen on mobile."
     }
+  },
+  "pwa": {
+    "installTitle": "Install Oishii",
+    "iosInstructions": "Add to your home screen for the best experience",
+    "androidInstructions": "Install the app for quick access",
+    "installButton": "Install",
+    "iosTapShare": "Tap Share → Add to Home Screen"
   },
   "footer": {
     "tagline": "Your personal recipe collection",

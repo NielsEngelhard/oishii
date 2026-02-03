@@ -792,7 +792,26 @@
           }
         }
       }
+    },
+    "mobileApp": {
+      "badge": "Binnenkort",
+      "title": "Mobiele Apps",
+      "description": "We bouwen native iOS en Android apps voor de beste mobiele ervaring. Installeer in de tussentijd onze web app op je apparaat!",
+      "appPreview": "Je recepten, overal",
+      "downloadOn": "Download in de",
+      "appStore": "App Store",
+      "getItOn": "Verkrijgbaar op",
+      "playStore": "Google Play",
+      "comingSoon": "Binnenkort",
+      "pwaHint": "Kun je niet wachten? Installeer Oishii nu als web app! Zoek naar de installatiebanner onderaan het scherm op mobiel."
     }
+  },
+  "pwa": {
+    "installTitle": "Installeer Oishii",
+    "iosInstructions": "Voeg toe aan je startscherm voor de beste ervaring",
+    "androidInstructions": "Installeer de app voor snelle toegang",
+    "installButton": "Installeren",
+    "iosTapShare": "Tik op Deel → Zet op beginscherm"
   },
   "footer": {
     "tagline": "Je persoonlijke receptenverzameling",
