@@ -18,7 +18,13 @@ export async function GET(
             );
         }
 
-        const recipe = await getRecipeDetails(slug);
+        // Get current user to determine ownership
+        const user = await getCurrentUser();
+
+        const recipe = await getRecipeDetails({
+            slug,
+            currentUserId: user?.id,
+        });
 
         if (!recipe) {
             return NextResponse.json(
