@@ -22,21 +22,21 @@ export default function LanguageSelect({ value, onChange, showLabel = true }: Pr
           {useTranslations("auth")("language")}
         </label>
       )}
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         {locales.map((locale) => (
           <button
             key={locale}
             type="button"
             onClick={() => onChange(locale)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 border-2 ${
+            className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 border-2 ${
               value === locale
                 ? "bg-primary/10 text-primary border-primary ring-2 ring-primary/20"
                 : "bg-secondary/50 hover:bg-secondary text-muted hover:text-foreground border-transparent"
             }`}
           >
             <LanguageFlag locale={locale} size="sm" />
-            {t(locale)}
-            {value === locale && <Check size={16} className="ml-1" />}
+            <span className="hidden sm:inline">{t(locale)}</span>
+            {value === locale && <Check size={14} className="ml-0.5" />}
           </button>
         ))}
       </div>

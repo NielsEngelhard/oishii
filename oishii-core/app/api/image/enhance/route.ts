@@ -19,8 +19,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user has premium or admin plan
-    if (user.plan !== "premium" && user.plan !== "admin") {
+    // Check if user has premium or admin plan (both can use enhancement)
+    const canEnhance = user.plan === "premium" || user.plan === "admin";
+    if (!canEnhance) {
       return NextResponse.json(
         { error: "Premium plan required for image enhancement", premiumRequired: true },
         { status: 403 }

@@ -1,5 +1,6 @@
 "use client"
 
+import FileInput from "@/components/form/FileInput";
 import Input from "@/components/form/Input";
 import LanguageSelectInput from "@/components/form/LanguageSelectInput";
 import TextArea from "@/components/form/TextArea";
@@ -13,7 +14,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { DEFAULT_CHEAT_SHEET } from "@/db/schemas/users";
 import { Locale } from "@/i18n/config";
 import { IUserDetails } from "@/models/user-models";
-import { Check, Globe, Key, LogOut, RotateCcw, StickyNote, User } from "lucide-react";
+import { Camera, Check, Globe, Key, LogOut, RotateCcw, StickyNote, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -51,6 +52,12 @@ export default function ProfilePage() {
     const [selectedLanguage, setSelectedLanguage] = useState<Locale>(userDetails?.language as Locale || "en");
     const [languageLoading, setLanguageLoading] = useState(false);
 
+    // Avatar state
+    const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
+    const [avatarLoading, setAvatarLoading] = useState(false);
+    const [avatarSuccess, setAvatarSuccess] = useState(false);
+    const [avatarError, setAvatarError] = useState<string | null>(null);
+
     const fetchUser = useCallback(async () => {
         if (!user) return;
 
@@ -64,6 +71,7 @@ export default function ProfilePage() {
             setUserDetails(data);
             setAboutMe(data.aboutMe || "");
             setSelectedLanguage(data.language as Locale);
+            setAvatarUrl(data.avatarUrl || undefined);
         } catch {}
         
     }, [user]);
@@ -207,6 +215,35 @@ export default function ProfilePage() {
         setLanguageLoading(false);
     };
 
+    const handleAvatarChange = async (url: string | undefined) => {
+        setAvatarUrl(url);
+        setAvatarLoading(true);
+        setAvatarError(null);
+        setAvatarSuccess(false);
+
+        try {
+            const response = await fetch("/api/user/avatar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ avatarUrl: url || null }),
+            });
+
+            if (response.ok) {
+                setAvatarSuccess(true);
+                if (user) {
+                    setUser({ ...user, avatar: url });
+                }
+                setTimeout(() => setAvatarSuccess(false), 3000);
+            } else {
+                setAvatarError(t("updateError"));
+            }
+        } catch {
+            setAvatarError(t("updateError"));
+        } finally {
+            setAvatarLoading(false);
+        }
+    };
+
     if (!user) {
         return null;
     }
@@ -217,10 +254,45 @@ export default function ProfilePage() {
                 {/* Header */}
                 <Card>
                     <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-                        <Avatar
-                            size="xl"
-                            src={user.avatar || "/placeholder/user-placeholder.png"}
-                        />
+                        <div className="relative group">
+                            <Avatar
+                                size="xl"
+                                src={avatarUrl || user.avatar || "/placeholder/user-placeholder.png"}
+                            />
+                            <label className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                                <Camera className="text-white" size={24} />
+                                <input
+                                    type="file"
+                                    accept="image/png,image/jpeg,image/webp"
+                                    className="sr-only"
+                                    onChange={async (e) => {
+                                        const file = e.target.files?.[0];
+                                        if (!file) return;
+
+                                        const formData = new FormData();
+                                        formData.append("file", file);
+
+                                        try {
+                                            const response = await fetch("/api/upload", {
+                                                method: "POST",
+                                                body: formData,
+                                            });
+                                            const result = await response.json();
+                                            if (response.ok) {
+                                                handleAvatarChange(result.url);
+                                            }
+                                        } catch {
+                                            setAvatarError(t("updateError"));
+                                        }
+                                    }}
+                                />
+                            </label>
+                            {avatarLoading && (
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full">
+                                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                </div>
+                            )}
+                        </div>
 
                         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
                             <div className="flex items-center gap-2">
@@ -229,6 +301,15 @@ export default function ProfilePage() {
                                 <LanguageFlag locale={user.language as Locale} size="md" />
                             </div>
                             <p className="text-muted">{t("member")}</p>
+                            {avatarSuccess && (
+                                <span className="text-sm text-green-500 flex items-center gap-1 mt-1">
+                                    <Check size={14} />
+                                    {t("updateSuccess")}
+                                </span>
+                            )}
+                            {avatarError && (
+                                <span className="text-sm text-error mt-1">{avatarError}</span>
+                            )}
                         </div>
                     </div>
                 </Card>

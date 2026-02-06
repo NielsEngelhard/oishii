@@ -41,7 +41,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Signup failed";
+    console.error("Signup error:", error);
+
+    const message = error instanceof Error ? error.message : "";
 
     if (message.includes("duplicate") || message.includes("unique")) {
       return NextResponse.json(
@@ -50,6 +52,6 @@ export async function POST(req: Request) {
       );
     }
 
-    return NextResponse.json({ error: message }, { status: 400 });
+    return NextResponse.json({ error: "Error creating account" }, { status: 400 });
   }
 }

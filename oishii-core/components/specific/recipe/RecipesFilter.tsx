@@ -5,9 +5,9 @@ import Card from "@/components/ui/Card";
 import IconButton from "@/components/ui/IconButton";
 import SearchBar from "@/components/ui/SearchBar";
 import { OFFICIAL_TAGS, getOfficialTagEmoji } from "@/lib/constants/official-tags";
-import { ChefHat, Clock, Heart, ListFilter, X } from "lucide-react";
+import { ChefHat, Clock, Heart, ListFilter, Search, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import clsx from "clsx";
 
 export interface RecipeFilterValues {
@@ -28,6 +28,8 @@ interface Props {
     showLikedToggle?: boolean;
 }
 
+const MAX_VISIBLE_TAGS = 20;
+
 export default function RecipesFilter({
     filters,
     onFilterChange,
@@ -42,6 +44,7 @@ export default function RecipesFilter({
     const tCommon = useTranslations("common");
     const tTags = useTranslations("tags");
     const [showFilters, setShowFilters] = useState(false);
+    const [tagSearch, setTagSearch] = useState("");
 
     function toggleFilters() {
         setShowFilters(!showFilters);
@@ -85,6 +88,29 @@ export default function RecipesFilter({
         { label: t("over60min"), value: "60+" },
     ];
 
+    // Filter and limit tags
+    const filteredTags = useMemo(() => {
+        let tags = [...OFFICIAL_TAGS];
+
+        // Filter by search
+        if (tagSearch) {
+            const searchLower = tagSearch.toLowerCase();
+            tags = tags.filter(tag => {
+                const translatedName = tTags(tag.key as any).toLowerCase();
+                return tag.key.toLowerCase().includes(searchLower) || translatedName.includes(searchLower);
+            });
+        }
+
+        // Always show selected tags first
+        const selectedTags = tags.filter(tag => filters.tags.includes(tag.key));
+        const unselectedTags = tags.filter(tag => !filters.tags.includes(tag.key));
+
+        // Limit unselected tags
+        const limitedUnselected = unselectedTags.slice(0, MAX_VISIBLE_TAGS - selectedTags.length);
+
+        return [...selectedTags, ...limitedUnselected];
+    }, [tagSearch, filters.tags, tTags]);
+
     return (
         <div className="flex flex-col space-y-3 md:space-y-5">
             <div className="flex gap-2 md:gap-4">
@@ -113,8 +139,22 @@ export default function RecipesFilter({
                                     </button>
                                 )}
                             </div>
-                            <div className="flex flex-wrap gap-2">
-                                {OFFICIAL_TAGS.map(tag => {
+
+                            {/* Tag search */}
+                            <div className="relative">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
+                                <input
+                                    type="text"
+                                    placeholder={tTags("searchPlaceholder")}
+                                    value={tagSearch}
+                                    onChange={(e) => setTagSearch(e.target.value)}
+                                    className="w-full pl-9 pr-3 py-2 text-sm bg-secondary/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                />
+                            </div>
+
+                            {/* Tags list */}
+                            <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto">
+                                {filteredTags.map(tag => {
                                     const isSelected = filters.tags.includes(tag.key);
                                     const emoji = getOfficialTagEmoji(tag.key);
                                     return (
@@ -123,7 +163,7 @@ export default function RecipesFilter({
                                             type="button"
                                             onClick={() => toggleTag(tag.key)}
                                             className={clsx(
-                                                "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
+                                                "flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium transition-all",
                                                 "border hover:scale-105 active:scale-95",
                                                 isSelected
                                                     ? "bg-primary/20 border-primary/40 text-primary"
@@ -132,7 +172,7 @@ export default function RecipesFilter({
                                         >
                                             <span>{emoji}</span>
                                             <span>{tTags(tag.key as any)}</span>
-                                            {isSelected && <X className="w-3.5 h-3.5 ml-0.5" />}
+                                            {isSelected && <X className="w-3 h-3 ml-0.5" />}
                                         </button>
                                     );
                                 })}

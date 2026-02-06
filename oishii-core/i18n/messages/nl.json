@@ -856,19 +856,11 @@
   },
   "about": {
     "title": "Over Oishii",
-    "subtitle": "Een passieproject dat uitgroeide tot iets moois",
-    "storyTitle": "Het Verhaal",
-    "storyPart1": "Oishii begon als een simpel hobbyproject. Ik wilde een makkelijke manier om mijn eigen recepten te beheren en vond dat bestaande apps of te ingewikkeld, te duur, of gewoon niet bij mijn wensen pasten.",
-    "storyPart2": "Dus besloot ik er zelf een te bouwen. Wat begon als een weekendproject groeide al snel uit tot iets waar ik oprecht trots op ben — een volledig werkende web-app die ik dagelijks gebruik.",
-    "storyPart3": "Nu wil ik het met jou delen. Want het delen van recepten moet makkelijk en toegankelijk zijn voor iedereen, of je nu een professionele chef bent of gewoon iemand die graag kookt voor familie en vrienden.",
-    "missionTitle": "Waarom Ik Dit Bouwde",
-    "missionPoint1": "Om het delen van recepten met vrienden en familie moeiteloos te maken",
-    "missionPoint2": "Om al mijn favoriete recepten op één georganiseerde plek te bewaren",
-    "missionPoint3": "Om nieuwe recepten te ontdekken van mensen over de hele wereld",
-    "missionPoint4": "Om plezier te hebben met het bouwen van iets nuttigs",
-    "builtWith": "Gebouwd met liefde en veel koffie",
-    "thanksTitle": "Bedankt",
-    "thanksText": "Bedankt dat je Oishii bekijkt. Ik hoop dat het net zoveel vreugde in jouw keuken brengt als in de mijne. Smakelijk koken!"
+    "shareTitle": "Delen met Vrienden",
+    "shareDescription": "Een simpele recepten-app om makkelijk recepten te delen met vrienden en familie. Bewaar al je favorieten op één plek.",
+    "aiTitle": "Slimme AI Functies",
+    "aiDescription": "Importeer recepten van elke URL, foto of tekst. Laat AI het zware werk doen zodat jij je kunt focussen op koken.",
+    "tagline": "Gemaakt voor thuiskoks die graag lekker eten delen."
   },
   "footer": {
     "tagline": "Je persoonlijke receptenverzameling",

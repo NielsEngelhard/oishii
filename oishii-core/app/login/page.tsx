@@ -172,7 +172,7 @@ function LoginContent() {
           <Logo />
         </Link>
 
-        <div className="bg-card border border-border/40 rounded-2xl shadow-warm-lg p-8 backdrop-blur-sm">
+        <div className="bg-card border border-border/40 rounded-2xl shadow-warm-lg p-6 sm:p-8 backdrop-blur-sm w-full max-w-sm">
           {expired && (
             <div className="mb-6 p-3 bg-secondary rounded-lg text-center">
               <p className="text-sm text-muted">

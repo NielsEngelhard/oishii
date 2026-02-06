@@ -15,13 +15,13 @@ interface Props {
     accept?: string;
     maxSizeMB?: number;
     showEnhanceOption?: boolean;
-    isPremium?: boolean;
+    canEnhance?: boolean; // true for premium and admin users
     onEnhance?: (enhancedUrl: string) => void;
 }
 
 // TODO: optimize - what if you upload an image for create recipe and then never save the recipe?!
 const FileInput = forwardRef<HTMLInputElement, Props>(
-    ({ label, error, value, onChange, accept = "image/png,image/jpeg,image/webp", maxSizeMB = 10, showEnhanceOption = false, isPremium = false, onEnhance }, ref) => {
+    ({ label, error, value, onChange, accept = "image/png,image/jpeg,image/webp", maxSizeMB = 10, showEnhanceOption = false, canEnhance = false, onEnhance }, ref) => {
         const t = useTranslations("recipe");
         const [isDragging, setIsDragging] = useState(false);
         const [isUploading, setIsUploading] = useState(false);
@@ -103,7 +103,7 @@ const FileInput = forwardRef<HTMLInputElement, Props>(
         }, [onChange]);
 
         const handleEnhance = useCallback(async () => {
-            if (!value || !isPremium || isEnhancing) return;
+            if (!value || !canEnhance || isEnhancing) return;
 
             setIsEnhancing(true);
             setEnhanceError(null);
@@ -129,7 +129,7 @@ const FileInput = forwardRef<HTMLInputElement, Props>(
             } finally {
                 setIsEnhancing(false);
             }
-        }, [value, isPremium, isEnhancing, onChange, onEnhance, t]);
+        }, [value, canEnhance, isEnhancing, onChange, onEnhance, t]);
 
         const displayError = uploadError || enhanceError || error;
 
@@ -166,7 +166,7 @@ const FileInput = forwardRef<HTMLInputElement, Props>(
                         </button>
                         {showEnhanceOption && (
                             <div className="absolute bottom-2 left-2 right-2">
-                                {isPremium ? (
+                                {canEnhance ? (
                                     <button
                                         type="button"
                                         onClick={handleEnhance}

@@ -856,19 +856,11 @@
   },
   "about": {
     "title": "About Oishii",
-    "subtitle": "A passion project that grew into something more",
-    "storyTitle": "The Story",
-    "storyPart1": "Oishii started as a simple hobby project. I wanted an easy way to manage my own recipes and found that existing apps were either too complicated, too expensive, or simply didn't fit my needs.",
-    "storyPart2": "So I decided to build my own. What began as a weekend project quickly turned into something I'm genuinely proud of — a fully functioning web app that I use every day.",
-    "storyPart3": "Now I want to share it with you. Because sharing recipes should be easy and accessible for everyone, whether you're a professional chef or just someone who loves cooking for family and friends.",
-    "missionTitle": "Why I Built This",
-    "missionPoint1": "To make sharing recipes with friends and family effortless",
-    "missionPoint2": "To keep all my favorite recipes in one organized place",
-    "missionPoint3": "To discover new recipes from people around the world",
-    "missionPoint4": "To have fun building something useful",
-    "builtWith": "Built with love and lots of coffee",
-    "thanksTitle": "Thank You",
-    "thanksText": "Thanks for checking out Oishii. I hope it brings as much joy to your kitchen as it has to mine. Happy cooking!"
+    "shareTitle": "Share with Friends",
+    "shareDescription": "A simple recipe app to easily share recipes with friends and family. Keep all your favorites in one place.",
+    "aiTitle": "Smart AI Features",
+    "aiDescription": "Import recipes from any URL, photo, or text. Let AI do the heavy lifting so you can focus on cooking.",
+    "tagline": "Made for home cooks who love sharing good food."
   },
   "footer": {
     "tagline": "Your personal recipe collection",
