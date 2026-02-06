@@ -17,6 +17,7 @@ export default function IngredientListDisplay({ ingredients, originalServings }:
     const [currentServings, setCurrentServings] = useState(originalServings);
     const t = useTranslations("ingredients");
     const tRecipe = useTranslations("recipe");
+    const tUnits = useTranslations("units");
 
     const multiplier = currentServings / originalServings;
     const isScaled = multiplier !== 1;
@@ -57,6 +58,7 @@ export default function IngredientListDisplay({ ingredients, originalServings }:
                         key={index}
                         ingredient={ingredient}
                         multiplier={multiplier}
+                        tUnits={tUnits}
                     />
                 ))}
             </div>
@@ -67,13 +69,15 @@ export default function IngredientListDisplay({ ingredients, originalServings }:
 interface IngredientRowProps {
     ingredient: ingredientSchemaData;
     multiplier: number;
+    tUnits: ReturnType<typeof useTranslations<"units">>;
 }
 
-function IngredientRow({ ingredient, multiplier }: IngredientRowProps) {
+function IngredientRow({ ingredient, multiplier, tUnits }: IngredientRowProps) {
     const scaledAmountStr = scaleAmount(ingredient.amount, multiplier);
     const scaledAmount = parseAmount(scaledAmountStr);
     const unit = ingredient.unit as IngredientUnit;
     const hasAmount = scaledAmount !== null && scaledAmount > 0;
+    const unitLabel = unit !== "none" ? tUnits(unit) : "";
 
     return (
         <div className="flex justify-between items-center bg-background-secondary p-2 sm:p-3 rounded-lg text-lg">
@@ -87,7 +91,7 @@ function IngredientRow({ ingredient, multiplier }: IngredientRowProps) {
                     />
                 ) : (
                     <span className="text-muted">
-                        {ingredient.amount} {unit !== "none" && unit}
+                        {ingredient.amount} {unitLabel}
                     </span>
                 )}
             </div>

@@ -47,18 +47,18 @@ export default function UnitConversionPopup({ unit, amount, ingredientName }: Pr
         };
     }, [isOpen]);
 
+    const unitLabel = unit !== "none" ? tUnits(unit) : "";
+
     if (!canConvert) {
         // Non-convertible unit - just display normally
         return (
             <span className="text-muted">
-                {formatAmount(amount)} {unit !== "none" && unit}
+                {formatAmount(amount)} {unitLabel}
             </span>
         );
     }
 
     const systemLabel = currentSystem === "metric" ? t("metric") : t("usImperial");
-    // Use unit directly since all IngredientUnit values are defined in translations
-    const unitLabel = tUnits(unit);
 
     return (
         <>
@@ -67,9 +67,9 @@ export default function UnitConversionPopup({ unit, amount, ingredientName }: Pr
                 ref={buttonRef}
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-muted hover:text-primary active:text-primary transition-colors flex items-center gap-1 touch-manipulation"
-                aria-label={`${t("convert")} ${formatAmount(amount)} ${unit}`}
+                aria-label={`${t("convert")} ${formatAmount(amount)} ${unitLabel}`}
             >
-                <span>{formatAmount(amount)} {unit}</span>
+                <span>{formatAmount(amount)} {unitLabel}</span>
                 <ArrowRightLeft size={14} className="opacity-50" />
             </button>
 

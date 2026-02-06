@@ -5,6 +5,7 @@ import Select from "@/components/form/Select";
 import SwitchInput from "@/components/form/SwitchInput";
 import { ingredientUnits } from "@/db/schema";
 import { X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Control, Controller, FieldErrors, UseFormRegister } from "react-hook-form";
 
 interface FormWithIngredients {
@@ -24,12 +25,16 @@ interface Props {
     onDelete: () => void;
 }
 
-const unitOptions = ingredientUnits.map((unit) => ({
-    label: unit.charAt(0).toUpperCase() + unit.slice(1),
-    value: unit,
-}));
-
 export default function IngredientInputRow({ index, register, control, errors, onDelete }: Props) {
+    const tUnits = useTranslations("units");
+    const tRecipe = useTranslations("recipe");
+
+    // Generate translated unit options
+    const unitOptions = ingredientUnits.map((unit) => ({
+        label: tUnits(unit as any) || unit,
+        value: unit,
+    }));
+
     return (
         <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
             {/* Name - full width on mobile */}
@@ -56,7 +61,7 @@ export default function IngredientInputRow({ index, register, control, errors, o
                 <div className="flex-1 sm:w-28 sm:flex-none">
                     <Select
                         options={unitOptions}
-                        placeholder="Unit"
+                        placeholder={tRecipe("unit")}
                         {...register(`ingredients.${index}.unit`)}
                         error={errors?.ingredients?.[index]?.unit?.message}
                     />
