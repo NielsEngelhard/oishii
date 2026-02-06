@@ -26,6 +26,7 @@ export class SessionAuthService implements IAuthService {
                 email: usersTable.email,
                 name: usersTable.name,
                 language: usersTable.language,
+                plan: usersTable.plan,
                 expiresAt: sessionsTable.expiresAt,
             })
             .from(sessionsTable)
@@ -52,6 +53,7 @@ export class SessionAuthService implements IAuthService {
             email: result.email,
             name: result.name,
             language: result.language,
+            plan: result.plan,
         };
     }
     

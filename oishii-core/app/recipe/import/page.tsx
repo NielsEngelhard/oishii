@@ -9,6 +9,7 @@ import SectionToggle from "@/components/ui/SectionToggle";
 import Button from "@/components/ui/Button";
 import Input from "@/components/form/Input";
 import TextArea from "@/components/form/TextArea";
+import FileInput from "@/components/form/FileInput";
 import CookingLoader from "@/components/ui/CookingLoader";
 import { CREATE_RECIPE_ROUTE } from "@/app/routes";
 
@@ -34,6 +35,11 @@ export default function AiImportPage() {
     const [text, setText] = useState("");
     const [textLoading, setTextLoading] = useState(false);
     const [textError, setTextError] = useState<string | null>(null);
+
+    // Photo import state
+    const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
+    const [photoLoading, setPhotoLoading] = useState(false);
+    const [photoError, setPhotoError] = useState<string | null>(null);
 
     const handleUrlImport = async () => {
         if (!url.trim()) return;
@@ -96,6 +102,38 @@ export default function AiImportPage() {
         } catch {
             setTextError(t("scrapeError"));
             setTextLoading(false);
+        }
+    };
+
+    const handlePhotoImport = async () => {
+        if (!photoUrl) return;
+
+        setPhotoLoading(true);
+        setPhotoError(null);
+
+        try {
+            const response = await fetch("/api/recipe/parse-photo", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ imageUrl: photoUrl }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setPhotoError(data.error || t("photoImport.parseError"));
+                setPhotoLoading(false);
+                return;
+            }
+
+            // Store the parsed recipe in sessionStorage for the create page to pick up
+            sessionStorage.setItem("importedRecipe", JSON.stringify(data.recipe));
+
+            // Redirect to create page
+            router.push(CREATE_RECIPE_ROUTE);
+        } catch {
+            setPhotoError(t("photoImport.parseError"));
+            setPhotoLoading(false);
         }
     };
 
@@ -207,20 +245,48 @@ export default function AiImportPage() {
     };
 
     const renderPhotoSection = () => {
+        if (photoLoading) {
+            return <CookingLoader size="lg" />;
+        }
+
         return (
             <div className="space-y-4">
-                {/* Coming soon card */}
-                <div className="flex flex-col items-center justify-center p-8 bg-secondary/30 rounded-xl text-center">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-lg mb-4">
-                        <Camera className="w-8 h-8 text-white" />
+                {/* Error message */}
+                {photoError && (
+                    <div className="flex items-center gap-2 p-3 bg-error/10 border border-error/20 rounded-lg">
+                        <AlertCircle className="h-4 w-4 text-error shrink-0" />
+                        <p className="text-sm text-error">{photoError}</p>
                     </div>
-                    <h3 className="font-semibold text-lg mb-2">{t("photoImport.title")}</h3>
-                    <p className="text-muted text-sm mb-4">
-                        {t("photoImport.description")}
+                )}
+
+                {/* Photo Upload */}
+                <FileInput
+                    label={t("photoImport.uploadPhoto")}
+                    value={photoUrl}
+                    onChange={(url) => {
+                        setPhotoUrl(url);
+                        if (photoError) setPhotoError(null);
+                    }}
+                    accept="image/png,image/jpeg,image/webp"
+                    maxSizeMB={10}
+                />
+
+                <Button
+                    text={t("importButton")}
+                    Icon={Sparkles}
+                    variant="primary"
+                    size="lg"
+                    onClick={handlePhotoImport}
+                    disabled={!photoUrl}
+                    className="w-full"
+                />
+
+                {/* Helper text */}
+                <div className="flex items-start gap-3 p-4 bg-secondary/30 rounded-xl">
+                    <Info size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-muted">
+                        {t("helperPhoto")}
                     </p>
-                    <span className="px-3 py-1.5 text-sm font-medium bg-primary/15 text-primary rounded-full">
-                        {t("photoImport.comingSoon")}
-                    </span>
                 </div>
             </div>
         );

@@ -113,7 +113,12 @@
     "createdAt": "Created",
     "updatedAt": "Updated",
     "recipeNotFound": "Recipe not found",
-    "notAuthorized": "You are not authorized to edit this recipe"
+    "notAuthorized": "You are not authorized to edit this recipe",
+    "enhancePhoto": "Enhance with AI",
+    "enhancing": "Enhancing...",
+    "enhanceSuccess": "Photo enhanced!",
+    "enhanceError": "Could not enhance photo",
+    "enhancePhotoPremium": "Premium feature"
   },
   "aiImport": {
     "importWithAi": "Import with AI",
@@ -137,8 +142,11 @@
     "photoImport": {
       "title": "Import from Photo",
       "description": "Take a photo of a recipe and our AI will extract all the details.",
-      "comingSoon": "Coming soon!"
+      "comingSoon": "Coming soon!",
+      "uploadPhoto": "Upload Photo",
+      "parseError": "Could not extract recipe from photo"
     },
+    "helperPhoto": "Upload a photo of a recipe from a cookbook, magazine, or handwritten notes. Our AI will extract ingredients, steps, and more.",
     "comingSoon": "Coming soon",
     "back": "Back to create recipe",
     "textPlaceholder": "Paste your recipe text here...",

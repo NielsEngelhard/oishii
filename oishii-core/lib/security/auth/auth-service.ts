@@ -1,8 +1,11 @@
+import { UserPlan } from "@/db/schemas/enum/user-plan";
+
 export interface AuthUser {
     id: number;
     email: string;
     name: string;
     language: string;
+    plan: UserPlan;
 }
 
 export interface IAuthService {

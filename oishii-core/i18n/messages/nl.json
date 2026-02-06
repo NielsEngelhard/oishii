@@ -113,7 +113,12 @@
     "createdAt": "Aangemaakt",
     "updatedAt": "Bijgewerkt",
     "recipeNotFound": "Recept niet gevonden",
-    "notAuthorized": "Je bent niet gemachtigd om dit recept te bewerken"
+    "notAuthorized": "Je bent niet gemachtigd om dit recept te bewerken",
+    "enhancePhoto": "Verbeteren met AI",
+    "enhancing": "Verbeteren...",
+    "enhanceSuccess": "Foto verbeterd!",
+    "enhanceError": "Kon foto niet verbeteren",
+    "enhancePhotoPremium": "Premium functie"
   },
   "aiImport": {
     "importWithAi": "Importeren met AI",
@@ -137,8 +142,11 @@
     "photoImport": {
       "title": "Importeren via foto",
       "description": "Maak een foto van een recept en onze AI haalt alle details op.",
-      "comingSoon": "Binnenkort beschikbaar!"
+      "comingSoon": "Binnenkort beschikbaar!",
+      "uploadPhoto": "Upload Foto",
+      "parseError": "Kon geen recept uit de foto halen"
     },
+    "helperPhoto": "Upload een foto van een recept uit een kookboek, tijdschrift of handgeschreven notities. Onze AI haalt ingrediënten, stappen en meer eruit.",
     "comingSoon": "Binnenkort beschikbaar",
     "back": "Terug naar recept aanmaken",
     "textPlaceholder": "Plak hier je recepttekst...",

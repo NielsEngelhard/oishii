@@ -1,9 +1,10 @@
 "use client"
 
 import clsx from "clsx";
-import { Upload, X, Loader2 } from "lucide-react";
+import { Upload, X, Loader2, Sparkles, Crown } from "lucide-react";
 import Image from "next/image";
 import { forwardRef, useCallback, useState } from "react";
+import { useTranslations } from "next-intl";
 import Label from "./Label";
 
 interface Props {
@@ -13,14 +14,20 @@ interface Props {
     onChange?: (url: string | undefined) => void;
     accept?: string;
     maxSizeMB?: number;
+    showEnhanceOption?: boolean;
+    isPremium?: boolean;
+    onEnhance?: (enhancedUrl: string) => void;
 }
 
 // TODO: optimize - what if you upload an image for create recipe and then never save the recipe?!
 const FileInput = forwardRef<HTMLInputElement, Props>(
-    ({ label, error, value, onChange, accept = "image/png,image/jpeg,image/webp", maxSizeMB = 10 }, ref) => {
+    ({ label, error, value, onChange, accept = "image/png,image/jpeg,image/webp", maxSizeMB = 10, showEnhanceOption = false, isPremium = false, onEnhance }, ref) => {
+        const t = useTranslations("recipe");
         const [isDragging, setIsDragging] = useState(false);
         const [isUploading, setIsUploading] = useState(false);
+        const [isEnhancing, setIsEnhancing] = useState(false);
         const [uploadError, setUploadError] = useState<string | null>(null);
+        const [enhanceError, setEnhanceError] = useState<string | null>(null);
 
         const handleFile = useCallback(async (file: File) => {
             // Validate file type
@@ -92,9 +99,39 @@ const FileInput = forwardRef<HTMLInputElement, Props>(
 
         const handleRemove = useCallback(() => {
             onChange?.(undefined);
+            setEnhanceError(null);
         }, [onChange]);
 
-        const displayError = uploadError || error;
+        const handleEnhance = useCallback(async () => {
+            if (!value || !isPremium || isEnhancing) return;
+
+            setIsEnhancing(true);
+            setEnhanceError(null);
+
+            try {
+                const response = await fetch("/api/image/enhance", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ imageUrl: value }),
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || t("enhanceError"));
+                }
+
+                // Update with enhanced image URL
+                onChange?.(result.url);
+                onEnhance?.(result.url);
+            } catch (err) {
+                setEnhanceError(err instanceof Error ? err.message : t("enhanceError"));
+            } finally {
+                setIsEnhancing(false);
+            }
+        }, [value, isPremium, isEnhancing, onChange, onEnhance, t]);
+
+        const displayError = uploadError || enhanceError || error;
 
         return (
             <div className="flex flex-col gap-1">
@@ -110,14 +147,43 @@ const FileInput = forwardRef<HTMLInputElement, Props>(
                                 fill
                                 className="object-cover"
                             />
+                            {isEnhancing && (
+                                <div className="absolute inset-0 bg-background/80 flex items-center justify-center">
+                                    <div className="flex flex-col items-center gap-2">
+                                        <Loader2 size={32} className="animate-spin text-primary" />
+                                        <span className="text-sm font-medium">{t("enhancing")}</span>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                         <button
                             type="button"
                             onClick={handleRemove}
-                            className="absolute top-2 right-2 p-1.5 bg-background/80 hover:bg-background rounded-full transition-colors"
+                            disabled={isEnhancing}
+                            className="absolute top-2 right-2 p-1.5 bg-background/80 hover:bg-background rounded-full transition-colors disabled:opacity-50"
                         >
                             <X size={18} className="text-foreground" />
                         </button>
+                        {showEnhanceOption && (
+                            <div className="absolute bottom-2 left-2 right-2">
+                                {isPremium ? (
+                                    <button
+                                        type="button"
+                                        onClick={handleEnhance}
+                                        disabled={isEnhancing}
+                                        className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-sm font-medium rounded-lg transition-all disabled:opacity-50"
+                                    >
+                                        <Sparkles size={16} />
+                                        {isEnhancing ? t("enhancing") : t("enhancePhoto")}
+                                    </button>
+                                ) : (
+                                    <div className="flex items-center justify-center gap-2 px-3 py-2 bg-background/90 border border-border text-muted text-sm rounded-lg">
+                                        <Crown size={16} className="text-amber-500" />
+                                        <span>{t("enhancePhotoPremium")}</span>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 ) : (
                     // Upload mode

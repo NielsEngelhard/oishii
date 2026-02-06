@@ -29,7 +29,9 @@
       "Bash(findstr /i \"feedback\")",
       "Bash(del \"\\\\?\\\\C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\nul\")",
       "Bash(powershell -Command \"Remove-Item -LiteralPath ''\\\\?\\\\C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\nul'' -Force\")",
-      "Bash(cmd /c \"del /f /q \"\"\\\\\\\\?\\\\C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\nul\"\"\")"
+      "Bash(cmd /c \"del /f /q \"\"\\\\\\\\?\\\\C:\\\\Users\\\\niels.engelhard\\\\source\\\\repos\\\\z_poc\\\\oishii\\\\oishii-core\\\\nul\"\"\")",
+      "Bash(npx tsc:*)",
+      "Bash(findstr:*)"
     ]
   }
 }

@@ -107,7 +107,7 @@ export async function checkAiLimit(userId: number): Promise<AiLimitResult> {
 /**
  * Record an AI usage event for a user
  */
-export async function recordAiUsage(userId: number, action: "url_scrape" | "text_parse"): Promise<void> {
+export async function recordAiUsage(userId: number, action: "url_scrape" | "text_parse" | "photo_parse" | "image_enhance"): Promise<void> {
   await db.insert(aiUsageTable).values({
     userId,
     action,
